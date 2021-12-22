@@ -1,5 +1,14 @@
 const bcrypt = require("bcrypt");
-const { saveUser, checkExisitingUser, getUserById, getUsers, updateUser, deleteUser } = require("../services/users_services.js");
+const {
+    saveUser,
+    checkExisitingUser,
+    getUserById,
+    getUsers,
+    updateUser,
+    deleteUser,
+    loginUser } = require("../services/users_services.js");
+
+
 
 exports._createUser = (req, res, next) => {
         const data = req.body;
@@ -10,13 +19,13 @@ exports._createUser = (req, res, next) => {
             }
             else{
                if(results && results.length > 0){
-                  showError(500, res, "User already exits");
+                  showError(409, res, "User already exits");
                }
                else {
                 const pass = checkPassword(data.Password);
 
                 if(!pass){
-                    showError(500, res, "Password must be more than 7 characters");
+                    showError(400, res, "Password must be more than 7 characters");
                 }
                 else{
                 const hash = bcrypt.hashSync(data.Password, 10);
@@ -99,7 +108,7 @@ exports._updateUser = (req, res, next) => {
                 });
             }
             else {
-                showError(500, res, "User cannot be found");
+                showError(404, res, "User cannot be found");
             }
         }
     });
@@ -108,16 +117,30 @@ exports._updateUser = (req, res, next) => {
 
 exports._deleteUser = (req, res, next) => {
     const id = req.params.id;
-    deleteUser(id, (err, results) => {
+    const data = req.body;
+
+    checkExisitingUser(id, data, (err, results) => {
         if (err) {
             showError(500, res, err);
         }
         else {
-            if (results) {
-                showSuccess(200, res, "User deleted successfully", results);
+            if (results && results.length > 0) {
+                deleteUser(id, (err, results) => {
+                    if (err) {
+                        showError(500, res, err);
+                    }
+                    else {
+                        if (results) {
+                            showSuccess(200, res, "User deleted successfully", results);
+                        }
+                        else {
+                            showError(500, res, "This user was not found");
+                        }
+                    }
+                });
             }
             else {
-                showError(500, res, "This user was not found");
+                showError(404, res, "User cannot be found");
             }
         }
     });

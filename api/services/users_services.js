@@ -25,7 +25,7 @@ module.exports = {
         );
     },
 
-    checkExisitingUser : (id = null, data, callBack) => {
+    checkExisitingUser: (id = null, data = null, callBack) => {
         pool.query("SELECT Email FROM users WHERE Email=? OR UserId=?",
         [
             data.Email,
@@ -79,6 +79,18 @@ module.exports = {
         pool.query("DELETE FROM users WHERE userid=?",
             [
                 id
+            ],
+            (error, result) => {
+                getCallBack(callBack, error, result);
+            }
+        );
+    },
+
+
+    loginUser: (data, callBack) => {
+        pool.query("SELECT email, password, userid FROM users WHERE email=?",
+            [
+                data.Email
             ],
             (error, result) => {
                 getCallBack(callBack, error, result);
