@@ -17,7 +17,7 @@ exports._validateToken = (req, res, next) => {
         });
     }
     else {
-        return res.status(403).json({
+        return res.status(401).json({
             success: false,
             messgae: "Access denied! Unauthorized user"
         });

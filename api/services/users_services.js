@@ -2,7 +2,7 @@ const pool = require("../../config/database.js");
 
 function getCallBack(callBack, err, result){
     if (err) {
-        return callBack(error);
+        return callBack(err);
     }
     else {
         return callBack(null, result);
@@ -29,7 +29,7 @@ module.exports = {
 
 
     checkExisitingUser: (id = null, data = null, callBack) => {
-        pool.query("SELECT Email,  FROM users WHERE Email=? OR UserId=?",
+        pool.query("SELECT Email FROM users WHERE Email=? OR UserId=?",
         [
             data.Email,
             id

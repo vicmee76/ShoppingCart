@@ -27,7 +27,7 @@ exports._createUser = (req, res, next) => {
                 const pass = checkPassword(data.Password);
 
                 if(!pass){
-                    showError(400, res, "Password must be more than 7 characters");
+                    showError(406, res, "Password must be more than 7 characters");
                 }
                 else{
                 const hash = bcrypt.hashSync(data.Password, 10);
@@ -60,7 +60,7 @@ exports._getUserById = (req, res, next) => {
                 showSingleUsers(200, res, "User found", results);
             }
             else{
-                showError(500, res, "This user was not found");
+                showError(404, res, "This user was not found");
             }
         }
     });
@@ -78,7 +78,7 @@ exports._getUsers = (req, res, next) => {
                 showAllUsers(200, res, "Users found", results);
             }
             else{
-                showError(500, res, "This user was not found");
+                showError(404, res, "Users not found");
             }
         }
     });
@@ -105,7 +105,7 @@ exports._updateUser = (req, res, next) => {
                             showSuccess(201, res, "Users updated successfully", results);
                         }
                         else {
-                            showError(500, res, "This user was not found");
+                            showError(304, res, "Something went wrong");
                         }
                     }
                 });
@@ -138,7 +138,7 @@ exports._deleteUser = (req, res, next) => {
                             showSuccess(200, res, "User deleted successfully", results);
                         }
                         else {
-                            showError(500, res, "This user was not found");
+                            showError(501, res, "Something went wrong " + err);
                         }
                     }
                 });
@@ -169,7 +169,7 @@ exports._loginUser = (req, res, next) => {
                     showSuccess(200, res, "Login successfully", null, token);
                 }
                 else {
-                    showError(403, res, "Wrong password");
+                    showError(406, res, "Wrong password");
                 }
             }
             else {
@@ -188,46 +188,39 @@ exports._changePassword = (req, res, next) => {
             showError(500, res, err);
         }
         else {
-            loginUser(data, (err, results) => {
-                if (err) {
-                    showError(500, res, err);
-                }
-                else {
-                    if (results) {
+            if (results) {
 
-                        const pass = bcrypt.compareSync(data.OldPassword, results.Password);
+                const pass = bcrypt.compareSync(data.OldPassword, results.Password);
 
-                        if (pass) {
+                if (pass) {
 
-                            const checkPass = checkPassword(data.NewPassword);
+                    const checkPass = checkPassword(data.NewPassword);
 
-                            if (checkPass) {
+                    if (checkPass) {
 
-                                const hash = bcrypt.hashSync(data.NewPassword, 10);
-                                data.NewPassword = hash;
+                        const hash = bcrypt.hashSync(data.NewPassword, 10);
+                        data.NewPassword = hash;
 
-                                changePassword(id, data, (errs, response) => {
-                                    if (errs) {
-                                        showError(500, res, errs);
-                                    }
-                                    else {
-                                        showSuccess(201, res, "Password updated successfully", response, null);
-                                    }
-                                });
+                        changePassword(id, data, (errs, response) => {
+                            if (errs) {
+                                showError(500, res, errs);
                             }
                             else {
-                                showError(400, res, "New password must be more than 7 characters");
+                                showSuccess(201, res, "Password updated successfully", response, null);
                             }
-                        }
-                        else {
-                            showError(403, res, "Wrong old password");
-                        }
+                        });
                     }
                     else {
-                        showError(409, res, "User already exits");
+                        showError(400, res, "New password must be more than 7 characters");
                     }
                 }
-            });
+                else {
+                    showError(406, res, "Wrong old password");
+                }
+            }
+            else {
+                showError(404, res, "User not found");
+            }
         }
     });
 }
@@ -245,7 +238,7 @@ exports._changePassword = (req, res, next) => {
 
     function showSuccess(code, res, msg, response = null, token = null){
         return res.status(code).json({
-            success : false,
+            success : true,
             messgae : "Success : " + msg,
             results: response,
             token : token
