@@ -88,7 +88,7 @@ module.exports = {
 
 
     loginUser: (data, callBack) => {
-        pool.query("SELECT Email, Password FROM users WHERE email=?",
+        pool.query("SELECT Email, UserId, Password FROM users WHERE email=?",
             [
                 data.Email
             ],

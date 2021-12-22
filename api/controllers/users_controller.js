@@ -159,7 +159,11 @@ exports._loginUser = (req, res, next) => {
             if (results) {
                 const pass = bcrypt.compareSync(data.Password, results.Password);
                 if (pass) {
-                    const token = jwt.sign({ response: results }, process.env.JWT_KEY, { expiresIn: "1h" });
+                    const token = jwt.sign(
+                        { 
+                            userid : results.UserId, 
+                        email : results.Email 
+                    }, process.env.JWT_KEY, { expiresIn: "1h" });
                     showSuccess(200, res, "Login successfully", null, token);
                 }
                 else {
