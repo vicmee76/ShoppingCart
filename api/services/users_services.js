@@ -88,12 +88,12 @@ module.exports = {
 
 
     loginUser: (data, callBack) => {
-        pool.query("SELECT email, password, userid FROM users WHERE email=?",
+        pool.query("SELECT Email, Password FROM users WHERE email=?",
             [
                 data.Email
             ],
             (error, result) => {
-                getCallBack(callBack, error, result);
+                getCallBack(callBack, error, result[0]);
             }
         );
     },

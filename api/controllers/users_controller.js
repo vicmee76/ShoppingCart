@@ -1,4 +1,5 @@
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 const {
     saveUser,
     checkExisitingUser,
@@ -63,6 +64,7 @@ exports._getUserById = (req, res, next) => {
         }
     });
 }
+
 
 exports._getUsers = (req, res, next) => {
     const data = req.body;
@@ -147,6 +149,31 @@ exports._deleteUser = (req, res, next) => {
 }
 
 
+exports._loginUser = (req, res, next) => {
+    const data = req.body;
+    loginUser(data, (err, results) => {
+        if (err) {
+            showError(500, res, err);
+        }
+        else {
+            if (results) {
+                const pass = bcrypt.compareSync(data.Password, results.Password);
+                if (pass) {
+                    const token = jwt.sign({ response: results }, process.env.JWT_KEY, { expiresIn: "1h" });
+                    showSuccess(200, res, "Login successfully", null, token);
+                }
+                else {
+                    showError(403, res, "Wrong password");
+                }
+            }
+            else {
+                showError(404, res, "Email not found");
+            }
+        }
+    });
+}
+
+
 
 
     function showError(code, res, err){
@@ -157,11 +184,12 @@ exports._deleteUser = (req, res, next) => {
     }
 
 
-    function showSuccess(code, res, msg, response){
+    function showSuccess(code, res, msg, response = null, token = null){
         return res.status(code).json({
             success : false,
             messgae : "Success : " + msg,
-            results : response
+            results: response,
+            token : token
         });
     }
 
