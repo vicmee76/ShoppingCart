@@ -37,7 +37,7 @@ module.exports = {
     },
 
     getUserById : (id, callBack) => {
-        pool.query("SELECT UserId, Email, FirstName, LastName, CreatedAt FROM users WHERE UserId = ?",
+        pool.query("SELECT UserId, Email, FirstName, LastName, CreatedAt, Gender, Phone, ImgUrl, UpdatedAt FROM users WHERE UserId = ?",
         [
             id,
         ],
@@ -75,7 +75,7 @@ module.exports = {
     },
 
     deleteUser: (id, callBack) => {
-        pool.query("DELETE FROM WHERE userid=?",
+        pool.query("DELETE FROM users WHERE userid=?",
             [
                 id
             ],

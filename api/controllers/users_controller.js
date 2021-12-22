@@ -12,8 +12,7 @@ exports._createUser = (req, res, next) => {
                if(results && results.length > 0){
                   showError(500, res, "User already exits");
                }
-               else{
-
+               else {
                 const pass = checkPassword(data.Password);
 
                 if(!pass){
@@ -165,8 +164,12 @@ exports._deleteUser = (req, res, next) => {
                     UserId : x.UserId,
                     Email : x.Email,
                     FirstName : x.FirstName,
-                    LastName : x.LastName,
+                    LastName: x.LastName,
+                    Phone: x.Phone,
+                    Gender: x.Gender,
+                    Image : x.ImgUrl,
                     CreatedAt : x.CreatedAt,
+                    UpdatedAt: x.UpdatedAt,
                     EditRecord : {
                         type : "PUT",
                         link : "http://localhost:4000/api/users/edit/"+ x.UserId,
