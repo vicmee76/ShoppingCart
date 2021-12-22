@@ -1,0 +1,1659 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Shopping Cart",
+    "version": "1.0",
+    "description": "This API is a basic shopping cart that allows users to add, delete, update, and view products to their cart. This can also go beyond by letting users place order for products.",
+    "summary": "A basic shopping cart project that allows users to add products to cart.",
+    "contact": {
+      "name": "Victor Nwogu",
+      "email": "vicmee76@gmail.com "
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:4000"
+    }
+  ],
+  "paths": {
+    "/api/users/all": {
+      "get": {
+        "summary": "Get All Users",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "messgae": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "results": {
+                      "type": "array",
+                      "uniqueItems": true,
+                      "minItems": 1,
+                      "items": {
+                        "required": [
+                          "UserId",
+                          "Firstname",
+                          "Email"
+                        ],
+                        "properties": {
+                          "UserId": {
+                            "type": "number"
+                          },
+                          "Firstname": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "Email": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "ViewRecord": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "link": {
+                                "type": "string",
+                                "minLength": 1
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "link"
+                            ]
+                          },
+                          "EditRecord": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "link": {
+                                "type": "string",
+                                "minLength": 1
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "link"
+                            ]
+                          },
+                          "DeleteRecord": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "link": {
+                                "type": "string",
+                                "minLength": 1
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "link"
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "messgae",
+                    "results"
+                  ],
+                  "x-examples": {
+                    "example-1": {
+                      "success": true,
+                      "messgae": "Success : Users found",
+                      "results": [
+                        {
+                          "UserId": 11,
+                          "Firstname": "Victor Daberechi",
+                          "Email": "vicmee76@gmail.com",
+                          "ViewRecord": {
+                            "type": "GET",
+                            "link": "http://localhost:4000/api/users/view/11"
+                          },
+                          "EditRecord": {
+                            "type": "PUT",
+                            "link": "http://localhost:4000/api/users/edit/11"
+                          },
+                          "DeleteRecord": {
+                            "type": "DELETE",
+                            "link": "http://localhost:4000/api/users/delete/11"
+                          }
+                        },
+                        {
+                          "UserId": 12,
+                          "Firstname": "Ebenezer",
+                          "Email": "vicmee76@hotmail.com",
+                          "ViewRecord": {
+                            "type": "GET",
+                            "link": "http://localhost:4000/api/users/view/12"
+                          },
+                          "EditRecord": {
+                            "type": "PUT",
+                            "link": "http://localhost:4000/api/users/edit/12"
+                          },
+                          "DeleteRecord": {
+                            "type": "DELETE",
+                            "link": "http://localhost:4000/api/users/delete/12"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": true,
+                      "messgae": "Success : Users found",
+                      "results": [
+                        {
+                          "UserId": 11,
+                          "Firstname": "Victor Daberechi",
+                          "Email": "vicmee76@gmail.com",
+                          "ViewRecord": {
+                            "type": "GET",
+                            "link": "http://localhost:4000/api/users/view/11"
+                          },
+                          "EditRecord": {
+                            "type": "PUT",
+                            "link": "http://localhost:4000/api/users/edit/11"
+                          },
+                          "DeleteRecord": {
+                            "type": "DELETE",
+                            "link": "http://localhost:4000/api/users/delete/11"
+                          }
+                        },
+                        {
+                          "UserId": 12,
+                          "Firstname": "Ebenezer",
+                          "Email": "vicmee76@hotmail.com",
+                          "ViewRecord": {
+                            "type": "GET",
+                            "link": "http://localhost:4000/api/users/view/12"
+                          },
+                          "EditRecord": {
+                            "type": "PUT",
+                            "link": "http://localhost:4000/api/users/edit/12"
+                          },
+                          "DeleteRecord": {
+                            "type": "DELETE",
+                            "link": "http://localhost:4000/api/users/delete/12"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "messgae": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "messgae"
+                  ],
+                  "x-examples": {
+                    "example-1": {
+                      "success": false,
+                      "messgae": "Invalid token"
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": true,
+                      "messgae": "Users not found"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        },
+        "operationId": "get-api-all",
+        "description": "Fetch all users for the database",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "Authorization ",
+            "description": "Bearer {Login token}",
+            "required": true
+          }
+        ]
+      },
+      "parameters": []
+    },
+    "/api/users/view/{id}": {
+      "get": {
+        "summary": "Get User By Id",
+        "tags": [],
+        "operationId": "get-api-view-:id",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "Authorization ",
+            "description": "Bearer {Login token}",
+            "required": true
+          }
+        ],
+        "description": "This end point gets all details of a single user by passing the user id {:id} in the url parameter",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "messgae": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "results": {
+                      "type": "array",
+                      "uniqueItems": true,
+                      "minItems": 1,
+                      "items": {
+                        "required": [
+                          "UserId",
+                          "Email",
+                          "FirstName",
+                          "LastName",
+                          "Phone",
+                          "Gender",
+                          "Image",
+                          "CreatedAt",
+                          "UpdatedAt"
+                        ],
+                        "properties": {
+                          "UserId": {
+                            "type": "number"
+                          },
+                          "Email": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "FirstName": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "LastName": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "Phone": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "Gender": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "Image": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "CreatedAt": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "UpdatedAt": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "EditRecord": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "link": {
+                                "type": "string",
+                                "minLength": 1
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "link"
+                            ]
+                          },
+                          "DeleteRecord": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "link": {
+                                "type": "string",
+                                "minLength": 1
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "link"
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "messgae",
+                    "results"
+                  ],
+                  "x-examples": {
+                    "example-1": {
+                      "success": true,
+                      "messgae": "Success : User found",
+                      "results": [
+                        {
+                          "UserId": 11,
+                          "Email": "vicmee76@gmail.com",
+                          "FirstName": "Victor Daberechi",
+                          "LastName": "Nwogu",
+                          "Phone": "09087654321",
+                          "Gender": "M",
+                          "Image": "https://1.bp.blogspot.com/-Q45319SNgB8/YSo43rh_adI/AAAAAAAAWJ4/YP-0r8bhIG0Gmmw5KfpKmoJL6PagyPqyQCLcBGAsYHQ/s0/cute-dp-images-cute-profile-pictures%2B%25281%2529.jpg",
+                          "CreatedAt": "2021-12-22T00:42:54.000Z",
+                          "UpdatedAt": "2021-12-22T00:42:54.000Z",
+                          "EditRecord": {
+                            "type": "PUT",
+                            "link": "http://localhost:4000/api/users/edit/11"
+                          },
+                          "DeleteRecord": {
+                            "type": "DELETE",
+                            "link": "http://localhost:4000/api/users/delete/11"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": true,
+                      "messgae": "Success : User found",
+                      "results": [
+                        {
+                          "UserId": 11,
+                          "Email": "vicmee76@gmail.com",
+                          "FirstName": "Victor Daberechi",
+                          "LastName": "Nwogu",
+                          "Phone": "09087654321",
+                          "Gender": "M",
+                          "Image": "https://1.bp.blogspot.com/-Q45319SNgB8/YSo43rh_adI/AAAAAAAAWJ4/YP-0r8bhIG0Gmmw5KfpKmoJL6PagyPqyQCLcBGAsYHQ/s0/cute-dp-images-cute-profile-pictures%2B%25281%2529.jpg",
+                          "CreatedAt": "2021-12-22T00:42:54.000Z",
+                          "UpdatedAt": "2021-12-22T00:42:54.000Z",
+                          "EditRecord": {
+                            "type": "PUT",
+                            "link": "http://localhost:4000/api/users/edit/11"
+                          },
+                          "DeleteRecord": {
+                            "type": "DELETE",
+                            "link": "http://localhost:4000/api/users/delete/11"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "schema": {
+            "type": "integer"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "Id for the user to be fetch"
+        }
+      ]
+    },
+    "/api/users": {
+      "parameters": [],
+      "post": {
+        "summary": "Create New Users",
+        "operationId": "post-user-api",
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "messgae": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "results": {
+                      "type": "object",
+                      "properties": {
+                        "fieldCount": {
+                          "type": "number"
+                        },
+                        "affectedRows": {
+                          "type": "number"
+                        },
+                        "insertId": {
+                          "type": "number"
+                        },
+                        "info": {
+                          "type": "string"
+                        },
+                        "serverStatus": {
+                          "type": "number"
+                        },
+                        "warningStatus": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "fieldCount",
+                        "affectedRows",
+                        "insertId",
+                        "info",
+                        "serverStatus",
+                        "warningStatus"
+                      ]
+                    },
+                    "token": {}
+                  },
+                  "required": [
+                    "success",
+                    "messgae",
+                    "results"
+                  ],
+                  "x-examples": {
+                    "example-1": {
+                      "success": true,
+                      "messgae": "Success : User created successfully",
+                      "results": {
+                        "fieldCount": 0,
+                        "affectedRows": 1,
+                        "insertId": 13,
+                        "info": "",
+                        "serverStatus": 2,
+                        "warningStatus": 0
+                      },
+                      "token": null
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": true,
+                      "messgae": "Success : User created successfully",
+                      "results": {
+                        "fieldCount": 0,
+                        "affectedRows": 1,
+                        "insertId": 13,
+                        "info": "",
+                        "serverStatus": 2,
+                        "warningStatus": 0
+                      },
+                      "token": null
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "messgae": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "messgae"
+                  ],
+                  "x-examples": {
+                    "example-1": {
+                      "success": false,
+                      "messgae": "Error : Password must be more than 7 characters"
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": false,
+                      "messgae": "Error : Password must be more than 7 characters"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "messgae": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "messgae"
+                  ],
+                  "x-examples": {
+                    "example-1": {
+                      "success": false,
+                      "messgae": "Error : Already exits"
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": false,
+                      "messgae": "Error : User already exits"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        },
+        "description": "This end-point creates new users to the database",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "description": "",
+                "type": "object",
+                "properties": {
+                  "FirstName": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "LastName": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "Email": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "Phone": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "Gender": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "Password": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "ImgUrl": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "FirstName",
+                  "LastName",
+                  "Email",
+                  "Phone",
+                  "Gender",
+                  "Password",
+                  "ImgUrl"
+                ],
+                "x-examples": {
+                  "example-1": {
+                    "FirstName": "Ebenezer",
+                    "LastName": "Nwogu",
+                    "Email": "vicmee76@hotmail.com",
+                    "Phone": "09087654321",
+                    "Gender": "M",
+                    "Password": "Ebenezer1*",
+                    "ImgUrl": "https://1.bp.blogspot.com/-Q45319SNgB8/YSo43rh_adI/AAAAAAAAWJ4/YP-0r8bhIG0Gmmw5KfpKmoJL6PagyPqyQCLcBGAsYHQ/s0/cute-dp-images-cute-profile-pictures%2B%25281%2529.jpg"
+                  }
+                }
+              },
+              "examples": {
+                "example-1": {
+                  "value": {
+                    "FirstName": "Ebenezer",
+                    "LastName": "Nwogu",
+                    "Email": "vicmee76@hotmail.com",
+                    "Phone": "09087654321",
+                    "Gender": "M",
+                    "Password": "Ebenezer1*",
+                    "ImgUrl": "https://1.bp.blogspot.com/-Q45319SNgB8/YSo43rh_adI/AAAAAAAAWJ4/YP-0r8bhIG0Gmmw5KfpKmoJL6PagyPqyQCLcBGAsYHQ/s0/cute-dp-images-cute-profile-pictures%2B%25281%2529.jpg"
+                  }
+                }
+              }
+            }
+          },
+          "description": "Please see example of the body to be passed"
+        },
+        "x-internal": false
+      }
+    },
+    "/api/users/login": {
+      "parameters": [],
+      "post": {
+        "summary": "Login User",
+        "operationId": "post-user-login-api",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "messgae": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "results": {},
+                    "token": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "messgae",
+                    "token"
+                  ],
+                  "x-examples": {
+                    "example-1": {
+                      "success": true,
+                      "messgae": "Success : Login successfully",
+                      "results": null,
+                      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOjEyLCJlbWFpbCI6InZpY21lZTc2QGhvdG1haWwuY29tIiwiaWF0IjoxNjQwMTkzNzU0LCJleHAiOjE2NDAxOTczNTR9.AYHRznArJO2mUiUCB-kDL0Ls4sf5mUY2j8nASi_xHjM"
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": true,
+                      "messgae": "Success : Login successfully",
+                      "results": null,
+                      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOjEyLCJlbWFpbCI6InZpY21lZTc2QGhvdG1haWwuY29tIiwiaWF0IjoxNjQwMTkzNzU0LCJleHAiOjE2NDAxOTczNTR9.AYHRznArJO2mUiUCB-kDL0Ls4sf5mUY2j8nASi_xHjM"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "406": {
+            "description": "Not Acceptable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "messgae": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "messgae"
+                  ],
+                  "x-examples": {
+                    "example-1": {
+                      "success": false,
+                      "messgae": "Error : Wrong password"
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": false,
+                      "messgae": "Error : Wrong password"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        },
+        "description": "This endpoint logs a user in and sets the users token",
+        "parameters": [],
+        "x-internal": false,
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "description": "",
+                "type": "object",
+                "properties": {
+                  "Email": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "Password": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "Email",
+                  "Password"
+                ],
+                "x-examples": {
+                  "example-1": {
+                    "Email": "vicmee76@hotmail.com",
+                    "Password": "Ebenezer1**"
+                  }
+                }
+              },
+              "examples": {
+                "example-1": {
+                  "value": {
+                    "Email": "vicmee76@hotmail.com",
+                    "Password": "Ebenezer1**"
+                  }
+                }
+              }
+            }
+          },
+          "description": "Please see example of json body that needs to be passed "
+        }
+      }
+    },
+    "/api/users/changepassword/{id}": {
+      "post": {
+        "summary": "Change User Password",
+        "operationId": "post-Change-User-Password",
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "messgae": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "results": {
+                      "type": "object",
+                      "properties": {
+                        "fieldCount": {
+                          "type": "number"
+                        },
+                        "affectedRows": {
+                          "type": "number"
+                        },
+                        "insertId": {
+                          "type": "number"
+                        },
+                        "info": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "serverStatus": {
+                          "type": "number"
+                        },
+                        "warningStatus": {
+                          "type": "number"
+                        },
+                        "changedRows": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "fieldCount",
+                        "affectedRows",
+                        "insertId",
+                        "info",
+                        "serverStatus",
+                        "warningStatus",
+                        "changedRows"
+                      ]
+                    },
+                    "token": {}
+                  },
+                  "required": [
+                    "success",
+                    "messgae",
+                    "results"
+                  ],
+                  "x-examples": {
+                    "example-1": {
+                      "success": false,
+                      "messgae": "Success : Password updated successfully",
+                      "results": {
+                        "fieldCount": 0,
+                        "affectedRows": 1,
+                        "insertId": 0,
+                        "info": "Rows matched: 1  Changed: 1  Warnings: 0",
+                        "serverStatus": 2,
+                        "warningStatus": 0,
+                        "changedRows": 1
+                      },
+                      "token": null
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": false,
+                      "messgae": "Success : Password updated successfully",
+                      "results": {
+                        "fieldCount": 0,
+                        "affectedRows": 1,
+                        "insertId": 0,
+                        "info": "Rows matched: 1  Changed: 1  Warnings: 0",
+                        "serverStatus": 2,
+                        "warningStatus": 0,
+                        "changedRows": 1
+                      },
+                      "token": null
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "messgae": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "messgae"
+                  ],
+                  "x-examples": {
+                    "example-1": {
+                      "success": false,
+                      "messgae": "Error : New password must be more than 7 characters"
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": false,
+                      "messgae": "Error : New password must be more than 7 characters"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "406": {
+            "description": "Not Acceptable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "messgae": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "messgae"
+                  ],
+                  "x-examples": {
+                    "example-1": {
+                      "success": false,
+                      "messgae": "Error : Wrong old password"
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": false,
+                      "messgae": "Error : Wrong old password"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        },
+        "description": "This endpoint changes a user password",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "Authorization ",
+            "description": "Bearer {Token}",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "description": "",
+                "type": "object",
+                "properties": {
+                  "Email": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "OldPassword": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "NewPassword": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "Email",
+                  "OldPassword",
+                  "NewPassword"
+                ],
+                "x-examples": {
+                  "example-1": {
+                    "Email": "vicmee76@hotmail.com",
+                    "OldPassword": "Ebenezer1*",
+                    "NewPassword": "Ebenezer1*"
+                  }
+                }
+              },
+              "examples": {
+                "example-1": {
+                  "value": {
+                    "Email": "vicmee76@hotmail.com",
+                    "OldPassword": "Ebenezer1*",
+                    "NewPassword": "Ebenezer1*"
+                  }
+                }
+              }
+            }
+          },
+          "description": "Please see example body below for sending change password payload"
+        }
+      },
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "The id of the users for changing password"
+        }
+      ]
+    },
+    "/api/users/edit/{id}": {
+      "put": {
+        "summary": "Edit User Details",
+        "operationId": "put-api-edit-:id",
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "messgae": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "results": {
+                      "type": "object",
+                      "properties": {
+                        "fieldCount": {
+                          "type": "number"
+                        },
+                        "affectedRows": {
+                          "type": "number"
+                        },
+                        "insertId": {
+                          "type": "number"
+                        },
+                        "info": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "serverStatus": {
+                          "type": "number"
+                        },
+                        "warningStatus": {
+                          "type": "number"
+                        },
+                        "changedRows": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "fieldCount",
+                        "affectedRows",
+                        "insertId",
+                        "info",
+                        "serverStatus",
+                        "warningStatus",
+                        "changedRows"
+                      ]
+                    },
+                    "token": {}
+                  },
+                  "required": [
+                    "success",
+                    "messgae",
+                    "results"
+                  ],
+                  "x-examples": {
+                    "example-1": {
+                      "success": true,
+                      "messgae": "Success : Users updated successfully",
+                      "results": {
+                        "fieldCount": 0,
+                        "affectedRows": 1,
+                        "insertId": 0,
+                        "info": "Rows matched: 1  Changed: 1  Warnings: 0",
+                        "serverStatus": 2,
+                        "warningStatus": 0,
+                        "changedRows": 1
+                      },
+                      "token": null
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": true,
+                      "messgae": "Success : Users updated successfully",
+                      "results": {
+                        "fieldCount": 0,
+                        "affectedRows": 1,
+                        "insertId": 0,
+                        "info": "Rows matched: 1  Changed: 1  Warnings: 0",
+                        "serverStatus": 2,
+                        "warningStatus": 0,
+                        "changedRows": 1
+                      },
+                      "token": null
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        },
+        "description": "This endpoint update users information such as firstname, lastname, email, gender, phone, and image url",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "Authorization ",
+            "required": true,
+            "description": "Bearer {token}"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "description": "",
+                "type": "object",
+                "properties": {
+                  "FirstName": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "LastName": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "Email": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "Phone": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "Gender": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "ImgUrl": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "FirstName",
+                  "LastName",
+                  "Email",
+                  "Phone",
+                  "Gender",
+                  "ImgUrl"
+                ],
+                "x-examples": {
+                  "example-1": {
+                    "FirstName": "Victor Daberechi",
+                    "LastName": "Nwogu",
+                    "Email": "vicmee76@gmail.com",
+                    "Phone": "09087654321",
+                    "Gender": "M",
+                    "ImgUrl": "https://1.bp.blogspot.com/-Q45319SNgB8/YSo43rh_adI/AAAAAAAAWJ4/YP-0r8bhIG0Gmmw5KfpKmoJL6PagyPqyQCLcBGAsYHQ/s0/cute-dp-images-cute-profile-pictures%2B%25281%2529.jpg"
+                  }
+                }
+              },
+              "examples": {
+                "example-1": {
+                  "value": {
+                    "FirstName": "Victor Daberechi",
+                    "LastName": "Nwogu",
+                    "Email": "vicmee76@gmail.com",
+                    "Phone": "09087654321",
+                    "Gender": "M",
+                    "ImgUrl": "https://1.bp.blogspot.com/-Q45319SNgB8/YSo43rh_adI/AAAAAAAAWJ4/YP-0r8bhIG0Gmmw5KfpKmoJL6PagyPqyQCLcBGAsYHQ/s0/cute-dp-images-cute-profile-pictures%2B%25281%2529.jpg"
+                  }
+                }
+              }
+            }
+          },
+          "description": "Please see example of the body to be passed"
+        }
+      },
+      "parameters": [
+        {
+          "schema": {
+            "type": "integer"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "The id of the user that needs to be updated"
+        }
+      ]
+    },
+    "/api/users/delete/{id}": {
+      "delete": {
+        "summary": "Delete User",
+        "operationId": "delete-api-users-delete",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "messgae": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "results": {
+                      "type": "object",
+                      "properties": {
+                        "fieldCount": {
+                          "type": "number"
+                        },
+                        "affectedRows": {
+                          "type": "number"
+                        },
+                        "insertId": {
+                          "type": "number"
+                        },
+                        "info": {
+                          "type": "string"
+                        },
+                        "serverStatus": {
+                          "type": "number"
+                        },
+                        "warningStatus": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "fieldCount",
+                        "affectedRows",
+                        "insertId",
+                        "info",
+                        "serverStatus",
+                        "warningStatus"
+                      ]
+                    },
+                    "token": {}
+                  },
+                  "required": [
+                    "success",
+                    "messgae",
+                    "results"
+                  ],
+                  "x-examples": {
+                    "example-1": {
+                      "success": true,
+                      "messgae": "Success : User deleted successfully",
+                      "results": {
+                        "fieldCount": 0,
+                        "affectedRows": 1,
+                        "insertId": 0,
+                        "info": "",
+                        "serverStatus": 2,
+                        "warningStatus": 0
+                      },
+                      "token": null
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": true,
+                      "messgae": "Success : User deleted successfully",
+                      "results": {
+                        "fieldCount": 0,
+                        "affectedRows": 1,
+                        "insertId": 0,
+                        "info": "",
+                        "serverStatus": 2,
+                        "warningStatus": 0
+                      },
+                      "token": null
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        },
+        "description": "This endpoint deletes a particular user",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "Authorization ",
+            "description": "Bearer {token}",
+            "required": true
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "schema": {
+            "type": "integer"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "Id of the user that needs to be deleted"
+        }
+      ]
+    }
+  },
+  "components": {
+    "schemas": {},
+    "securitySchemes": {},
+    "responses": {
+      "401": {
+        "description": "Unauthorized",
+        "content": {
+          "application/json": {
+            "schema": {
+              "description": "",
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean"
+                },
+                "messgae": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "success",
+                "messgae"
+              ],
+              "x-examples": {
+                "example-1": {
+                  "success": false,
+                  "messgae": "Access denied! Unauthorized user"
+                }
+              }
+            },
+            "examples": {
+              "example-1": {
+                "value": {
+                  "success": false,
+                  "messgae": "Access denied! Unauthorized user"
+                }
+              }
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          },
+          "multipart/form-data": {
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        },
+        "headers": {}
+      },
+      "403": {
+        "description": "Forbidden",
+        "content": {
+          "application/json": {
+            "schema": {
+              "description": "",
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean"
+                },
+                "messgae": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "success",
+                "messgae"
+              ],
+              "x-examples": {
+                "example-1": {
+                  "success": false,
+                  "messgae": "Invalid token"
+                }
+              }
+            },
+            "examples": {
+              "example-1": {
+                "value": {
+                  "success": false,
+                  "messgae": "Invalid token"
+                }
+              }
+            }
+          }
+        }
+      },
+      "404": {
+        "description": "Not Found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "description": "",
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean"
+                },
+                "messgae": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "success",
+                "messgae"
+              ],
+              "x-examples": {
+                "example-1": {
+                  "success": true,
+                  "messgae": "Users not found"
+                }
+              }
+            },
+            "examples": {
+              "example-1": {
+                "value": {
+                  "success": false,
+                  "messgae": "Not found"
+                }
+              }
+            }
+          }
+        }
+      },
+      "500": {
+        "description": "Internal Server Error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "description": "",
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean"
+                },
+                "messgae": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "success",
+                "messgae"
+              ],
+              "x-examples": {
+                "example-1": {
+                  "success": false,
+                  "messgae": "Error : Error message here"
+                }
+              }
+            },
+            "examples": {
+              "example-1": {
+                "value": {
+                  "success": false,
+                  "messgae": "Error : Error message here"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
