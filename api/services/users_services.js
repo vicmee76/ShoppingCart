@@ -25,10 +25,11 @@ module.exports = {
         );
     },
 
-    checkExisitingUser : (data, callBack) => {
-        pool.query("SELECT Email FROM users WHERE Email=?",
+    checkExisitingUser : (id = null, data, callBack) => {
+        pool.query("SELECT Email FROM users WHERE Email=? OR UserId=?",
         [
             data.Email,
+            id
         ],
         (error, result) => {
             getCallBack(callBack, error, result);
@@ -48,7 +49,7 @@ module.exports = {
     },
 
     getUsers : (data, callBack) => {
-        pool.query("SELECT UserId, Email FROM users",
+        pool.query("SELECT UserId, Email, FirstName FROM users",
         [
         ],
         (error, result) => {

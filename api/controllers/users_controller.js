@@ -4,7 +4,7 @@ const { saveUser, checkExisitingUser, getUserById, getUsers, updateUser, deleteU
 exports._createUser = (req, res, next) => {
         const data = req.body;
 
-        checkExisitingUser(data, (err, results) => {
+        checkExisitingUser(null, data, (err, results) => {
             if(err){
              showError(500, res, err);
             }
@@ -76,16 +76,30 @@ exports._getUsers = (req, res, next) => {
 exports._updateUser = (req, res, next) => {
     const id = req.params.id;
     const data = req.body;
-    updateUser(id, data, (err, results) => {
-        if(err){
-         showError(500, res, err);
+
+    checkExisitingUser(id, data, (err, results) => {
+        if (err) {
+            showError(500, res, err);
         }
-        else{
-            if(results){
-                showSuccess(201, res, "Users updated successfully", results);
+        else {
+            if (results && results.length > 0) {
+
+                updateUser(id, data, (err, results) => {
+                    if (err) {
+                        showError(500, res, err);
+                    }
+                    else {
+                        if (results) {
+                            showSuccess(201, res, "Users updated successfully", results);
+                        }
+                        else {
+                            showError(500, res, "This user was not found");
+                        }
+                    }
+                });
             }
-            else{
-                showError(500, res, "This user was not found");
+            else {
+                showError(500, res, "User cannot be found");
             }
         }
     });
@@ -135,7 +149,8 @@ exports._deleteUser = (req, res, next) => {
             messgae : "Success : " + msg,
             results : response.map(x => {
                 return {
-                    UserId : x.UserId,
+                    UserId: x.UserId,
+                    Firstname: x.FirstName,
                     Email : x.Email,
                     ViewRecord : {
                         type : "GET",
