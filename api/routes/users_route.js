@@ -9,6 +9,7 @@ router.get('/view/:id', validate._validateToken, userController._getUserById);
 router.put('/edit/:id', validate._validateToken, userController._updateUser);
 router.delete('/delete/:id', validate._validateToken, userController._deleteUser);
 router.post('/login', userController._loginUser);
+router.post('/changepassword/:id', userController._changePassword);
 
 
 

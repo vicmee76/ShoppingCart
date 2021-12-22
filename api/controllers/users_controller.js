@@ -7,7 +7,8 @@ const {
     getUsers,
     updateUser,
     deleteUser,
-    loginUser } = require("../services/users_services.js");
+    loginUser,
+    changePassword } = require("../services/users_services.js");
 
 
 
@@ -29,7 +30,7 @@ exports._createUser = (req, res, next) => {
                     showError(400, res, "Password must be more than 7 characters");
                 }
                 else{
-                const hash = bcrypt.hashSync(data.Password, 10);
+                const hash = bcrypt.hashSync(data.Password, process.env.HASH_LENGTH);
                 data.Password = hash;
 
                 saveUser(data, (errs, response) => {
@@ -117,6 +118,7 @@ exports._updateUser = (req, res, next) => {
 }
 
 
+
 exports._deleteUser = (req, res, next) => {
     const id = req.params.id;
     const data = req.body;
@@ -173,6 +175,59 @@ exports._loginUser = (req, res, next) => {
             else {
                 showError(404, res, "Email not found");
             }
+        }
+    });
+}
+
+
+exports._changePassword = (req, res, next) => {
+    const id = req.params.id;
+    const data = req.body;
+    loginUser(data, (err, results) => {
+        if (err) {
+            showError(500, res, err);
+        }
+        else {
+            loginUser(id, data, (err, results) => {
+            if(err){
+             showError(500, res, err);
+            }
+            else{
+               if(results){
+
+                const pass = bcrypt.compareSync(data.OldPassword, results.Password);
+
+                if(pass){
+
+                    const checkPass = checkPassword(data.NewPassword);
+
+                    if(checkPass){
+                        const hash = bcrypt.hashSync(data.Password, process.env.HASH_LENGTH);
+                    data.NewPassword = hash;
+
+                    changePassword(id, data, (errs, response) => {
+                    if(errs){
+                        showError(500, res, errs);
+                    }
+                    else{
+                        showSuccess(201, res, "Password updated successfully", response, null);
+                    }
+                });
+                    }
+                    else{
+                        showError(400, res, "New password must be more than 7 characters");
+                    }
+                }
+                else{
+                    showError(403, res, "Wrong old password");
+                }
+
+               }
+               else {
+                showError(409, res, "User already exits");
+               }
+            }
+        });
         }
     });
 }
