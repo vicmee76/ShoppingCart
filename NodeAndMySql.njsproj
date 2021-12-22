@@ -28,14 +28,26 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="api\controllers\category_controller.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="api\controllers\users_controller.js" />
+    <Content Include="api\routes\category_route.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="api\routes\users_route.js" />
+    <Content Include="api\services\category_services.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="api\services\users_services.js" />
     <Content Include="app.js" />
     <Content Include="auth\validateToken.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="config\database.js" />
+    <Content Include="helpers\helpers.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="package.json" />
     <Content Include="README.md" />
   </ItemGroup>
@@ -46,6 +58,7 @@
     <Folder Include="api\services\" />
     <Folder Include="config\" />
     <Folder Include="auth\" />
+    <Folder Include="helpers\" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsToolsV2.targets" />
 </Project>

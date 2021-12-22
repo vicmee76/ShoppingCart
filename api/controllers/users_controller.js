@@ -1,5 +1,6 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const helpers = require("../../helpers/helpers");
 const {
     saveUser,
     checkExisitingUser,
@@ -15,36 +16,36 @@ const {
 exports._createUser = (req, res, next) => {
         const data = req.body;
 
-        checkExisitingUser(null, data, (err, results) => {
-            if(err){
-             showError(500, res, err);
+    checkExisitingUser(null, data, (err, results) => {
+        if (err) {
+            helpers._showError(500, res, err);
+        }
+        else {
+            if (results && results.length > 0) {
+                helpers._showError(409, res, "User already exits");
             }
-            else{
-               if(results && results.length > 0){
-                  showError(409, res, "User already exits");
-               }
-               else {
-                const pass = checkPassword(data.Password);
+            else {
+                const pass = helpers._checkPassword(data.Password);
 
-                if(!pass){
-                    showError(406, res, "Password must be more than 7 characters");
+                if (!pass) {
+                    helpers._showError(406, res, "Password must be more than 7 characters");
                 }
-                else{
-                const hash = bcrypt.hashSync(data.Password, 10);
-                data.Password = hash;
+                else {
+                    const hash = bcrypt.hashSync(data.Password, 10);
+                    data.Password = hash;
 
-                saveUser(data, (errs, response) => {
-                    if(errs){
-                        showError(500, res, errs);
-                    }
-                    else{
-                        showSuccess(201, res, "User created successfully", response);
-                    }
-                });
+                    saveUser(data, (errs, response) => {
+                        if (errs) {
+                            helpers._showError(500, res, errs);
+                        }
+                        else {
+                            helpers._showSuccess(201, res, "User created successfully", response);
+                        }
+                    });
+                }
             }
-               }
-            }
-        });
+        }
+    });
 }
 
 
@@ -52,15 +53,15 @@ exports._getUserById = (req, res, next) => {
     const id = req.params.id;
     console.log(id);
     getUserById(id, (err, results) => {
-        if(err){
-         showError(500, res, err);
+        if (err) {
+            helpers._showError(500, res, err);
         }
-        else{
-            if(results){
-                showSingleUsers(200, res, "User found", results);
+        else {
+            if (results && results.length > 0) {
+                helpers._showSingleUsers(200, res, "User found", results);
             }
-            else{
-                showError(404, res, "This user was not found");
+            else {
+                helpers._showError(404, res, "This user was not found");
             }
         }
     });
@@ -70,15 +71,15 @@ exports._getUserById = (req, res, next) => {
 exports._getUsers = (req, res, next) => {
     const data = req.body;
     getUsers(data, (err, results) => {
-        if(err){
-         showError(500, res, err);
+        if (err) {
+            helpers._showError(500, res, err);
         }
-        else{
-            if(results){
-                showAllUsers(200, res, "Users found", results);
+        else {
+            if (results) {
+                helpers._showAllUsers(200, res, "Users found", results);
             }
-            else{
-                showError(404, res, "Users not found");
+            else {
+                helpers._showError(404, res, "Users not found");
             }
         }
     });
@@ -91,32 +92,31 @@ exports._updateUser = (req, res, next) => {
 
     checkExisitingUser(id, data, (err, results) => {
         if (err) {
-            showError(500, res, err);
+            helpers._showError(500, res, err);
         }
         else {
             if (results && results.length > 0) {
 
                 updateUser(id, data, (err, results) => {
                     if (err) {
-                        showError(500, res, err);
+                        helpers._showError(500, res, err);
                     }
                     else {
                         if (results) {
-                            showSuccess(201, res, "Users updated successfully", results);
+                            helpers._showSuccess(201, res, "Users updated successfully", results);
                         }
                         else {
-                            showError(304, res, "Something went wrong");
+                            helpers._showError(304, res, "Something went wrong");
                         }
                     }
                 });
             }
             else {
-                showError(404, res, "User cannot be found");
+                helpers._showError(404, res, "User cannot be found");
             }
         }
     });
 }
-
 
 
 exports._deleteUser = (req, res, next) => {
@@ -125,26 +125,26 @@ exports._deleteUser = (req, res, next) => {
 
     checkExisitingUser(id, data, (err, results) => {
         if (err) {
-            showError(500, res, err);
+            helpers._showError(500, res, err);
         }
         else {
             if (results && results.length > 0) {
                 deleteUser(id, (err, results) => {
                     if (err) {
-                        showError(500, res, err);
+                        helpers._showError(500, res, err);
                     }
                     else {
                         if (results) {
-                            showSuccess(200, res, "User deleted successfully", results);
+                            helpers._showSuccess(200, res, "User deleted successfully", results);
                         }
                         else {
-                            showError(501, res, "Something went wrong " + err);
+                            helpers._showError(501, res, "Something went wrong " + err);
                         }
                     }
                 });
             }
             else {
-                showError(404, res, "User cannot be found");
+                helpers._showError(404, res, "User cannot be found");
             }
         }
     });
@@ -155,25 +155,26 @@ exports._loginUser = (req, res, next) => {
     const data = req.body;
     loginUser(data, (err, results) => {
         if (err) {
-            showError(500, res, err);
+            helpers._showError(500, res, err);
         }
         else {
             if (results) {
                 const pass = bcrypt.compareSync(data.Password, results.Password);
                 if (pass) {
                     const token = jwt.sign(
-                        { 
-                            userid : results.UserId, 
-                        email : results.Email 
-                    }, process.env.JWT_KEY, { expiresIn: "1h" });
-                    showSuccess(200, res, "Login successfully", null, token);
+                        {
+                            userid: results.UserId,
+                            email: results.Email
+                        }, process.env.JWT_KEY, { expiresIn: "1h" });
+
+                    helpers._showSuccess(200, res, "Login successfully", null, token);
                 }
                 else {
-                    showError(406, res, "Wrong password");
+                    helpers._showError(406, res, "Wrong password");
                 }
             }
             else {
-                showError(404, res, "Email not found");
+                helpers._showError(404, res, "Email not found");
             }
         }
     });
@@ -185,7 +186,7 @@ exports._changePassword = (req, res, next) => {
     const data = req.body;
     loginUser(data, (err, results) => {
         if (err) {
-            showError(500, res, err);
+            helpers._showError(500, res, err);
         }
         else {
             if (results) {
@@ -194,7 +195,7 @@ exports._changePassword = (req, res, next) => {
 
                 if (pass) {
 
-                    const checkPass = checkPassword(data.NewPassword);
+                    const checkPass = helpers._checkPassword(data.NewPassword);
 
                     if (checkPass) {
 
@@ -203,106 +204,24 @@ exports._changePassword = (req, res, next) => {
 
                         changePassword(id, data, (errs, response) => {
                             if (errs) {
-                                showError(500, res, errs);
+                                helpers._showError(500, res, errs);
                             }
                             else {
-                                showSuccess(201, res, "Password updated successfully", response, null);
+                                helpers._showSuccess(201, res, "Password updated successfully", response, null);
                             }
                         });
                     }
                     else {
-                        showError(400, res, "New password must be more than 7 characters");
+                        helpers._showError(400, res, "New password must be more than 7 characters");
                     }
                 }
                 else {
-                    showError(406, res, "Wrong old password");
+                    helpers._showError(406, res, "Wrong old password");
                 }
             }
             else {
-                showError(404, res, "User not found");
+                helpers._showError(404, res, "User not found");
             }
         }
     });
 }
-
-
-
-
-    function showError(code, res, err){
-        return res.status(code).json({
-            success : false,
-            messgae : "Error : " + err
-        });
-    }
-
-
-    function showSuccess(code, res, msg, response = null, token = null){
-        return res.status(code).json({
-            success : true,
-            messgae : "Success : " + msg,
-            results: response,
-            token : token
-        });
-    }
-
-
-    function showAllUsers(code, res, msg, response){
-        return res.status(code).json({
-            success : true,
-            messgae : "Success : " + msg,
-            results : response.map(x => {
-                return {
-                    UserId: x.UserId,
-                    Firstname: x.FirstName,
-                    Email : x.Email,
-                    ViewRecord : {
-                        type : "GET",
-                        link : "http://localhost:4000/api/users/view/"+ x.UserId,
-                    },
-                    EditRecord : {
-                        type : "PUT",
-                        link : "http://localhost:4000/api/users/edit/"+ x.UserId,
-                    },
-                    DeleteRecord : {
-                        type : "DELETE",
-                        link : "http://localhost:4000/api/users/delete/"+ x.UserId
-                    }
-                }
-            })
-        });
-    }
-
-
-    function showSingleUsers(code, res, msg, response){
-        return res.status(code).json({
-            success : true,
-            messgae : "Success : " + msg,
-            results : response.map(x => {
-                return {
-                    UserId : x.UserId,
-                    Email : x.Email,
-                    FirstName : x.FirstName,
-                    LastName: x.LastName,
-                    Phone: x.Phone,
-                    Gender: x.Gender,
-                    Image : x.ImgUrl,
-                    CreatedAt : x.CreatedAt,
-                    UpdatedAt: x.UpdatedAt,
-                    EditRecord : {
-                        type : "PUT",
-                        link : "http://localhost:4000/api/users/edit/"+ x.UserId,
-                    },
-                    DeleteRecord : {
-                        type : "DELETE",
-                        link : "http://localhost:4000/api/users/delete/"+ x.UserId
-                    }
-                }
-            })
-        });
-    }
-
-
-
-    function checkPassword(password){
-         return password.length < 8 ? false : true;
-    }
