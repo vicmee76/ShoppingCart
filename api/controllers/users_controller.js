@@ -1,5 +1,16 @@
 const bcrypt = require("bcrypt");
-const { saveUser, checkExisitingUser, getUserById, getUsers, updateUser, deleteUser } = require("../services/users_services.js");
+const jwt = require("jsonwebtoken");
+const {
+    saveUser,
+    checkExisitingUser,
+    getUserById,
+    getUsers,
+    updateUser,
+    deleteUser,
+    loginUser,
+    changePassword } = require("../services/users_services.js");
+
+
 
 exports._createUser = (req, res, next) => {
         const data = req.body;
@@ -10,13 +21,13 @@ exports._createUser = (req, res, next) => {
             }
             else{
                if(results && results.length > 0){
-                  showError(500, res, "User already exits");
+                  showError(409, res, "User already exits");
                }
                else {
                 const pass = checkPassword(data.Password);
 
                 if(!pass){
-                    showError(500, res, "Password must be more than 7 characters");
+                    showError(406, res, "Password must be more than 7 characters");
                 }
                 else{
                 const hash = bcrypt.hashSync(data.Password, 10);
@@ -49,11 +60,12 @@ exports._getUserById = (req, res, next) => {
                 showSingleUsers(200, res, "User found", results);
             }
             else{
-                showError(500, res, "This user was not found");
+                showError(404, res, "This user was not found");
             }
         }
     });
 }
+
 
 exports._getUsers = (req, res, next) => {
     const data = req.body;
@@ -66,7 +78,7 @@ exports._getUsers = (req, res, next) => {
                 showAllUsers(200, res, "Users found", results);
             }
             else{
-                showError(500, res, "This user was not found");
+                showError(404, res, "Users not found");
             }
         }
     });
@@ -93,31 +105,121 @@ exports._updateUser = (req, res, next) => {
                             showSuccess(201, res, "Users updated successfully", results);
                         }
                         else {
-                            showError(500, res, "This user was not found");
+                            showError(304, res, "Something went wrong");
                         }
                     }
                 });
             }
             else {
-                showError(500, res, "User cannot be found");
+                showError(404, res, "User cannot be found");
             }
         }
     });
 }
 
 
+
 exports._deleteUser = (req, res, next) => {
     const id = req.params.id;
-    deleteUser(id, (err, results) => {
+    const data = req.body;
+
+    checkExisitingUser(id, data, (err, results) => {
+        if (err) {
+            showError(500, res, err);
+        }
+        else {
+            if (results && results.length > 0) {
+                deleteUser(id, (err, results) => {
+                    if (err) {
+                        showError(500, res, err);
+                    }
+                    else {
+                        if (results) {
+                            showSuccess(200, res, "User deleted successfully", results);
+                        }
+                        else {
+                            showError(501, res, "Something went wrong " + err);
+                        }
+                    }
+                });
+            }
+            else {
+                showError(404, res, "User cannot be found");
+            }
+        }
+    });
+}
+
+
+exports._loginUser = (req, res, next) => {
+    const data = req.body;
+    loginUser(data, (err, results) => {
         if (err) {
             showError(500, res, err);
         }
         else {
             if (results) {
-                showSuccess(200, res, "User deleted successfully", results);
+                const pass = bcrypt.compareSync(data.Password, results.Password);
+                if (pass) {
+                    const token = jwt.sign(
+                        { 
+                            userid : results.UserId, 
+                        email : results.Email 
+                    }, process.env.JWT_KEY, { expiresIn: "1h" });
+                    showSuccess(200, res, "Login successfully", null, token);
+                }
+                else {
+                    showError(406, res, "Wrong password");
+                }
             }
             else {
-                showError(500, res, "This user was not found");
+                showError(404, res, "Email not found");
+            }
+        }
+    });
+}
+
+
+exports._changePassword = (req, res, next) => {
+    const id = req.params.id;
+    const data = req.body;
+    loginUser(data, (err, results) => {
+        if (err) {
+            showError(500, res, err);
+        }
+        else {
+            if (results) {
+
+                const pass = bcrypt.compareSync(data.OldPassword, results.Password);
+
+                if (pass) {
+
+                    const checkPass = checkPassword(data.NewPassword);
+
+                    if (checkPass) {
+
+                        const hash = bcrypt.hashSync(data.NewPassword, 10);
+                        data.NewPassword = hash;
+
+                        changePassword(id, data, (errs, response) => {
+                            if (errs) {
+                                showError(500, res, errs);
+                            }
+                            else {
+                                showSuccess(201, res, "Password updated successfully", response, null);
+                            }
+                        });
+                    }
+                    else {
+                        showError(400, res, "New password must be more than 7 characters");
+                    }
+                }
+                else {
+                    showError(406, res, "Wrong old password");
+                }
+            }
+            else {
+                showError(404, res, "User not found");
             }
         }
     });
@@ -134,11 +236,12 @@ exports._deleteUser = (req, res, next) => {
     }
 
 
-    function showSuccess(code, res, msg, response){
+    function showSuccess(code, res, msg, response = null, token = null){
         return res.status(code).json({
-            success : false,
+            success : true,
             messgae : "Success : " + msg,
-            results : response
+            results: response,
+            token : token
         });
     }
 

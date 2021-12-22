@@ -32,6 +32,9 @@
     <Content Include="api\routes\users_route.js" />
     <Content Include="api\services\users_services.js" />
     <Content Include="app.js" />
+    <Content Include="auth\validateToken.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="config\database.js" />
     <Content Include="package.json" />
     <Content Include="README.md" />
@@ -42,6 +45,7 @@
     <Folder Include="api\routes\" />
     <Folder Include="api\services\" />
     <Folder Include="config\" />
+    <Folder Include="auth\" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsToolsV2.targets" />
 </Project>

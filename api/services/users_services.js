@@ -1,10 +1,12 @@
 const pool = require("../../config/database.js");
 
 function getCallBack(callBack, err, result){
-    if(err){
-        return callBack(error);
+    if (err) {
+        return callBack(err);
     }
-    return callBack(null, result);
+    else {
+        return callBack(null, result);
+    }
 }
 
 module.exports = {
@@ -25,7 +27,8 @@ module.exports = {
         );
     },
 
-    checkExisitingUser : (id = null, data, callBack) => {
+
+    checkExisitingUser: (id = null, data = null, callBack) => {
         pool.query("SELECT Email FROM users WHERE Email=? OR UserId=?",
         [
             data.Email,
@@ -36,6 +39,7 @@ module.exports = {
         }
         );
     },
+
 
     getUserById : (id, callBack) => {
         pool.query("SELECT UserId, Email, FirstName, LastName, CreatedAt, Gender, Phone, ImgUrl, UpdatedAt FROM users WHERE UserId = ?",
@@ -48,6 +52,7 @@ module.exports = {
         );
     },
 
+
     getUsers : (data, callBack) => {
         pool.query("SELECT UserId, Email, FirstName FROM users",
         [
@@ -57,6 +62,7 @@ module.exports = {
         }
         );
     },
+
 
     updateUser : (id, data, callBack) => {
         pool.query("UPDATE users SET firstname=?, lastname=?, email=?, gender=?, phone=?, imgurl=? WHERE userid=?",
@@ -71,9 +77,23 @@ module.exports = {
         ],
         (error, result) => {
             getCallBack(callBack, error, result);
-        }
-        );
+        });
     },
+
+
+
+    changePassword : (id, data, callBack) => {
+        pool.query("UPDATE users SET Password=? WHERE userid=?",
+        [
+            data.NewPassword,
+            id
+        ],
+        (error, result) => {
+            getCallBack(callBack, error, result);
+        });
+    },
+
+
 
     deleteUser: (id, callBack) => {
         pool.query("DELETE FROM users WHERE userid=?",
@@ -82,6 +102,18 @@ module.exports = {
             ],
             (error, result) => {
                 getCallBack(callBack, error, result);
+            }
+        );
+    },
+
+
+    loginUser: (data, callBack) => {
+        pool.query("SELECT Email, UserId, Password FROM users WHERE email=?",
+            [
+                data.Email
+            ],
+            (error, result) => {
+                getCallBack(callBack, error, result[0]);
             }
         );
     },
