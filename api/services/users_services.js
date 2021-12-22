@@ -1,10 +1,12 @@
 const pool = require("../../config/database.js");
 
 function getCallBack(callBack, err, result){
-    if(err){
+    if (err) {
         return callBack(error);
     }
-    return callBack(null, result);
+    else {
+        return callBack(null, result);
+    }
 }
 
 module.exports = {
@@ -81,7 +83,6 @@ module.exports = {
 
 
     changePassword : (id, data, callBack) => {
-
         pool.query("UPDATE users SET Password=? WHERE userid=?",
         [
             data.NewPassword,
