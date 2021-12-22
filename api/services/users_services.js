@@ -9,12 +9,15 @@ function getCallBack(callBack, err, result){
 
 module.exports = {
     saveUser : (data, callBack) => {
-        pool.query("INSERT INTO users(FirstName, LastName, Email, Password) values(?,?,?,?)",
+        pool.query("INSERT INTO users(FirstName, LastName, Email, Password, Gender, Phone, ImgUrl) values(?,?,?,?,?,?,?)",
         [
             data.FirstName,
             data.LastName,
             data.Email,
-            data.Password
+            data.Password,
+            data.Gender,
+            data.Phone,
+            data.ImgUrl,
         ],
         (error, result) => {
             getCallBack(callBack, error, result);
@@ -45,7 +48,7 @@ module.exports = {
     },
 
     getUsers : (data, callBack) => {
-        pool.query("SELECT UserId, Email, FirstName, LastName, CreatedAt FROM users",
+        pool.query("SELECT UserId, Email FROM users",
         [
         ],
         (error, result) => {
@@ -55,16 +58,30 @@ module.exports = {
     },
 
     updateUser : (id, data, callBack) => {
-        pool.query("UPDATE users SET firstname=?, lastname=?, email=? WHERE userid=?",
+        pool.query("UPDATE users SET firstname=?, lastname=?, email=?, gender=?, phone=?, imgurl=? WHERE userid=?",
         [
             data.FirstName,
             data.LastName,
             data.Email,
+            data.Gender,
+            data.Phone,
+            data.ImgUrl,
             id
         ],
         (error, result) => {
             getCallBack(callBack, error, result);
         }
+        );
+    },
+
+    deleteUser: (id, callBack) => {
+        pool.query("DELETE FROM WHERE userid=?",
+            [
+                id
+            ],
+            (error, result) => {
+                getCallBack(callBack, error, result);
+            }
         );
     },
 };
