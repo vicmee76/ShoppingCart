@@ -110,8 +110,7 @@ exports._updateCategory = (req, res, next) => {
 exports._deleteCategory = (req, res, next) => {
 
     const id = req.params.id;
-    const data = req.body;
-
+    
     getCategoriesById(id, (err, results) => {
         if (err) {
             helpers._showError(500, res, err);
