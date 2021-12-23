@@ -16,6 +16,261 @@
     }
   ],
   "paths": {
+    "/api/users": {
+      "parameters": [],
+      "post": {
+        "summary": "Create New Users",
+        "operationId": "post-user-api",
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "x-examples": {
+                    "example-1": {
+                      "success": true,
+                      "messgae": "Success : User created successfully",
+                      "results": {
+                        "fieldCount": 0,
+                        "affectedRows": 1,
+                        "insertId": 13,
+                        "info": "",
+                        "serverStatus": 2,
+                        "warningStatus": 0
+                      },
+                      "token": null
+                    }
+                  },
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "messgae": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "results": {
+                      "type": "object",
+                      "required": [
+                        "fieldCount",
+                        "affectedRows",
+                        "insertId",
+                        "info",
+                        "serverStatus",
+                        "warningStatus"
+                      ],
+                      "properties": {
+                        "fieldCount": {
+                          "type": "number"
+                        },
+                        "affectedRows": {
+                          "type": "number"
+                        },
+                        "insertId": {
+                          "type": "number",
+                          "description": "Id of the user created"
+                        },
+                        "info": {
+                          "type": "string"
+                        },
+                        "serverStatus": {
+                          "type": "number"
+                        },
+                        "warningStatus": {
+                          "type": "number"
+                        }
+                      }
+                    },
+                    "token": {}
+                  },
+                  "required": [
+                    "success",
+                    "messgae",
+                    "results"
+                  ]
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": true,
+                      "messgae": "Success : User created successfully",
+                      "results": {
+                        "fieldCount": 0,
+                        "affectedRows": 1,
+                        "insertId": 13,
+                        "info": "",
+                        "serverStatus": 2,
+                        "warningStatus": 0
+                      },
+                      "token": null
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "messgae": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "messgae"
+                  ],
+                  "x-examples": {
+                    "example-1": {
+                      "success": false,
+                      "messgae": "Error : Password must be more than 7 characters"
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": false,
+                      "messgae": "Error : Password must be more than 7 characters"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "messgae": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "messgae"
+                  ],
+                  "x-examples": {
+                    "example-1": {
+                      "success": false,
+                      "messgae": "Error : Already exits"
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": false,
+                      "messgae": "Error : User already exits"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        },
+        "description": "This end-point creates new users to the database",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "description": "",
+                "type": "object",
+                "properties": {
+                  "FirstName": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "LastName": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "Email": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "Phone": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "Gender": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "Password": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "ImgUrl": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "FirstName",
+                  "LastName",
+                  "Email",
+                  "Phone",
+                  "Gender",
+                  "Password",
+                  "ImgUrl"
+                ],
+                "x-examples": {
+                  "example-1": {
+                    "FirstName": "Ebenezer",
+                    "LastName": "Nwogu",
+                    "Email": "vicmee76@hotmail.com",
+                    "Phone": "09087654321",
+                    "Gender": "M",
+                    "Password": "Ebenezer1*",
+                    "ImgUrl": "https://1.bp.blogspot.com/-Q45319SNgB8/YSo43rh_adI/AAAAAAAAWJ4/YP-0r8bhIG0Gmmw5KfpKmoJL6PagyPqyQCLcBGAsYHQ/s0/cute-dp-images-cute-profile-pictures%2B%25281%2529.jpg"
+                  }
+                }
+              },
+              "examples": {
+                "example-1": {
+                  "value": {
+                    "FirstName": "Ebenezer",
+                    "LastName": "Nwogu",
+                    "Email": "vicmee76@hotmail.com",
+                    "Phone": "09087654321",
+                    "Gender": "M",
+                    "Password": "Ebenezer1*",
+                    "ImgUrl": "https://1.bp.blogspot.com/-Q45319SNgB8/YSo43rh_adI/AAAAAAAAWJ4/YP-0r8bhIG0Gmmw5KfpKmoJL6PagyPqyQCLcBGAsYHQ/s0/cute-dp-images-cute-profile-pictures%2B%25281%2529.jpg"
+                  }
+                }
+              }
+            }
+          },
+          "description": "Please see example of the body to be passed"
+        },
+        "x-internal": false
+      }
+    },
     "/api/users/all": {
       "get": {
         "summary": "Get All Users",
@@ -485,261 +740,6 @@
           "description": "Id for the user to be fetch"
         }
       ]
-    },
-    "/api/users": {
-      "parameters": [],
-      "post": {
-        "summary": "Create New Users",
-        "operationId": "post-user-api",
-        "responses": {
-          "201": {
-            "description": "Created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "description": "",
-                  "type": "object",
-                  "x-examples": {
-                    "example-1": {
-                      "success": true,
-                      "messgae": "Success : User created successfully",
-                      "results": {
-                        "fieldCount": 0,
-                        "affectedRows": 1,
-                        "insertId": 13,
-                        "info": "",
-                        "serverStatus": 2,
-                        "warningStatus": 0
-                      },
-                      "token": null
-                    }
-                  },
-                  "properties": {
-                    "success": {
-                      "type": "boolean"
-                    },
-                    "messgae": {
-                      "type": "string",
-                      "minLength": 1
-                    },
-                    "results": {
-                      "type": "object",
-                      "required": [
-                        "fieldCount",
-                        "affectedRows",
-                        "insertId",
-                        "info",
-                        "serverStatus",
-                        "warningStatus"
-                      ],
-                      "properties": {
-                        "fieldCount": {
-                          "type": "number"
-                        },
-                        "affectedRows": {
-                          "type": "number"
-                        },
-                        "insertId": {
-                          "type": "number",
-                          "description": "Id of the user created"
-                        },
-                        "info": {
-                          "type": "string"
-                        },
-                        "serverStatus": {
-                          "type": "number"
-                        },
-                        "warningStatus": {
-                          "type": "number"
-                        }
-                      }
-                    },
-                    "token": {}
-                  },
-                  "required": [
-                    "success",
-                    "messgae",
-                    "results"
-                  ]
-                },
-                "examples": {
-                  "example-1": {
-                    "value": {
-                      "success": true,
-                      "messgae": "Success : User created successfully",
-                      "results": {
-                        "fieldCount": 0,
-                        "affectedRows": 1,
-                        "insertId": 13,
-                        "info": "",
-                        "serverStatus": 2,
-                        "warningStatus": 0
-                      },
-                      "token": null
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "406": {
-            "description": "Not Acceptable",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "description": "",
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean"
-                    },
-                    "messgae": {
-                      "type": "string",
-                      "minLength": 1
-                    }
-                  },
-                  "required": [
-                    "success",
-                    "messgae"
-                  ],
-                  "x-examples": {
-                    "example-1": {
-                      "success": false,
-                      "messgae": "Error : Password must be more than 7 characters"
-                    }
-                  }
-                },
-                "examples": {
-                  "example-1": {
-                    "value": {
-                      "success": false,
-                      "messgae": "Error : Password must be more than 7 characters"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "Conflict",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "description": "",
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean"
-                    },
-                    "messgae": {
-                      "type": "string",
-                      "minLength": 1
-                    }
-                  },
-                  "required": [
-                    "success",
-                    "messgae"
-                  ],
-                  "x-examples": {
-                    "example-1": {
-                      "success": false,
-                      "messgae": "Error : Already exits"
-                    }
-                  }
-                },
-                "examples": {
-                  "example-1": {
-                    "value": {
-                      "success": false,
-                      "messgae": "Error : User already exits"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "500": {
-            "$ref": "#/components/responses/500"
-          }
-        },
-        "description": "This end-point creates new users to the database",
-        "parameters": [],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "description": "",
-                "type": "object",
-                "properties": {
-                  "FirstName": {
-                    "type": "string",
-                    "minLength": 1
-                  },
-                  "LastName": {
-                    "type": "string",
-                    "minLength": 1
-                  },
-                  "Email": {
-                    "type": "string",
-                    "minLength": 1
-                  },
-                  "Phone": {
-                    "type": "string",
-                    "minLength": 1
-                  },
-                  "Gender": {
-                    "type": "string",
-                    "minLength": 1
-                  },
-                  "Password": {
-                    "type": "string",
-                    "minLength": 1
-                  },
-                  "ImgUrl": {
-                    "type": "string",
-                    "minLength": 1
-                  }
-                },
-                "required": [
-                  "FirstName",
-                  "LastName",
-                  "Email",
-                  "Phone",
-                  "Gender",
-                  "Password",
-                  "ImgUrl"
-                ],
-                "x-examples": {
-                  "example-1": {
-                    "FirstName": "Ebenezer",
-                    "LastName": "Nwogu",
-                    "Email": "vicmee76@hotmail.com",
-                    "Phone": "09087654321",
-                    "Gender": "M",
-                    "Password": "Ebenezer1*",
-                    "ImgUrl": "https://1.bp.blogspot.com/-Q45319SNgB8/YSo43rh_adI/AAAAAAAAWJ4/YP-0r8bhIG0Gmmw5KfpKmoJL6PagyPqyQCLcBGAsYHQ/s0/cute-dp-images-cute-profile-pictures%2B%25281%2529.jpg"
-                  }
-                }
-              },
-              "examples": {
-                "example-1": {
-                  "value": {
-                    "FirstName": "Ebenezer",
-                    "LastName": "Nwogu",
-                    "Email": "vicmee76@hotmail.com",
-                    "Phone": "09087654321",
-                    "Gender": "M",
-                    "Password": "Ebenezer1*",
-                    "ImgUrl": "https://1.bp.blogspot.com/-Q45319SNgB8/YSo43rh_adI/AAAAAAAAWJ4/YP-0r8bhIG0Gmmw5KfpKmoJL6PagyPqyQCLcBGAsYHQ/s0/cute-dp-images-cute-profile-pictures%2B%25281%2529.jpg"
-                  }
-                }
-              }
-            }
-          },
-          "description": "Please see example of the body to be passed"
-        },
-        "x-internal": false
-      }
     },
     "/api/users/login": {
       "parameters": [],
@@ -2156,6 +2156,229 @@
           "in": "path",
           "required": true,
           "description": "The id of the category to view"
+        }
+      ]
+    },
+    "/api/category/edit/{id}": {
+      "put": {
+        "summary": "Edit Category",
+        "operationId": "put-api-category-edit",
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "messgae": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "results": {
+                      "type": "object",
+                      "properties": {
+                        "fieldCount": {
+                          "type": "number"
+                        },
+                        "affectedRows": {
+                          "type": "number"
+                        },
+                        "insertId": {
+                          "type": "number"
+                        },
+                        "info": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "serverStatus": {
+                          "type": "number"
+                        },
+                        "warningStatus": {
+                          "type": "number"
+                        },
+                        "changedRows": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "fieldCount",
+                        "affectedRows",
+                        "insertId",
+                        "info",
+                        "serverStatus",
+                        "warningStatus",
+                        "changedRows"
+                      ]
+                    },
+                    "token": {}
+                  },
+                  "required": [
+                    "success",
+                    "messgae",
+                    "results"
+                  ],
+                  "x-examples": {
+                    "example-1": {
+                      "success": true,
+                      "messgae": "Success : Category updated successfully",
+                      "results": {
+                        "fieldCount": 0,
+                        "affectedRows": 1,
+                        "insertId": 0,
+                        "info": "Rows matched: 1  Changed: 1  Warnings: 0",
+                        "serverStatus": 2,
+                        "warningStatus": 0,
+                        "changedRows": 1
+                      },
+                      "token": null
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": true,
+                      "messgae": "Success : Category updated successfully",
+                      "results": {
+                        "fieldCount": 0,
+                        "affectedRows": 1,
+                        "insertId": 0,
+                        "info": "Rows matched: 1  Changed: 1  Warnings: 0",
+                        "serverStatus": 2,
+                        "warningStatus": 0,
+                        "changedRows": 1
+                      },
+                      "token": null
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "304": {
+            "description": "Not Modified",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "messgae": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "messgae"
+                  ],
+                  "x-examples": {
+                    "example-1": {
+                      "success": false,
+                      "messgae": "Invalid token"
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": false,
+                      "messgae": "Not modified, something went wrong"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        },
+        "description": "This endpoint updates deatils of a particular category",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "Authorization ",
+            "description": "Bearer {token}",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "description": "",
+                "type": "object",
+                "properties": {
+                  "CategoryName": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "CategoryDescription": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "CategoryImage": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "CategoryName",
+                  "CategoryDescription",
+                  "CategoryImage"
+                ],
+                "x-examples": {
+                  "example-1": {
+                    "CategoryName": "Music",
+                    "CategoryDescription": "They want to be able to see exactly what your product looks like.",
+                    "CategoryImage": "https://1.bp.blogspot.com/-Q45319SNgB8/YSo43rh_adI/AAAAAAAAWJ4/YP-0r8bhIG0Gmmw5KfpKmoJL6PagyPqyQCLcBGAsYHQ/s0/cute-dp-images-cute-profile-pictures%2B%25281%2529.jpg"
+                  }
+                }
+              },
+              "examples": {
+                "example-1": {
+                  "value": {
+                    "CategoryName": "Music",
+                    "CategoryDescription": "They want to be able to see exactly what your product looks like.",
+                    "CategoryImage": "https://1.bp.blogspot.com/-Q45319SNgB8/YSo43rh_adI/AAAAAAAAWJ4/YP-0r8bhIG0Gmmw5KfpKmoJL6PagyPqyQCLcBGAsYHQ/s0/cute-dp-images-cute-profile-pictures%2B%25281%2529.jpg"
+                  }
+                }
+              }
+            }
+          },
+          "description": "Please see example payload of request body to pass"
+        }
+      },
+      "parameters": [
+        {
+          "schema": {
+            "type": "number"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "id of the category that needs to be updated"
         }
       ]
     }
