@@ -1688,6 +1688,283 @@
           "description": "Example of the request body to be passed"
         }
       }
+    },
+    "/api/category/all": {
+      "get": {
+        "summary": "Get All Category",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "messgae": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "results": {
+                      "type": "array",
+                      "uniqueItems": true,
+                      "minItems": 1,
+                      "items": {
+                        "required": [
+                          "CategoryId",
+                          "CategoryName",
+                          "ProductCount"
+                        ],
+                        "properties": {
+                          "CategoryId": {
+                            "type": "number"
+                          },
+                          "CategoryName": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "ProductCount": {
+                            "type": "number"
+                          },
+                          "ViewRecord": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "link": {
+                                "type": "string",
+                                "minLength": 1
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "link"
+                            ]
+                          },
+                          "ViewProducts": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "link": {
+                                "type": "string",
+                                "minLength": 1
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "link"
+                            ]
+                          },
+                          "EditRecord": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "link": {
+                                "type": "string",
+                                "minLength": 1
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "link"
+                            ]
+                          },
+                          "DeleteRecord": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "link": {
+                                "type": "string",
+                                "minLength": 1
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "link"
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "messgae",
+                    "results"
+                  ],
+                  "x-examples": {
+                    "example-1": {
+                      "success": true,
+                      "messgae": "Success : Catgories found",
+                      "results": [
+                        {
+                          "CategoryId": 3,
+                          "CategoryName": "CLOTHING",
+                          "ProductCount": 0,
+                          "ViewRecord": {
+                            "type": "GET",
+                            "link": "http://localhost:4000/api/category/view/3"
+                          },
+                          "ViewProducts": {
+                            "type": "GET",
+                            "link": "http://localhost:4000/api/category/products/3"
+                          },
+                          "EditRecord": {
+                            "type": "PUT",
+                            "link": "http://localhost:4000/api/category/edit/3"
+                          },
+                          "DeleteRecord": {
+                            "type": "DELETE",
+                            "link": "http://localhost:4000/api/category/delete/3"
+                          }
+                        },
+                        {
+                          "CategoryId": 4,
+                          "CategoryName": "FOOD",
+                          "ProductCount": 0,
+                          "ViewRecord": {
+                            "type": "GET",
+                            "link": "http://localhost:4000/api/category/view/4"
+                          },
+                          "ViewProducts": {
+                            "type": "GET",
+                            "link": "http://localhost:4000/api/category/products/4"
+                          },
+                          "EditRecord": {
+                            "type": "PUT",
+                            "link": "http://localhost:4000/api/category/edit/4"
+                          },
+                          "DeleteRecord": {
+                            "type": "DELETE",
+                            "link": "http://localhost:4000/api/category/delete/4"
+                          }
+                        },
+                        {
+                          "CategoryId": 5,
+                          "CategoryName": "MUSIC",
+                          "ProductCount": 0,
+                          "ViewRecord": {
+                            "type": "GET",
+                            "link": "http://localhost:4000/api/category/view/5"
+                          },
+                          "ViewProducts": {
+                            "type": "GET",
+                            "link": "http://localhost:4000/api/category/products/5"
+                          },
+                          "EditRecord": {
+                            "type": "PUT",
+                            "link": "http://localhost:4000/api/category/edit/5"
+                          },
+                          "DeleteRecord": {
+                            "type": "DELETE",
+                            "link": "http://localhost:4000/api/category/delete/5"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": true,
+                      "messgae": "Success : Catgories found",
+                      "results": [
+                        {
+                          "CategoryId": 3,
+                          "CategoryName": "CLOTHING",
+                          "ProductCount": 0,
+                          "ViewRecord": {
+                            "type": "GET",
+                            "link": "http://localhost:4000/api/category/view/3"
+                          },
+                          "ViewProducts": {
+                            "type": "GET",
+                            "link": "http://localhost:4000/api/category/products/3"
+                          },
+                          "EditRecord": {
+                            "type": "PUT",
+                            "link": "http://localhost:4000/api/category/edit/3"
+                          },
+                          "DeleteRecord": {
+                            "type": "DELETE",
+                            "link": "http://localhost:4000/api/category/delete/3"
+                          }
+                        },
+                        {
+                          "CategoryId": 4,
+                          "CategoryName": "FOOD",
+                          "ProductCount": 0,
+                          "ViewRecord": {
+                            "type": "GET",
+                            "link": "http://localhost:4000/api/category/view/4"
+                          },
+                          "ViewProducts": {
+                            "type": "GET",
+                            "link": "http://localhost:4000/api/category/products/4"
+                          },
+                          "EditRecord": {
+                            "type": "PUT",
+                            "link": "http://localhost:4000/api/category/edit/4"
+                          },
+                          "DeleteRecord": {
+                            "type": "DELETE",
+                            "link": "http://localhost:4000/api/category/delete/4"
+                          }
+                        },
+                        {
+                          "CategoryId": 5,
+                          "CategoryName": "MUSIC",
+                          "ProductCount": 0,
+                          "ViewRecord": {
+                            "type": "GET",
+                            "link": "http://localhost:4000/api/category/view/5"
+                          },
+                          "ViewProducts": {
+                            "type": "GET",
+                            "link": "http://localhost:4000/api/category/products/5"
+                          },
+                          "EditRecord": {
+                            "type": "PUT",
+                            "link": "http://localhost:4000/api/category/edit/5"
+                          },
+                          "DeleteRecord": {
+                            "type": "DELETE",
+                            "link": "http://localhost:4000/api/category/delete/5"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        },
+        "operationId": "get-api-category-all",
+        "description": "This endpoint gets all created product category including the numbers of products in that category"
+      }
     }
   },
   "components": {
