@@ -1,30 +1,22 @@
 const pool = require("../../config/database.js");
+const helpers = require("../../helpers/helpers");
 
-function getCallBack(callBack, err, result){
-    if (err) {
-        return callBack(err);
-    }
-    else {
-        return callBack(null, result);
-    }
-}
 
 module.exports = {
     saveUser : (data, callBack) => {
         pool.query("INSERT INTO users(FirstName, LastName, Email, Password, Gender, Phone, ImgUrl) values(?,?,?,?,?,?,?)",
         [
-            data.FirstName,
-            data.LastName,
+            data.FirstName.toUpperCase(),
+            data.LastName.toUpperCase(),
             data.Email,
             data.Password,
-            data.Gender,
+            data.Gender.toUpperCase(),
             data.Phone,
             data.ImgUrl,
         ],
         (error, result) => {
-            getCallBack(callBack, error, result);
-        }
-        );
+            helpers._getCallBack(callBack, error, result);
+        });
     },
 
 
@@ -35,9 +27,8 @@ module.exports = {
             id
         ],
         (error, result) => {
-            getCallBack(callBack, error, result);
-        }
-        );
+            helpers._getCallBack(callBack, error, result);
+        });
     },
 
 
@@ -47,9 +38,8 @@ module.exports = {
             id,
         ],
         (error, result) => {
-            getCallBack(callBack, error, result);
-        }
-        );
+            helpers._getCallBack(callBack, error, result);
+        });
     },
 
 
@@ -58,25 +48,24 @@ module.exports = {
         [
         ],
         (error, result) => {
-            getCallBack(callBack, error, result);
-        }
-        );
+            helpers._getCallBack(callBack, error, result);
+        });
     },
 
 
     updateUser : (id, data, callBack) => {
         pool.query("UPDATE users SET firstname=?, lastname=?, email=?, gender=?, phone=?, imgurl=? WHERE userid=?",
         [
-            data.FirstName,
-            data.LastName,
+            data.FirstName.toUpperCase(),
+            data.LastName.toUpperCase(),
             data.Email,
-            data.Gender,
+            data.Gender.toUpperCase(),
             data.Phone,
             data.ImgUrl,
             id
         ],
         (error, result) => {
-            getCallBack(callBack, error, result);
+            helpers._getCallBack(callBack, error, result);
         });
     },
 
@@ -89,7 +78,7 @@ module.exports = {
             id
         ],
         (error, result) => {
-            getCallBack(callBack, error, result);
+            helpers._getCallBack(callBack, error, result);
         });
     },
 
@@ -101,9 +90,8 @@ module.exports = {
                 id
             ],
             (error, result) => {
-                getCallBack(callBack, error, result);
-            }
-        );
+                helpers._getCallBack(callBack, error, result);
+            });
     },
 
 
@@ -113,8 +101,7 @@ module.exports = {
                 data.Email
             ],
             (error, result) => {
-                getCallBack(callBack, error, result[0]);
-            }
-        );
+                helpers._getCallBack(callBack, error, result[0]);
+            });
     },
 };
