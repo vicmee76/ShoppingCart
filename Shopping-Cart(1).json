@@ -16,6 +16,261 @@
     }
   ],
   "paths": {
+    "/api/users": {
+      "parameters": [],
+      "post": {
+        "summary": "Create New Users",
+        "operationId": "post-user-api",
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "x-examples": {
+                    "example-1": {
+                      "success": true,
+                      "messgae": "Success : User created successfully",
+                      "results": {
+                        "fieldCount": 0,
+                        "affectedRows": 1,
+                        "insertId": 13,
+                        "info": "",
+                        "serverStatus": 2,
+                        "warningStatus": 0
+                      },
+                      "token": null
+                    }
+                  },
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "messgae": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "results": {
+                      "type": "object",
+                      "required": [
+                        "fieldCount",
+                        "affectedRows",
+                        "insertId",
+                        "info",
+                        "serverStatus",
+                        "warningStatus"
+                      ],
+                      "properties": {
+                        "fieldCount": {
+                          "type": "number"
+                        },
+                        "affectedRows": {
+                          "type": "number"
+                        },
+                        "insertId": {
+                          "type": "number",
+                          "description": "Id of the user created"
+                        },
+                        "info": {
+                          "type": "string"
+                        },
+                        "serverStatus": {
+                          "type": "number"
+                        },
+                        "warningStatus": {
+                          "type": "number"
+                        }
+                      }
+                    },
+                    "token": {}
+                  },
+                  "required": [
+                    "success",
+                    "messgae",
+                    "results"
+                  ]
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": true,
+                      "messgae": "Success : User created successfully",
+                      "results": {
+                        "fieldCount": 0,
+                        "affectedRows": 1,
+                        "insertId": 13,
+                        "info": "",
+                        "serverStatus": 2,
+                        "warningStatus": 0
+                      },
+                      "token": null
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "messgae": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "messgae"
+                  ],
+                  "x-examples": {
+                    "example-1": {
+                      "success": false,
+                      "messgae": "Error : Password must be more than 7 characters"
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": false,
+                      "messgae": "Error : Password must be more than 7 characters"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "messgae": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "messgae"
+                  ],
+                  "x-examples": {
+                    "example-1": {
+                      "success": false,
+                      "messgae": "Error : Already exits"
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": false,
+                      "messgae": "Error : User already exits"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        },
+        "description": "This end-point creates new users to the database",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "description": "",
+                "type": "object",
+                "properties": {
+                  "FirstName": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "LastName": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "Email": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "Phone": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "Gender": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "Password": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "ImgUrl": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "FirstName",
+                  "LastName",
+                  "Email",
+                  "Phone",
+                  "Gender",
+                  "Password",
+                  "ImgUrl"
+                ],
+                "x-examples": {
+                  "example-1": {
+                    "FirstName": "Ebenezer",
+                    "LastName": "Nwogu",
+                    "Email": "vicmee76@hotmail.com",
+                    "Phone": "09087654321",
+                    "Gender": "M",
+                    "Password": "Ebenezer1*",
+                    "ImgUrl": "https://1.bp.blogspot.com/-Q45319SNgB8/YSo43rh_adI/AAAAAAAAWJ4/YP-0r8bhIG0Gmmw5KfpKmoJL6PagyPqyQCLcBGAsYHQ/s0/cute-dp-images-cute-profile-pictures%2B%25281%2529.jpg"
+                  }
+                }
+              },
+              "examples": {
+                "example-1": {
+                  "value": {
+                    "FirstName": "Ebenezer",
+                    "LastName": "Nwogu",
+                    "Email": "vicmee76@hotmail.com",
+                    "Phone": "09087654321",
+                    "Gender": "M",
+                    "Password": "Ebenezer1*",
+                    "ImgUrl": "https://1.bp.blogspot.com/-Q45319SNgB8/YSo43rh_adI/AAAAAAAAWJ4/YP-0r8bhIG0Gmmw5KfpKmoJL6PagyPqyQCLcBGAsYHQ/s0/cute-dp-images-cute-profile-pictures%2B%25281%2529.jpg"
+                  }
+                }
+              }
+            }
+          },
+          "description": "Please see example of the body to be passed"
+        },
+        "x-internal": false
+      }
+    },
     "/api/users/all": {
       "get": {
         "summary": "Get All Users",
@@ -486,260 +741,6 @@
         }
       ]
     },
-    "/api/users": {
-      "parameters": [],
-      "post": {
-        "summary": "Create New Users",
-        "operationId": "post-user-api",
-        "responses": {
-          "201": {
-            "description": "Created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "description": "",
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean"
-                    },
-                    "messgae": {
-                      "type": "string",
-                      "minLength": 1
-                    },
-                    "results": {
-                      "type": "object",
-                      "properties": {
-                        "fieldCount": {
-                          "type": "number"
-                        },
-                        "affectedRows": {
-                          "type": "number"
-                        },
-                        "insertId": {
-                          "type": "number"
-                        },
-                        "info": {
-                          "type": "string"
-                        },
-                        "serverStatus": {
-                          "type": "number"
-                        },
-                        "warningStatus": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "fieldCount",
-                        "affectedRows",
-                        "insertId",
-                        "info",
-                        "serverStatus",
-                        "warningStatus"
-                      ]
-                    },
-                    "token": {}
-                  },
-                  "required": [
-                    "success",
-                    "messgae",
-                    "results"
-                  ],
-                  "x-examples": {
-                    "example-1": {
-                      "success": true,
-                      "messgae": "Success : User created successfully",
-                      "results": {
-                        "fieldCount": 0,
-                        "affectedRows": 1,
-                        "insertId": 13,
-                        "info": "",
-                        "serverStatus": 2,
-                        "warningStatus": 0
-                      },
-                      "token": null
-                    }
-                  }
-                },
-                "examples": {
-                  "example-1": {
-                    "value": {
-                      "success": true,
-                      "messgae": "Success : User created successfully",
-                      "results": {
-                        "fieldCount": 0,
-                        "affectedRows": 1,
-                        "insertId": 13,
-                        "info": "",
-                        "serverStatus": 2,
-                        "warningStatus": 0
-                      },
-                      "token": null
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "406": {
-            "description": "Not Acceptable",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "description": "",
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean"
-                    },
-                    "messgae": {
-                      "type": "string",
-                      "minLength": 1
-                    }
-                  },
-                  "required": [
-                    "success",
-                    "messgae"
-                  ],
-                  "x-examples": {
-                    "example-1": {
-                      "success": false,
-                      "messgae": "Error : Password must be more than 7 characters"
-                    }
-                  }
-                },
-                "examples": {
-                  "example-1": {
-                    "value": {
-                      "success": false,
-                      "messgae": "Error : Password must be more than 7 characters"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "Conflict",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "description": "",
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean"
-                    },
-                    "messgae": {
-                      "type": "string",
-                      "minLength": 1
-                    }
-                  },
-                  "required": [
-                    "success",
-                    "messgae"
-                  ],
-                  "x-examples": {
-                    "example-1": {
-                      "success": false,
-                      "messgae": "Error : Already exits"
-                    }
-                  }
-                },
-                "examples": {
-                  "example-1": {
-                    "value": {
-                      "success": false,
-                      "messgae": "Error : User already exits"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "500": {
-            "$ref": "#/components/responses/500"
-          }
-        },
-        "description": "This end-point creates new users to the database",
-        "parameters": [],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "description": "",
-                "type": "object",
-                "properties": {
-                  "FirstName": {
-                    "type": "string",
-                    "minLength": 1
-                  },
-                  "LastName": {
-                    "type": "string",
-                    "minLength": 1
-                  },
-                  "Email": {
-                    "type": "string",
-                    "minLength": 1
-                  },
-                  "Phone": {
-                    "type": "string",
-                    "minLength": 1
-                  },
-                  "Gender": {
-                    "type": "string",
-                    "minLength": 1
-                  },
-                  "Password": {
-                    "type": "string",
-                    "minLength": 1
-                  },
-                  "ImgUrl": {
-                    "type": "string",
-                    "minLength": 1
-                  }
-                },
-                "required": [
-                  "FirstName",
-                  "LastName",
-                  "Email",
-                  "Phone",
-                  "Gender",
-                  "Password",
-                  "ImgUrl"
-                ],
-                "x-examples": {
-                  "example-1": {
-                    "FirstName": "Ebenezer",
-                    "LastName": "Nwogu",
-                    "Email": "vicmee76@hotmail.com",
-                    "Phone": "09087654321",
-                    "Gender": "M",
-                    "Password": "Ebenezer1*",
-                    "ImgUrl": "https://1.bp.blogspot.com/-Q45319SNgB8/YSo43rh_adI/AAAAAAAAWJ4/YP-0r8bhIG0Gmmw5KfpKmoJL6PagyPqyQCLcBGAsYHQ/s0/cute-dp-images-cute-profile-pictures%2B%25281%2529.jpg"
-                  }
-                }
-              },
-              "examples": {
-                "example-1": {
-                  "value": {
-                    "FirstName": "Ebenezer",
-                    "LastName": "Nwogu",
-                    "Email": "vicmee76@hotmail.com",
-                    "Phone": "09087654321",
-                    "Gender": "M",
-                    "Password": "Ebenezer1*",
-                    "ImgUrl": "https://1.bp.blogspot.com/-Q45319SNgB8/YSo43rh_adI/AAAAAAAAWJ4/YP-0r8bhIG0Gmmw5KfpKmoJL6PagyPqyQCLcBGAsYHQ/s0/cute-dp-images-cute-profile-pictures%2B%25281%2529.jpg"
-                  }
-                }
-              }
-            }
-          },
-          "description": "Please see example of the body to be passed"
-        },
-        "x-internal": false
-      }
-    },
     "/api/users/login": {
       "parameters": [],
       "post": {
@@ -753,6 +754,14 @@
                 "schema": {
                   "description": "",
                   "type": "object",
+                  "x-examples": {
+                    "example-1": {
+                      "success": true,
+                      "messgae": "Success : Login successfully",
+                      "results": null,
+                      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOjEyLCJlbWFpbCI6InZpY21lZTc2QGhvdG1haWwuY29tIiwiaWF0IjoxNjQwMTkzNzU0LCJleHAiOjE2NDAxOTczNTR9.AYHRznArJO2mUiUCB-kDL0Ls4sf5mUY2j8nASi_xHjM"
+                    }
+                  },
                   "properties": {
                     "success": {
                       "type": "boolean"
@@ -764,22 +773,15 @@
                     "results": {},
                     "token": {
                       "type": "string",
-                      "minLength": 1
+                      "minLength": 1,
+                      "description": "token for authoziation"
                     }
                   },
                   "required": [
                     "success",
                     "messgae",
                     "token"
-                  ],
-                  "x-examples": {
-                    "example-1": {
-                      "success": true,
-                      "messgae": "Success : Login successfully",
-                      "results": null,
-                      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOjEyLCJlbWFpbCI6InZpY21lZTc2QGhvdG1haWwuY29tIiwiaWF0IjoxNjQwMTkzNzU0LCJleHAiOjE2NDAxOTczNTR9.AYHRznArJO2mUiUCB-kDL0Ls4sf5mUY2j8nASi_xHjM"
-                    }
-                  }
+                  ]
                 },
                 "examples": {
                   "example-1": {
@@ -1481,6 +1483,1076 @@
           "in": "path",
           "required": true,
           "description": "Id of the user that needs to be deleted"
+        }
+      ]
+    },
+    "/api/category/": {
+      "post": {
+        "summary": "Created Category",
+        "operationId": "post-api-category",
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "x-examples": {
+                    "example-1": {
+                      "success": true,
+                      "messgae": "Success : Category created successfully",
+                      "results": {
+                        "fieldCount": 0,
+                        "affectedRows": 1,
+                        "insertId": 6,
+                        "info": "",
+                        "serverStatus": 2,
+                        "warningStatus": 0
+                      },
+                      "token": null
+                    }
+                  },
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "messgae": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "results": {
+                      "type": "object",
+                      "required": [
+                        "fieldCount",
+                        "affectedRows",
+                        "insertId",
+                        "info",
+                        "serverStatus",
+                        "warningStatus"
+                      ],
+                      "properties": {
+                        "fieldCount": {
+                          "type": "number"
+                        },
+                        "affectedRows": {
+                          "type": "number"
+                        },
+                        "insertId": {
+                          "type": "number",
+                          "description": "Id of the category created"
+                        },
+                        "info": {
+                          "type": "string"
+                        },
+                        "serverStatus": {
+                          "type": "number"
+                        },
+                        "warningStatus": {
+                          "type": "number"
+                        }
+                      }
+                    },
+                    "token": {}
+                  },
+                  "required": [
+                    "success",
+                    "messgae",
+                    "results"
+                  ]
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": true,
+                      "messgae": "Success : Category created successfully",
+                      "results": {
+                        "fieldCount": 0,
+                        "affectedRows": 1,
+                        "insertId": 6,
+                        "info": "",
+                        "serverStatus": 2,
+                        "warningStatus": 0
+                      },
+                      "token": null
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "messgae": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "messgae"
+                  ],
+                  "x-examples": {
+                    "example-1": {
+                      "success": false,
+                      "messgae": "Invalid token"
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": false,
+                      "messgae": "This category name already exits."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        },
+        "description": "This endpoint creates different category for differnt products",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "Authorization ",
+            "description": "Bearer {Token}",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "description": "",
+                "type": "object",
+                "properties": {
+                  "CategoryName": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "CategoryDescription": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "CategoryImage": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "CategoryName",
+                  "CategoryDescription",
+                  "CategoryImage"
+                ],
+                "x-examples": {
+                  "example-1": {
+                    "CategoryName": "Hands",
+                    "CategoryDescription": "They want to be able to see exactly what your product looks like, what it’s made of, the dimensions, what others think of it, and ultimately whether it meets their needs.",
+                    "CategoryImage": "https://1.bp.blogspot.com/-Q45319SNgB8/YSo43rh_adI/AAAAAAAAWJ4/YP-0r8bhIG0Gmmw5KfpKmoJL6PagyPqyQCLcBGAsYHQ/s0/cute-dp-images-cute-profile-pictures%2B%25281%2529.jpg"
+                  }
+                }
+              },
+              "examples": {
+                "example-1": {
+                  "value": {
+                    "CategoryName": "Hands",
+                    "CategoryDescription": "They want to be able to see exactly what your product looks like, what it’s made of, the dimensions, what others think of it, and ultimately whether it meets their needs.",
+                    "CategoryImage": "https://1.bp.blogspot.com/-Q45319SNgB8/YSo43rh_adI/AAAAAAAAWJ4/YP-0r8bhIG0Gmmw5KfpKmoJL6PagyPqyQCLcBGAsYHQ/s0/cute-dp-images-cute-profile-pictures%2B%25281%2529.jpg"
+                  }
+                }
+              }
+            }
+          },
+          "description": "Example of the request body to be passed"
+        }
+      }
+    },
+    "/api/category/all": {
+      "get": {
+        "summary": "Get All Category",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "x-examples": {
+                    "example-1": {
+                      "success": true,
+                      "messgae": "Success : Catgories found",
+                      "results": [
+                        {
+                          "CategoryId": 3,
+                          "CategoryName": "CLOTHING",
+                          "ProductCount": 0,
+                          "ViewRecord": {
+                            "type": "GET",
+                            "link": "http://localhost:4000/api/category/view/3"
+                          },
+                          "ViewProducts": {
+                            "type": "GET",
+                            "link": "http://localhost:4000/api/category/products/3"
+                          },
+                          "EditRecord": {
+                            "type": "PUT",
+                            "link": "http://localhost:4000/api/category/edit/3"
+                          },
+                          "DeleteRecord": {
+                            "type": "DELETE",
+                            "link": "http://localhost:4000/api/category/delete/3"
+                          }
+                        },
+                        {
+                          "CategoryId": 4,
+                          "CategoryName": "FOOD",
+                          "ProductCount": 0,
+                          "ViewRecord": {
+                            "type": "GET",
+                            "link": "http://localhost:4000/api/category/view/4"
+                          },
+                          "ViewProducts": {
+                            "type": "GET",
+                            "link": "http://localhost:4000/api/category/products/4"
+                          },
+                          "EditRecord": {
+                            "type": "PUT",
+                            "link": "http://localhost:4000/api/category/edit/4"
+                          },
+                          "DeleteRecord": {
+                            "type": "DELETE",
+                            "link": "http://localhost:4000/api/category/delete/4"
+                          }
+                        },
+                        {
+                          "CategoryId": 5,
+                          "CategoryName": "MUSIC",
+                          "ProductCount": 0,
+                          "ViewRecord": {
+                            "type": "GET",
+                            "link": "http://localhost:4000/api/category/view/5"
+                          },
+                          "ViewProducts": {
+                            "type": "GET",
+                            "link": "http://localhost:4000/api/category/products/5"
+                          },
+                          "EditRecord": {
+                            "type": "PUT",
+                            "link": "http://localhost:4000/api/category/edit/5"
+                          },
+                          "DeleteRecord": {
+                            "type": "DELETE",
+                            "link": "http://localhost:4000/api/category/delete/5"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "messgae": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "results": {
+                      "type": "array",
+                      "uniqueItems": true,
+                      "minItems": 1,
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "CategoryId": {
+                            "type": "number"
+                          },
+                          "CategoryName": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "ProductCount": {
+                            "type": "number",
+                            "description": "Displays the number of products in this category"
+                          },
+                          "ViewRecord": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "link": {
+                                "type": "string",
+                                "minLength": 1
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "link"
+                            ]
+                          },
+                          "ViewProducts": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "link": {
+                                "type": "string",
+                                "minLength": 1
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "link"
+                            ]
+                          },
+                          "EditRecord": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "link": {
+                                "type": "string",
+                                "minLength": 1
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "link"
+                            ]
+                          },
+                          "DeleteRecord": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "link": {
+                                "type": "string",
+                                "minLength": 1
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "link"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "CategoryId",
+                          "CategoryName",
+                          "ProductCount"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "messgae",
+                    "results"
+                  ]
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": true,
+                      "messgae": "Success : Catgories found",
+                      "results": [
+                        {
+                          "CategoryId": 3,
+                          "CategoryName": "CLOTHING",
+                          "ProductCount": 0,
+                          "ViewRecord": {
+                            "type": "GET",
+                            "link": "http://localhost:4000/api/category/view/3"
+                          },
+                          "ViewProducts": {
+                            "type": "GET",
+                            "link": "http://localhost:4000/api/category/products/3"
+                          },
+                          "EditRecord": {
+                            "type": "PUT",
+                            "link": "http://localhost:4000/api/category/edit/3"
+                          },
+                          "DeleteRecord": {
+                            "type": "DELETE",
+                            "link": "http://localhost:4000/api/category/delete/3"
+                          }
+                        },
+                        {
+                          "CategoryId": 4,
+                          "CategoryName": "FOOD",
+                          "ProductCount": 0,
+                          "ViewRecord": {
+                            "type": "GET",
+                            "link": "http://localhost:4000/api/category/view/4"
+                          },
+                          "ViewProducts": {
+                            "type": "GET",
+                            "link": "http://localhost:4000/api/category/products/4"
+                          },
+                          "EditRecord": {
+                            "type": "PUT",
+                            "link": "http://localhost:4000/api/category/edit/4"
+                          },
+                          "DeleteRecord": {
+                            "type": "DELETE",
+                            "link": "http://localhost:4000/api/category/delete/4"
+                          }
+                        },
+                        {
+                          "CategoryId": 5,
+                          "CategoryName": "MUSIC",
+                          "ProductCount": 0,
+                          "ViewRecord": {
+                            "type": "GET",
+                            "link": "http://localhost:4000/api/category/view/5"
+                          },
+                          "ViewProducts": {
+                            "type": "GET",
+                            "link": "http://localhost:4000/api/category/products/5"
+                          },
+                          "EditRecord": {
+                            "type": "PUT",
+                            "link": "http://localhost:4000/api/category/edit/5"
+                          },
+                          "DeleteRecord": {
+                            "type": "DELETE",
+                            "link": "http://localhost:4000/api/category/delete/5"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        },
+        "operationId": "get-api-category-all",
+        "description": "This endpoint gets all created product category including the numbers of products in that category"
+      }
+    },
+    "/api/category/view/{id}": {
+      "get": {
+        "summary": "Get Single Category",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "x-examples": {
+                    "example-1": {
+                      "success": true,
+                      "messgae": "Success : Catgories found",
+                      "results": [
+                        {
+                          "CategoryId": 5,
+                          "CategoryName": "MUSIC",
+                          "CategoryDescription": "They want to be able to see exactly what your product looks like.",
+                          "CreatedAt": "2021-12-22T21:35:16.000Z",
+                          "ProductCount": 0,
+                          "ViewProducts": {
+                            "type": "GET",
+                            "link": "http://localhost:4000/api/category/products/5"
+                          },
+                          "EditRecord": {
+                            "type": "PUT",
+                            "link": "http://localhost:4000/api/category/edit/5"
+                          },
+                          "DeleteRecord": {
+                            "type": "DELETE",
+                            "link": "http://localhost:4000/api/category/delete/5"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "messgae": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "results": {
+                      "type": "array",
+                      "uniqueItems": true,
+                      "minItems": 1,
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "CategoryId": {
+                            "type": "number"
+                          },
+                          "CategoryName": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "CategoryDescription": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "CreatedAt": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "ProductCount": {
+                            "type": "number",
+                            "description": "Displays the number of products in this category"
+                          },
+                          "ViewProducts": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "link": {
+                                "type": "string",
+                                "minLength": 1
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "link"
+                            ]
+                          },
+                          "EditRecord": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "link": {
+                                "type": "string",
+                                "minLength": 1
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "link"
+                            ]
+                          },
+                          "DeleteRecord": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "link": {
+                                "type": "string",
+                                "minLength": 1
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "link"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "CategoryId",
+                          "CategoryName",
+                          "CategoryDescription",
+                          "CreatedAt",
+                          "ProductCount"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "messgae",
+                    "results"
+                  ]
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": true,
+                      "messgae": "Success : Catgories found",
+                      "results": [
+                        {
+                          "CategoryId": 5,
+                          "CategoryName": "MUSIC",
+                          "CategoryDescription": "They want to be able to see exactly what your product looks like.",
+                          "CreatedAt": "2021-12-22T21:35:16.000Z",
+                          "ProductCount": 0,
+                          "ViewProducts": {
+                            "type": "GET",
+                            "link": "http://localhost:4000/api/category/products/5"
+                          },
+                          "EditRecord": {
+                            "type": "PUT",
+                            "link": "http://localhost:4000/api/category/edit/5"
+                          },
+                          "DeleteRecord": {
+                            "type": "DELETE",
+                            "link": "http://localhost:4000/api/category/delete/5"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        },
+        "operationId": "get-api-category-view",
+        "description": "This endpoint shows details of a particular category including the number of products associated with this category"
+      },
+      "parameters": [
+        {
+          "schema": {
+            "type": "integer"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "The id of the category to view"
+        }
+      ]
+    },
+    "/api/category/edit/{id}": {
+      "put": {
+        "summary": "Edit Category",
+        "operationId": "put-api-category-edit",
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "messgae": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "results": {
+                      "type": "object",
+                      "properties": {
+                        "fieldCount": {
+                          "type": "number"
+                        },
+                        "affectedRows": {
+                          "type": "number"
+                        },
+                        "insertId": {
+                          "type": "number"
+                        },
+                        "info": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "serverStatus": {
+                          "type": "number"
+                        },
+                        "warningStatus": {
+                          "type": "number"
+                        },
+                        "changedRows": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "fieldCount",
+                        "affectedRows",
+                        "insertId",
+                        "info",
+                        "serverStatus",
+                        "warningStatus",
+                        "changedRows"
+                      ]
+                    },
+                    "token": {}
+                  },
+                  "required": [
+                    "success",
+                    "messgae",
+                    "results"
+                  ],
+                  "x-examples": {
+                    "example-1": {
+                      "success": true,
+                      "messgae": "Success : Category updated successfully",
+                      "results": {
+                        "fieldCount": 0,
+                        "affectedRows": 1,
+                        "insertId": 0,
+                        "info": "Rows matched: 1  Changed: 1  Warnings: 0",
+                        "serverStatus": 2,
+                        "warningStatus": 0,
+                        "changedRows": 1
+                      },
+                      "token": null
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": true,
+                      "messgae": "Success : Category updated successfully",
+                      "results": {
+                        "fieldCount": 0,
+                        "affectedRows": 1,
+                        "insertId": 0,
+                        "info": "Rows matched: 1  Changed: 1  Warnings: 0",
+                        "serverStatus": 2,
+                        "warningStatus": 0,
+                        "changedRows": 1
+                      },
+                      "token": null
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "304": {
+            "description": "Not Modified",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "messgae": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "messgae"
+                  ],
+                  "x-examples": {
+                    "example-1": {
+                      "success": false,
+                      "messgae": "Invalid token"
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": false,
+                      "messgae": "Not modified, something went wrong"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        },
+        "description": "This endpoint updates deatils of a particular category",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "Authorization ",
+            "description": "Bearer {token}",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "description": "",
+                "type": "object",
+                "properties": {
+                  "CategoryName": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "CategoryDescription": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "CategoryImage": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "CategoryName",
+                  "CategoryDescription",
+                  "CategoryImage"
+                ],
+                "x-examples": {
+                  "example-1": {
+                    "CategoryName": "Music",
+                    "CategoryDescription": "They want to be able to see exactly what your product looks like.",
+                    "CategoryImage": "https://1.bp.blogspot.com/-Q45319SNgB8/YSo43rh_adI/AAAAAAAAWJ4/YP-0r8bhIG0Gmmw5KfpKmoJL6PagyPqyQCLcBGAsYHQ/s0/cute-dp-images-cute-profile-pictures%2B%25281%2529.jpg"
+                  }
+                }
+              },
+              "examples": {
+                "example-1": {
+                  "value": {
+                    "CategoryName": "Music",
+                    "CategoryDescription": "They want to be able to see exactly what your product looks like.",
+                    "CategoryImage": "https://1.bp.blogspot.com/-Q45319SNgB8/YSo43rh_adI/AAAAAAAAWJ4/YP-0r8bhIG0Gmmw5KfpKmoJL6PagyPqyQCLcBGAsYHQ/s0/cute-dp-images-cute-profile-pictures%2B%25281%2529.jpg"
+                  }
+                }
+              }
+            }
+          },
+          "description": "Please see example payload of request body to pass"
+        }
+      },
+      "parameters": [
+        {
+          "schema": {
+            "type": "number"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "id of the category that needs to be updated"
+        }
+      ]
+    },
+    "/api/category/delete/{id}": {
+      "delete": {
+        "summary": "Delete Category",
+        "operationId": "delete-api-category-delete",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "messgae": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "results": {
+                      "type": "object",
+                      "properties": {
+                        "fieldCount": {
+                          "type": "number"
+                        },
+                        "affectedRows": {
+                          "type": "number"
+                        },
+                        "insertId": {
+                          "type": "number"
+                        },
+                        "info": {
+                          "type": "string"
+                        },
+                        "serverStatus": {
+                          "type": "number"
+                        },
+                        "warningStatus": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "fieldCount",
+                        "affectedRows",
+                        "insertId",
+                        "info",
+                        "serverStatus",
+                        "warningStatus"
+                      ]
+                    },
+                    "token": {}
+                  },
+                  "required": [
+                    "success",
+                    "messgae",
+                    "results"
+                  ],
+                  "x-examples": {
+                    "example-1": {
+                      "success": true,
+                      "messgae": "Success : Category deleted successfully",
+                      "results": {
+                        "fieldCount": 0,
+                        "affectedRows": 1,
+                        "insertId": 0,
+                        "info": "",
+                        "serverStatus": 2,
+                        "warningStatus": 0
+                      },
+                      "token": null
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": true,
+                      "messgae": "Success : Category deleted successfully",
+                      "results": {
+                        "fieldCount": 0,
+                        "affectedRows": 1,
+                        "insertId": 0,
+                        "info": "",
+                        "serverStatus": 2,
+                        "warningStatus": 0
+                      },
+                      "token": null
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          },
+          "501": {
+            "description": "Not Implemented",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "messgae": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "messgae"
+                  ],
+                  "x-examples": {
+                    "example-1": {
+                      "success": false,
+                      "messgae": "Invalid token"
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": false,
+                      "messgae": "Something went wrong : full error message"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": "This endpoints deletes a particular category",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "Authorization ",
+            "description": "Bearer {token}",
+            "required": true
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "schema": {
+            "type": "integer"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "The Id of the category to be deleted"
         }
       ]
     }
