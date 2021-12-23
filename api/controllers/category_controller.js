@@ -47,7 +47,7 @@ exports._getCategories = (req, res, next) => {
                 helpers._showAllCategories(200, res, "Catgories found", results);
             }
             else {
-                helpers._showError(404, res, "No category not found");
+                helpers._showError(404, res, "Category not found");
             }
         }
     });
@@ -94,7 +94,7 @@ exports._updateCategory = (req, res, next) => {
                             helpers._showSuccess(201, res, "Category updated successfully", results);
                         }
                         else {
-                            helpers._showError(304, res, "Something went wrong");
+                            helpers._showError(304, res, "Not modified, something went wrong");
                         }
                     }
                 });
