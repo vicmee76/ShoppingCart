@@ -1488,7 +1488,7 @@
     },
     "/api/category/": {
       "post": {
-        "summary": "Created Product Category",
+        "summary": "Created Category",
         "operationId": "post-api-category",
         "responses": {
           "201": {
@@ -1965,6 +1965,199 @@
         "operationId": "get-api-category-all",
         "description": "This endpoint gets all created product category including the numbers of products in that category"
       }
+    },
+    "/api/category/view/{id}": {
+      "get": {
+        "summary": "Get Single Category",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "messgae": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "results": {
+                      "type": "array",
+                      "uniqueItems": true,
+                      "minItems": 1,
+                      "items": {
+                        "required": [
+                          "CategoryId",
+                          "CategoryName",
+                          "CategoryDescription",
+                          "CreatedAt",
+                          "ProductCount"
+                        ],
+                        "properties": {
+                          "CategoryId": {
+                            "type": "number"
+                          },
+                          "CategoryName": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "CategoryDescription": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "CreatedAt": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "ProductCount": {
+                            "type": "number"
+                          },
+                          "ViewProducts": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "link": {
+                                "type": "string",
+                                "minLength": 1
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "link"
+                            ]
+                          },
+                          "EditRecord": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "link": {
+                                "type": "string",
+                                "minLength": 1
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "link"
+                            ]
+                          },
+                          "DeleteRecord": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "link": {
+                                "type": "string",
+                                "minLength": 1
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "link"
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "messgae",
+                    "results"
+                  ],
+                  "x-examples": {
+                    "example-1": {
+                      "success": true,
+                      "messgae": "Success : Catgories found",
+                      "results": [
+                        {
+                          "CategoryId": 5,
+                          "CategoryName": "MUSIC",
+                          "CategoryDescription": "They want to be able to see exactly what your product looks like.",
+                          "CreatedAt": "2021-12-22T21:35:16.000Z",
+                          "ProductCount": 0,
+                          "ViewProducts": {
+                            "type": "GET",
+                            "link": "http://localhost:4000/api/category/products/5"
+                          },
+                          "EditRecord": {
+                            "type": "PUT",
+                            "link": "http://localhost:4000/api/category/edit/5"
+                          },
+                          "DeleteRecord": {
+                            "type": "DELETE",
+                            "link": "http://localhost:4000/api/category/delete/5"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": true,
+                      "messgae": "Success : Catgories found",
+                      "results": [
+                        {
+                          "CategoryId": 5,
+                          "CategoryName": "MUSIC",
+                          "CategoryDescription": "They want to be able to see exactly what your product looks like.",
+                          "CreatedAt": "2021-12-22T21:35:16.000Z",
+                          "ProductCount": 0,
+                          "ViewProducts": {
+                            "type": "GET",
+                            "link": "http://localhost:4000/api/category/products/5"
+                          },
+                          "EditRecord": {
+                            "type": "PUT",
+                            "link": "http://localhost:4000/api/category/edit/5"
+                          },
+                          "DeleteRecord": {
+                            "type": "DELETE",
+                            "link": "http://localhost:4000/api/category/delete/5"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        },
+        "operationId": "get-api-category-view",
+        "description": "This endpoint shows details of a particular category including the number of products associated with this category"
+      },
+      "parameters": [
+        {
+          "schema": {
+            "type": "integer"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "The id of the category to view"
+        }
+      ]
     }
   },
   "components": {
