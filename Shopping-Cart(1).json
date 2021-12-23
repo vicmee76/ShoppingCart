@@ -499,52 +499,6 @@
                 "schema": {
                   "description": "",
                   "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean"
-                    },
-                    "messgae": {
-                      "type": "string",
-                      "minLength": 1
-                    },
-                    "results": {
-                      "type": "object",
-                      "properties": {
-                        "fieldCount": {
-                          "type": "number"
-                        },
-                        "affectedRows": {
-                          "type": "number"
-                        },
-                        "insertId": {
-                          "type": "number"
-                        },
-                        "info": {
-                          "type": "string"
-                        },
-                        "serverStatus": {
-                          "type": "number"
-                        },
-                        "warningStatus": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "fieldCount",
-                        "affectedRows",
-                        "insertId",
-                        "info",
-                        "serverStatus",
-                        "warningStatus"
-                      ]
-                    },
-                    "token": {}
-                  },
-                  "required": [
-                    "success",
-                    "messgae",
-                    "results"
-                  ],
                   "x-examples": {
                     "example-1": {
                       "success": true,
@@ -559,7 +513,54 @@
                       },
                       "token": null
                     }
-                  }
+                  },
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "messgae": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "results": {
+                      "type": "object",
+                      "required": [
+                        "fieldCount",
+                        "affectedRows",
+                        "insertId",
+                        "info",
+                        "serverStatus",
+                        "warningStatus"
+                      ],
+                      "properties": {
+                        "fieldCount": {
+                          "type": "number"
+                        },
+                        "affectedRows": {
+                          "type": "number"
+                        },
+                        "insertId": {
+                          "type": "number",
+                          "description": "Id of the user created"
+                        },
+                        "info": {
+                          "type": "string"
+                        },
+                        "serverStatus": {
+                          "type": "number"
+                        },
+                        "warningStatus": {
+                          "type": "number"
+                        }
+                      }
+                    },
+                    "token": {}
+                  },
+                  "required": [
+                    "success",
+                    "messgae",
+                    "results"
+                  ]
                 },
                 "examples": {
                   "example-1": {
@@ -753,6 +754,14 @@
                 "schema": {
                   "description": "",
                   "type": "object",
+                  "x-examples": {
+                    "example-1": {
+                      "success": true,
+                      "messgae": "Success : Login successfully",
+                      "results": null,
+                      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOjEyLCJlbWFpbCI6InZpY21lZTc2QGhvdG1haWwuY29tIiwiaWF0IjoxNjQwMTkzNzU0LCJleHAiOjE2NDAxOTczNTR9.AYHRznArJO2mUiUCB-kDL0Ls4sf5mUY2j8nASi_xHjM"
+                    }
+                  },
                   "properties": {
                     "success": {
                       "type": "boolean"
@@ -764,22 +773,15 @@
                     "results": {},
                     "token": {
                       "type": "string",
-                      "minLength": 1
+                      "minLength": 1,
+                      "description": "token for authoziation"
                     }
                   },
                   "required": [
                     "success",
                     "messgae",
                     "token"
-                  ],
-                  "x-examples": {
-                    "example-1": {
-                      "success": true,
-                      "messgae": "Success : Login successfully",
-                      "results": null,
-                      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOjEyLCJlbWFpbCI6InZpY21lZTc2QGhvdG1haWwuY29tIiwiaWF0IjoxNjQwMTkzNzU0LCJleHAiOjE2NDAxOTczNTR9.AYHRznArJO2mUiUCB-kDL0Ls4sf5mUY2j8nASi_xHjM"
-                    }
-                  }
+                  ]
                 },
                 "examples": {
                   "example-1": {
@@ -1483,6 +1485,209 @@
           "description": "Id of the user that needs to be deleted"
         }
       ]
+    },
+    "/api/category/": {
+      "post": {
+        "summary": "Created Product Category",
+        "operationId": "post-api-category",
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "x-examples": {
+                    "example-1": {
+                      "success": true,
+                      "messgae": "Success : Category created successfully",
+                      "results": {
+                        "fieldCount": 0,
+                        "affectedRows": 1,
+                        "insertId": 6,
+                        "info": "",
+                        "serverStatus": 2,
+                        "warningStatus": 0
+                      },
+                      "token": null
+                    }
+                  },
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "messgae": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "results": {
+                      "type": "object",
+                      "required": [
+                        "fieldCount",
+                        "affectedRows",
+                        "insertId",
+                        "info",
+                        "serverStatus",
+                        "warningStatus"
+                      ],
+                      "properties": {
+                        "fieldCount": {
+                          "type": "number"
+                        },
+                        "affectedRows": {
+                          "type": "number"
+                        },
+                        "insertId": {
+                          "type": "number",
+                          "description": "Id of the category created"
+                        },
+                        "info": {
+                          "type": "string"
+                        },
+                        "serverStatus": {
+                          "type": "number"
+                        },
+                        "warningStatus": {
+                          "type": "number"
+                        }
+                      }
+                    },
+                    "token": {}
+                  },
+                  "required": [
+                    "success",
+                    "messgae",
+                    "results"
+                  ]
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": true,
+                      "messgae": "Success : Category created successfully",
+                      "results": {
+                        "fieldCount": 0,
+                        "affectedRows": 1,
+                        "insertId": 6,
+                        "info": "",
+                        "serverStatus": 2,
+                        "warningStatus": 0
+                      },
+                      "token": null
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "messgae": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "messgae"
+                  ],
+                  "x-examples": {
+                    "example-1": {
+                      "success": false,
+                      "messgae": "Invalid token"
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": false,
+                      "messgae": "This category name already exits."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        },
+        "description": "This endpoint creates different category for differnt products",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "Authorization ",
+            "description": "Bearer {Token}",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "description": "",
+                "type": "object",
+                "properties": {
+                  "CategoryName": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "CategoryDescription": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "CategoryImage": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "CategoryName",
+                  "CategoryDescription",
+                  "CategoryImage"
+                ],
+                "x-examples": {
+                  "example-1": {
+                    "CategoryName": "Hands",
+                    "CategoryDescription": "They want to be able to see exactly what your product looks like, what it’s made of, the dimensions, what others think of it, and ultimately whether it meets their needs.",
+                    "CategoryImage": "https://1.bp.blogspot.com/-Q45319SNgB8/YSo43rh_adI/AAAAAAAAWJ4/YP-0r8bhIG0Gmmw5KfpKmoJL6PagyPqyQCLcBGAsYHQ/s0/cute-dp-images-cute-profile-pictures%2B%25281%2529.jpg"
+                  }
+                }
+              },
+              "examples": {
+                "example-1": {
+                  "value": {
+                    "CategoryName": "Hands",
+                    "CategoryDescription": "They want to be able to see exactly what your product looks like, what it’s made of, the dimensions, what others think of it, and ultimately whether it meets their needs.",
+                    "CategoryImage": "https://1.bp.blogspot.com/-Q45319SNgB8/YSo43rh_adI/AAAAAAAAWJ4/YP-0r8bhIG0Gmmw5KfpKmoJL6PagyPqyQCLcBGAsYHQ/s0/cute-dp-images-cute-profile-pictures%2B%25281%2529.jpg"
+                  }
+                }
+              }
+            }
+          },
+          "description": "Example of the request body to be passed"
+        }
+      }
     }
   },
   "components": {
