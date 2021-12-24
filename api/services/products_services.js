@@ -5,12 +5,25 @@ let sku = helpers._generateHash();
 
 module.exports = {
 
+    checkExistingProduct: (id, data, callBack) => {
+
+        pool.query("SELECT * FROM products WHERE ProductName = ? && CategoryId = ? && ExpiredAt < NOW()",
+            [
+                data.ProductName,
+                id
+            ],
+            (error, result) => {
+                helpers._getCallBack(callBack, error, result);
+            });
+    },
+
+
     saveProduct: (data, callBack) => {
 
         pool.query("INSERT INTO products(CategoryId, ProductName, ProductDescription, Sku, SellingPrice, Discount, StockLevel, Colors, PaymentType, ProductImages, ExpiredAt) VALUES(?,?,?,?,?,?,?,?,?,?,?)",
             [
                 data.CategoryId,
-                data.ProductName.toUpperCase(),
+                data.ProductName,
                 data.ProductDescription,
                 sku,
                 data.SellingPrice,

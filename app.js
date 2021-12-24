@@ -3,6 +3,7 @@ const express = require("express");
 var bodyParser = require('body-parser');
 const userRoute = require("./api/routes/users_route.js");
 const categoryRoute = require("./api/routes/category_route.js");
+const productRoute = require("./api/routes/products_route.js");
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -23,5 +24,6 @@ app.use((req, res, next) => {
 
 app.use('/api/users', userRoute);
 app.use('/api/category', categoryRoute);
+app.use('/api/products', productRoute);
 
 app.listen(process.env.SERVER_PORT, () => { console.log("server running")});

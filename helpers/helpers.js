@@ -1,7 +1,7 @@
 var crypto = require("crypto");
 
 exports._generateHash = () => {
-    return crypto.randomBytes(10).toString('hex');
+    return crypto.randomBytes(5).toString('hex');
 };
 
 // function to show error messages
