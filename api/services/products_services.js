@@ -70,16 +70,16 @@ module.exports = {
         var sql = "SELECT p.*, c.CategoryName FROM products as p LEFT JOIN categories as c ON p.CategoryId = c.CategoryId "; // get all products join the catgeory they belong to 
 
         if (option === "expired") {
-            sql = sql + " WHERE ExpiredAt < NOW()"; // to get all expired products
+            sql = sql + " WHERE p.ExpiredAt < NOW()"; // to get all expired products
         }
         else if (option === "active") {
-            sql = sql + " WHERE ExpiredAt > NOW()"; // to get all non-expired products
+            sql = sql + " WHERE p.ExpiredAt > NOW()"; // to get all non-expired products
         }
         else if (option === "category") {
-            sql = sql + " WHERE CategoryId = ?"; // to get all products in a category
+            sql = sql + " WHERE p.CategoryId = ?"; // to get all products in a category
         }
         else if (option === "single") {
-            sql = sql + " WHERE ProductId = ?"; // to get a particular product
+            sql = sql + " WHERE p.ProductId = ?"; // to get a particular product
         }
 
         console.log(sql);

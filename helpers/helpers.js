@@ -189,10 +189,65 @@ exports._showProducts = (code, res, msg, response) => {
 };
 
 
+
+// customized function object to show  a particular products from database
+exports._showSingleProducts = (code, res, msg, response) => {
+    return res.status(code).json({
+        success: true,
+        messgae: "Success : " + msg,
+        results: response.map(x => {
+            return {
+                ProductId: x.ProductId,
+                CategoryId: x.CategoryId,
+                CategoryName: x.CategoryName,
+                ProductName: x.ProductName,
+                ProductDescription: x.ProductDescription,
+                Sku: x.Sku,
+                Price: getPrice(x.SellingPrice, x.Discount),
+                Discount: x.Discount <= 0 ? "" : x.Discount + "% Off",
+                OldPrice: x.Discount <= 0 ? "" : parseFloat(x.SellingPrice),
+                StockLevel: x.StockLevel,
+                ProductImages: generateArr(x.ProductImages),
+                Colors: generateArr(x.Colors),
+                PaymentType: generateArr(x.PaymentType),
+                Expiry: getProductExpiry(x.ExpiredAt),
+                CreatedAt: x.CreatedAt,
+                ViewCategory: {
+                    type: "POST",
+                    link: "http://localhost:4000/api/category/view/" + x.CategoryId,
+                },
+                EditProduct: {
+                    type: "PUT",
+                    link: "http://localhost:4000/api/products/edit/" + x.ProductId,
+                },
+                DeleteProduct: {
+                    type: "DELETE",
+                    link: "http://localhost:4000/api/products/delete/" + x.ProductId
+                }
+            }
+        })
+    });
+};
+
+
 // function to check password length
 exports._checkPassword = (password) => {
     return password.length < 8 ? false : true;
 };
+
+
+
+// call back function for error or results gotten database
+exports._getCallBack = (callBack, err, result) => {
+    if (err) {
+        return callBack(err);
+    }
+    else {
+        return callBack(null, result);
+    }
+}
+
+
 
 
 function getPrice(sellingpriec, discount) {
@@ -205,6 +260,9 @@ function getPrice(sellingpriec, discount) {
     }
     return parseFloat(price);
 }
+
+
+
 
 function getProductExpiry(expirydate) {
 
@@ -224,13 +282,26 @@ function getProductExpiry(expirydate) {
 }
 
 
+function generateArr(list) {
 
-// call back function for error or results gotten database
-exports._getCallBack = (callBack, err, result) => {
-    if (err) {
-        return callBack(err);
+    let arr = [];
+
+    if (list !== null) {
+        var m = list.split(",");
+        if (m.length <= 0) {
+            arr.push({ "Item ": list });
+        }
+        else {
+            
+            for (let i = 0; i < m.length; i++) {
+                arr.push({
+                    item : m[i]
+                });
+            }
+        }
     }
-    else {
-        return callBack(null, result);
-    }
+    return arr;
 }
+
+
+

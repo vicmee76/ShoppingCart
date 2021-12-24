@@ -100,7 +100,7 @@ exports._createProductFromCategory = (req, res, next) => {
 
 
 
-exports._getAllProducts = (req, res, next) => {
+exports._getProducts = (req, res, next) => {
 
     option = req.query.option;
     id = req.query.id;
@@ -122,15 +122,18 @@ exports._getAllProducts = (req, res, next) => {
 };
 
 
-exports._getExpiredProducts = (req, res, next) => {
+exports._getProductsDetails = (req, res, next) => {
 
-    getProducts(null, "expired", (err, results) => {
+    option = req.query.option;
+    id = req.query.id;
+
+    getProducts(id, option, (err, results) => {
         if (err) {
             helpers._showError(500, res, err);
         }
         else {
             if (results) {
-                helpers._showProducts(200, res, "All products found", results);
+                helpers._showSingleProducts(200, res, "All products found", results);
             }
             else {
                 helpers._showError(404, res, "Products not found");
@@ -141,20 +144,3 @@ exports._getExpiredProducts = (req, res, next) => {
 };
 
 
-exports._getActiveProducts = (req, res, next) => {
-
-    getProducts(null, "active", (err, results) => {
-        if (err) {
-            helpers._showError(500, res, err);
-        }
-        else {
-            if (results) {
-                helpers._showProducts(200, res, "All products found", results);
-            }
-            else {
-                helpers._showError(404, res, "Products not found");
-            }
-        }
-    });
-
-};
