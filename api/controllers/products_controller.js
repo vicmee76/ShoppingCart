@@ -4,8 +4,10 @@ const dateShortcode = require('date-shortcode');
 const {
     saveProduct,
     saveProductFromCategory,
-    checkExistingProduct
+    checkExistingProduct,
+    getProducts
 } = require("../services/products_services.js");
+const { options } = require("../routes/users_route");
 
 exports._createProduct = (req, res, next) => {
 
@@ -93,4 +95,66 @@ exports._createProductFromCategory = (req, res, next) => {
             }
         }
     });
+};
+
+
+
+
+exports._getAllProducts = (req, res, next) => {
+
+    option = req.query.option;
+    id = req.query.id;
+
+    getProducts(id, option, (err, results) => {
+        if (err) {
+            helpers._showError(500, res, err);
+        }
+        else {
+            if (results) {
+                helpers._showProducts(200, res, "All products found", results);
+            }
+            else {
+                helpers._showError(404, res, "Products not found");
+            }
+        }
+    });
+
+};
+
+
+exports._getExpiredProducts = (req, res, next) => {
+
+    getProducts(null, "expired", (err, results) => {
+        if (err) {
+            helpers._showError(500, res, err);
+        }
+        else {
+            if (results) {
+                helpers._showProducts(200, res, "All products found", results);
+            }
+            else {
+                helpers._showError(404, res, "Products not found");
+            }
+        }
+    });
+
+};
+
+
+exports._getActiveProducts = (req, res, next) => {
+
+    getProducts(null, "active", (err, results) => {
+        if (err) {
+            helpers._showError(500, res, err);
+        }
+        else {
+            if (results) {
+                helpers._showProducts(200, res, "All products found", results);
+            }
+            else {
+                helpers._showError(404, res, "Products not found");
+            }
+        }
+    });
+
 };

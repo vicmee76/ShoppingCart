@@ -1,4 +1,5 @@
 var crypto = require("crypto");
+const dateShortcode = require('date-shortcode');
 
 exports._generateHash = () => {
     return crypto.randomBytes(5).toString('hex');
@@ -151,11 +152,76 @@ exports._showSingleCategory = (code, res, msg, response) => {
 };
 
 
+// customized function object to show products from database
+exports._showProducts = (code, res, msg, response) => {
+    return res.status(code).json({
+        success: true,
+        messgae: "Success : " + msg,
+        results: response.map(x => {
+            return {
+                ProductId: x.ProductId,
+                CategoryId: x.CategoryId,
+                CategoryName: x.CategoryName,
+                ProductName: x.ProductName,
+                Price: getPrice(x.SellingPrice, x.Discount),
+                Discount: x.Discount <= 0 ? "" : x.Discount + "% Off",
+                ProductImage: x.ProductImages.split(",")[0],
+                Expiry: getProductExpiry(x.ExpiredAt),
+                ViewProducts: {
+                    type: "GET",
+                    link: "http://localhost:4000/api/products/product-details/" + x.ProductId,
+                },
+                ViewCategory: {
+                    type: "POST",
+                    link: "http://localhost:4000/api/category/view/" + x.CategoryId,
+                },
+                EditProduct: {
+                    type: "PUT",
+                    link: "http://localhost:4000/api/products/edit/" + x.ProductId,
+                },
+                DeleteProduct: {
+                    type: "DELETE",
+                    link: "http://localhost:4000/api/products/delete/" + x.ProductId
+                }
+            }
+        })
+    });
+};
+
 
 // function to check password length
 exports._checkPassword = (password) => {
     return password.length < 8 ? false : true;
 };
+
+
+function getPrice(sellingpriec, discount) {
+    let price = 0;
+    if (discount <= 0) {
+        price = sellingpriec;
+    }
+    else {
+        price = (sellingpriec - ((discount / 100) * sellingpriec));
+    }
+    return parseFloat(price);
+}
+
+function getProductExpiry(expirydate) {
+
+    let result = "";
+
+    const date = dateShortcode.parse('{YYYY-MM-DD}', new Date());
+    let produtExpiry = dateShortcode.parse('{YYYY-MM-DD}', expirydate);
+
+    if (date > produtExpiry) {
+        result = "Expired Product (" + produtExpiry + ")";
+    }
+    else {
+        result = "Not Expired (" + produtExpiry + ")";
+    }
+
+    return result;
+}
 
 
 
