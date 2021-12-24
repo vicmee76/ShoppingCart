@@ -28,15 +28,25 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include=".env" />
     <Content Include="api\controllers\category_controller.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="api\controllers\products_controller.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="api\controllers\users_controller.js" />
     <Content Include="api\routes\category_route.js">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="api\routes\products_route.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="api\routes\users_route.js" />
     <Content Include="api\services\category_services.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="api\services\products_services.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="api\services\users_services.js" />

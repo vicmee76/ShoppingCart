@@ -1,4 +1,10 @@
+var crypto = require("crypto");
 
+exports._generateHash = () => {
+    return crypto.randomBytes(5).toString('hex');
+};
+
+// function to show error messages
 exports._showError = (code, res, err) => {
     return res.status(code).json({
         success: false,
@@ -7,6 +13,7 @@ exports._showError = (code, res, err) => {
 };
 
 
+// function to show success message
 exports._showSuccess = (code, res, msg, response = null, token = null) => {
     return res.status(code).json({
         success: true,
@@ -17,6 +24,7 @@ exports._showSuccess = (code, res, msg, response = null, token = null) => {
 };
 
 
+// customized function object to show all users from database
 exports._showAllUsers = (code, res, msg, response) => {
     return res.status(code).json({
         success: true,
@@ -44,6 +52,8 @@ exports._showAllUsers = (code, res, msg, response) => {
 };
 
 
+
+// customized function object to show a single users from database
 exports._showSingleUsers = (code, res, msg, response) => {
     return res.status(code).json({
         success: true,
@@ -73,6 +83,8 @@ exports._showSingleUsers = (code, res, msg, response) => {
 };
 
 
+
+// customized function object to show all categories from database
 exports._showAllCategories = (code, res, msg, response) => {
     return res.status(code).json({
         success: true,
@@ -90,6 +102,10 @@ exports._showAllCategories = (code, res, msg, response) => {
                     type: "GET",
                     link: "http://localhost:4000/api/category/products/" + x.CategoryId,
                 },
+                CreateProduct: {
+                    type: "POST",
+                    link: "http://localhost:4000/api/product/save-product-from-category/" + x.CategoryId,
+                },
                 EditRecord: {
                     type: "PUT",
                     link: "http://localhost:4000/api/category/edit/" + x.CategoryId,
@@ -104,6 +120,8 @@ exports._showAllCategories = (code, res, msg, response) => {
 };
 
 
+
+// customized function object to show single category from database
 exports._showSingleCategory = (code, res, msg, response) => {
     return res.status(code).json({
         success: true,
@@ -133,11 +151,15 @@ exports._showSingleCategory = (code, res, msg, response) => {
 };
 
 
+
+// function to check password length
 exports._checkPassword = (password) => {
     return password.length < 8 ? false : true;
 };
 
 
+
+// call back function for error or results gotten database
 exports._getCallBack = (callBack, err, result) => {
     if (err) {
         return callBack(err);

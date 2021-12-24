@@ -12,11 +12,13 @@
   "dependencies": {
     "bcrypt": "^5.0.1",
     "body-parser": "^1.19.1",
+    "date-shortcode": "^1.0.0",
     "dotenv": "^10.0.0",
     "exppress": "^0.0.1-security",
     "express": "^4.17.2",
     "jsonwebtoken": "^8.5.1",
-    "mysql2": "^2.3.3"
+    "mysql2": "^2.3.3",
+    "timesolver": "^1.2.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
