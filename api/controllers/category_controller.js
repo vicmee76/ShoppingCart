@@ -5,7 +5,8 @@ const {
     getCategories,
     getCategoriesById,
     updateCategory,
-    deleteCategory
+    deleteCategory,
+    getCategoryProducts
 } = require("../services/category_services");
 
 
@@ -56,8 +57,8 @@ exports._getCategories = (req, res, next) => {
 
 exports._getCategoryById = (req, res, next) => {
 
-    const id = req.params.id;
-    getCategoriesById(id, (err, results) => {
+    const categoryId = req.params.id;
+    getCategoriesById(categoryId, (err, results) => {
         if (err) {
             helpers._showError(500, res, err);
         }
@@ -73,12 +74,33 @@ exports._getCategoryById = (req, res, next) => {
 };
 
 
+
+exports._getCategoryProducts = (req, res, next) => {
+
+    const categoryId = req.params.id;
+
+    getCategoryProducts(categoryId, (err, results) => {
+        if (err) {
+            helpers._showError(500, res, err);
+        }
+        else {
+            if (results && results.length > 0) {
+                helpers._showSingleCategory(200, res, "Products found for this category", results);
+            }
+            else {
+                helpers._showError(404, res, "Products for this category not found");
+            }
+        }
+    });
+};
+
+
 exports._updateCategory = (req, res, next) => {
 
-    const id = req.params.id;
+    const categoryId = req.params.id;
     const data = req.body;
 
-    checkExisitingCategory(id, data, (err, results) => {
+    checkExisitingCategory(categoryId, data, (err, results) => {
         if (err) {
             helpers._showError(500, res, err);
         }
@@ -109,9 +131,9 @@ exports._updateCategory = (req, res, next) => {
 
 exports._deleteCategory = (req, res, next) => {
 
-    const id = req.params.id;
+    const categoryId = req.params.id;
     
-    getCategoriesById(id, (err, results) => {
+    getCategoriesById(categoryId, (err, results) => {
         if (err) {
             helpers._showError(500, res, err);
         }
