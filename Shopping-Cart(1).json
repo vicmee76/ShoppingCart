@@ -1800,7 +1800,7 @@
                           },
                           "ViewRecord": {
                             "type": "object",
-                            "description": "Link to view this particularcategory",
+                            "description": "Link to view this particular category",
                             "properties": {
                               "type": {
                                 "type": "string",
@@ -1836,7 +1836,7 @@
                           },
                           "EditRecord": {
                             "type": "object",
-                            "description": "Link to be used to edith this particular category",
+                            "description": "Link to be used to edit this particular category",
                             "properties": {
                               "type": {
                                 "type": "string",
