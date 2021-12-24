@@ -283,96 +283,6 @@
                 "schema": {
                   "description": "",
                   "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean"
-                    },
-                    "messgae": {
-                      "type": "string",
-                      "minLength": 1
-                    },
-                    "results": {
-                      "type": "array",
-                      "uniqueItems": true,
-                      "minItems": 1,
-                      "items": {
-                        "required": [
-                          "UserId",
-                          "Firstname",
-                          "Email"
-                        ],
-                        "properties": {
-                          "UserId": {
-                            "type": "number"
-                          },
-                          "Firstname": {
-                            "type": "string",
-                            "minLength": 1
-                          },
-                          "Email": {
-                            "type": "string",
-                            "minLength": 1
-                          },
-                          "ViewRecord": {
-                            "type": "object",
-                            "properties": {
-                              "type": {
-                                "type": "string",
-                                "minLength": 1
-                              },
-                              "link": {
-                                "type": "string",
-                                "minLength": 1
-                              }
-                            },
-                            "required": [
-                              "type",
-                              "link"
-                            ]
-                          },
-                          "EditRecord": {
-                            "type": "object",
-                            "properties": {
-                              "type": {
-                                "type": "string",
-                                "minLength": 1
-                              },
-                              "link": {
-                                "type": "string",
-                                "minLength": 1
-                              }
-                            },
-                            "required": [
-                              "type",
-                              "link"
-                            ]
-                          },
-                          "DeleteRecord": {
-                            "type": "object",
-                            "properties": {
-                              "type": {
-                                "type": "string",
-                                "minLength": 1
-                              },
-                              "link": {
-                                "type": "string",
-                                "minLength": 1
-                              }
-                            },
-                            "required": [
-                              "type",
-                              "link"
-                            ]
-                          }
-                        }
-                      }
-                    }
-                  },
-                  "required": [
-                    "success",
-                    "messgae",
-                    "results"
-                  ],
                   "x-examples": {
                     "example-1": {
                       "success": true,
@@ -414,7 +324,101 @@
                         }
                       ]
                     }
-                  }
+                  },
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "messgae": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "results": {
+                      "type": "array",
+                      "uniqueItems": true,
+                      "minItems": 1,
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "UserId": {
+                            "type": "number"
+                          },
+                          "Firstname": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "Email": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "ViewRecord": {
+                            "type": "object",
+                            "description": "Link to view this particular user",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "link": {
+                                "type": "string",
+                                "minLength": 1
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "link"
+                            ]
+                          },
+                          "EditRecord": {
+                            "type": "object",
+                            "description": "Link to edit this user",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "link": {
+                                "type": "string",
+                                "minLength": 1
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "link"
+                            ]
+                          },
+                          "DeleteRecord": {
+                            "type": "object",
+                            "description": "Link to delete this user",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "link": {
+                                "type": "string",
+                                "minLength": 1
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "link"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "UserId",
+                          "Firstname",
+                          "Email"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "messgae",
+                    "results"
+                  ]
                 },
                 "examples": {
                   "example-1": {
@@ -552,6 +556,33 @@
                 "schema": {
                   "description": "",
                   "type": "object",
+                  "x-examples": {
+                    "example-1": {
+                      "success": true,
+                      "messgae": "Success : User found",
+                      "results": [
+                        {
+                          "UserId": 11,
+                          "Email": "vicmee76@gmail.com",
+                          "FirstName": "Victor Daberechi",
+                          "LastName": "Nwogu",
+                          "Phone": "09087654321",
+                          "Gender": "M",
+                          "Image": "https://1.bp.blogspot.com/-Q45319SNgB8/YSo43rh_adI/AAAAAAAAWJ4/YP-0r8bhIG0Gmmw5KfpKmoJL6PagyPqyQCLcBGAsYHQ/s0/cute-dp-images-cute-profile-pictures%2B%25281%2529.jpg",
+                          "CreatedAt": "2021-12-22T00:42:54.000Z",
+                          "UpdatedAt": "2021-12-22T00:42:54.000Z",
+                          "EditRecord": {
+                            "type": "PUT",
+                            "link": "http://localhost:4000/api/users/edit/11"
+                          },
+                          "DeleteRecord": {
+                            "type": "DELETE",
+                            "link": "http://localhost:4000/api/users/delete/11"
+                          }
+                        }
+                      ]
+                    }
+                  },
                   "properties": {
                     "success": {
                       "type": "boolean"
@@ -565,17 +596,7 @@
                       "uniqueItems": true,
                       "minItems": 1,
                       "items": {
-                        "required": [
-                          "UserId",
-                          "Email",
-                          "FirstName",
-                          "LastName",
-                          "Phone",
-                          "Gender",
-                          "Image",
-                          "CreatedAt",
-                          "UpdatedAt"
-                        ],
+                        "type": "object",
                         "properties": {
                           "UserId": {
                             "type": "number"
@@ -614,6 +635,7 @@
                           },
                           "EditRecord": {
                             "type": "object",
+                            "description": "Link to edit this user",
                             "properties": {
                               "type": {
                                 "type": "string",
@@ -631,6 +653,7 @@
                           },
                           "DeleteRecord": {
                             "type": "object",
+                            "description": "Link to delete this user",
                             "properties": {
                               "type": {
                                 "type": "string",
@@ -646,7 +669,18 @@
                               "link"
                             ]
                           }
-                        }
+                        },
+                        "required": [
+                          "UserId",
+                          "Email",
+                          "FirstName",
+                          "LastName",
+                          "Phone",
+                          "Gender",
+                          "Image",
+                          "CreatedAt",
+                          "UpdatedAt"
+                        ]
                       }
                     }
                   },
@@ -654,34 +688,7 @@
                     "success",
                     "messgae",
                     "results"
-                  ],
-                  "x-examples": {
-                    "example-1": {
-                      "success": true,
-                      "messgae": "Success : User found",
-                      "results": [
-                        {
-                          "UserId": 11,
-                          "Email": "vicmee76@gmail.com",
-                          "FirstName": "Victor Daberechi",
-                          "LastName": "Nwogu",
-                          "Phone": "09087654321",
-                          "Gender": "M",
-                          "Image": "https://1.bp.blogspot.com/-Q45319SNgB8/YSo43rh_adI/AAAAAAAAWJ4/YP-0r8bhIG0Gmmw5KfpKmoJL6PagyPqyQCLcBGAsYHQ/s0/cute-dp-images-cute-profile-pictures%2B%25281%2529.jpg",
-                          "CreatedAt": "2021-12-22T00:42:54.000Z",
-                          "UpdatedAt": "2021-12-22T00:42:54.000Z",
-                          "EditRecord": {
-                            "type": "PUT",
-                            "link": "http://localhost:4000/api/users/edit/11"
-                          },
-                          "DeleteRecord": {
-                            "type": "DELETE",
-                            "link": "http://localhost:4000/api/users/delete/11"
-                          }
-                        }
-                      ]
-                    }
-                  }
+                  ]
                 },
                 "examples": {
                   "example-1": {
