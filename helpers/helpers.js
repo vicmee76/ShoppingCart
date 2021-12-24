@@ -102,6 +102,10 @@ exports._showAllCategories = (code, res, msg, response) => {
                     type: "GET",
                     link: "http://localhost:4000/api/category/products/" + x.CategoryId,
                 },
+                CreateProduct: {
+                    type: "POST",
+                    link: "http://localhost:4000/api/product/save-product-from-category/" + x.CategoryId,
+                },
                 EditRecord: {
                     type: "PUT",
                     link: "http://localhost:4000/api/category/edit/" + x.CategoryId,
