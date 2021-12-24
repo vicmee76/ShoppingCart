@@ -5,7 +5,9 @@ const {
     saveProduct,
     saveProductFromCategory,
     checkExistingProduct,
-    getProducts
+    getProducts,
+    checkProductById,
+    updateProduct
 } = require("../services/products_services.js");
 const { options } = require("../routes/users_route");
 
@@ -98,8 +100,6 @@ exports._createProductFromCategory = (req, res, next) => {
 };
 
 
-
-
 exports._getProducts = (req, res, next) => {
 
     option = req.query.option;
@@ -143,4 +143,37 @@ exports._getProductsDetails = (req, res, next) => {
 
 };
 
+
+exports._updateProduct = (req, res, next) => {
+
+    const id = req.params.id;
+    const data = req.body;
+
+    checkProductById(id, (err, results) => {
+        if (err) {
+            helpers._showError(500, res, err);
+        }
+        else {
+            if (results && results.length > 0) {
+
+                updateProduct(id, data, (err, results) => {
+                    if (err) {
+                        helpers._showError(500, res, err);
+                    }
+                    else {
+                        if (results) {
+                            helpers._showSuccess(201, res, "Product updated successfully", results);
+                        }
+                        else {
+                            helpers._showError(304, res, "Not modified, something went wrong");
+                        }
+                    }
+                });
+            }
+            else {
+                helpers._showError(404, res, "Product not found");
+            }
+        }
+    });
+};
 

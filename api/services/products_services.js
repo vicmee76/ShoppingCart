@@ -18,6 +18,18 @@ module.exports = {
     },
 
 
+    checkProductById: (id, callBack) => {
+
+        pool.query("SELECT * FROM products WHERE ProductId = ?",
+            [
+                id
+            ],
+            (error, result) => {
+                helpers._getCallBack(callBack, error, result);
+            });
+    },
+
+
     saveProduct: (data, callBack) => {
 
         pool.query("INSERT INTO products(CategoryId, ProductName, ProductDescription, Sku, SellingPrice, Discount, StockLevel, Colors, PaymentType, ProductImages, ExpiredAt) VALUES(?,?,?,?,?,?,?,?,?,?,?)",
@@ -92,4 +104,29 @@ module.exports = {
                 helpers._getCallBack(callBack, error, result);
             });
     },
+
+
+
+    updateProduct: (id, data, callBack) => {
+
+        pool.query("UPDATE products SET CategoryId=?, ProductName=?, ProductDescription=?, SellingPrice=?, Discount=?, StockLevel=?, Colors=?, PaymentType=?, ProductImages=?, ExpiredAt=? WHERE ProductId=?",
+            [
+                data.CategoryId,
+                data.ProductName,
+                data.ProductDescription,
+                data.SellingPrice,
+                data.Discount,
+                data.StockLevel,
+                data.Colors,
+                data.PaymentType,
+                data.ProductImages,
+                data.ExpiredAt,
+                id
+            ],
+            (error, result) => {
+                helpers._getCallBack(callBack, error, result);
+            });
+    },
+
+
 }

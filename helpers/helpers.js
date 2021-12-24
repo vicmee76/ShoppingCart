@@ -230,6 +230,7 @@ exports._showSingleProducts = (code, res, msg, response) => {
 };
 
 
+
 // function to check password length
 exports._checkPassword = (password) => {
     return password.length < 8 ? false : true;
