@@ -132,7 +132,7 @@ exports._deleteCategory = (req, res, next) => {
                 });
             }
             else {
-                helpers._showError(404, res, "User cannot be found");
+                helpers._showError(404, res, "Category cannot be found");
             }
         }
     });

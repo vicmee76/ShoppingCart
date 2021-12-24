@@ -9,6 +9,7 @@ router.post('/save-product-from-category/:id', validate._validateToken, products
 router.get('/', productsController._getProducts);
 router.get('/product-details', productsController._getProductsDetails);
 router.put('/edit/:id', productsController._updateProduct);
+router.delete('/delete/:id', productsController._deleteProduct);
 
 
 module.exports = router;

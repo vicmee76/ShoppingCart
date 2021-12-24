@@ -129,4 +129,16 @@ module.exports = {
     },
 
 
+
+    deleteProduct: (id, callBack) => {
+        pool.query("DELETE FROM products WHERE ProductId=?",
+            [
+                id
+            ],
+            (error, result) => {
+                helpers._getCallBack(callBack, error, result);
+            });
+    },
+
+
 }

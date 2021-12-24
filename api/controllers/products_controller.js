@@ -7,9 +7,10 @@ const {
     checkExistingProduct,
     getProducts,
     checkProductById,
-    updateProduct
+    updateProduct,
+    deleteProduct
 } = require("../services/products_services.js");
-const { options } = require("../routes/users_route");
+
 
 exports._createProduct = (req, res, next) => {
 
@@ -177,3 +178,34 @@ exports._updateProduct = (req, res, next) => {
     });
 };
 
+
+exports._deleteProduct = (req, res, next) => {
+
+    const id = req.params.id;
+
+    checkProductById(id, (err, results) => {
+        if (err) {
+            helpers._showError(500, res, err);
+        }
+        else {
+            if (results && results.length > 0) {
+                deleteProduct(id, (err, results) => {
+                    if (err) {
+                        helpers._showError(500, res, err);
+                    }
+                    else {
+                        if (results) {
+                            helpers._showSuccess(200, res, "Product deleted successfully", results);
+                        }
+                        else {
+                            helpers._showError(501, res, "Something went wrong " + err);
+                        }
+                    }
+                });
+            }
+            else {
+                helpers._showError(404, res, "Product cannot be found");
+            }
+        }
+    });
+}
