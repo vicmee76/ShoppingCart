@@ -1800,6 +1800,7 @@
                           },
                           "ViewRecord": {
                             "type": "object",
+                            "description": "Link to view this particularcategory",
                             "properties": {
                               "type": {
                                 "type": "string",
@@ -1817,6 +1818,7 @@
                           },
                           "ViewProducts": {
                             "type": "object",
+                            "description": "Link to view all products in this category",
                             "properties": {
                               "type": {
                                 "type": "string",
@@ -1834,6 +1836,7 @@
                           },
                           "EditRecord": {
                             "type": "object",
+                            "description": "Link to be used to edith this particular category",
                             "properties": {
                               "type": {
                                 "type": "string",
@@ -1851,6 +1854,7 @@
                           },
                           "DeleteRecord": {
                             "type": "object",
+                            "description": "Link to delete a particular category",
                             "properties": {
                               "type": {
                                 "type": "string",
