@@ -41,6 +41,19 @@ module.exports = {
     },
 
 
+    getCategoryProducts: (id, callBack) => {
+
+        pool.query("SELECT p.*, c.CategoryName FROM products as p LEFT JOIN categories as c ON p.CategoryId = c.CategoryId WHERE c.CategoryId=?",
+            [
+                id
+            ],
+            (error, result) => {
+                helpers._getCallBack(callBack, error, result);
+            });
+    },
+
+
+
     getCategoriesById: (id, callBack) => {
 
         pool.query("SELECT c.*, COUNT(p.ProductId) as ProductCount FROM categories as c LEFT JOIN products as p on c.CategoryId = p.CategoryId WHERE c.CategoryId=? GROUP BY c.CategoryId",

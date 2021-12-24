@@ -50,9 +50,9 @@ exports._createUser = (req, res, next) => {
 
 
 exports._getUserById = (req, res, next) => {
-    const id = req.params.id;
-    console.log(id);
-    getUserById(id, (err, results) => {
+    const userid = req.params.id;
+   
+    getUserById(userid, (err, results) => {
         if (err) {
             helpers._showError(500, res, err);
         }
@@ -87,17 +87,16 @@ exports._getUsers = (req, res, next) => {
 
 
 exports._updateUser = (req, res, next) => {
-    const id = req.params.id;
+    const userid = req.params.id;
     const data = req.body;
 
-    checkExisitingUser(id, data, (err, results) => {
+    checkExisitingUser(userid, data, (err, results) => {
         if (err) {
             helpers._showError(500, res, err);
         }
         else {
             if (results && results.length > 0) {
-
-                updateUser(id, data, (err, results) => {
+                updateUser(userid, data, (err, results) => {
                     if (err) {
                         helpers._showError(500, res, err);
                     }
@@ -120,16 +119,16 @@ exports._updateUser = (req, res, next) => {
 
 
 exports._deleteUser = (req, res, next) => {
-    const id = req.params.id;
+    const userid = req.params.id;
     const data = req.body;
 
-    checkExisitingUser(id, data, (err, results) => {
+    checkExisitingUser(userid, data, (err, results) => {
         if (err) {
             helpers._showError(500, res, err);
         }
         else {
             if (results && results.length > 0) {
-                deleteUser(id, (err, results) => {
+                deleteUser(userid, (err, results) => {
                     if (err) {
                         helpers._showError(500, res, err);
                     }
@@ -182,7 +181,7 @@ exports._loginUser = (req, res, next) => {
 
 
 exports._changePassword = (req, res, next) => {
-    const id = req.params.id;
+    const userid = req.params.id;
     const data = req.body;
     loginUser(data, (err, results) => {
         if (err) {
@@ -202,7 +201,7 @@ exports._changePassword = (req, res, next) => {
                         const hash = bcrypt.hashSync(data.NewPassword, 10);
                         data.NewPassword = hash;
 
-                        changePassword(id, data, (errs, response) => {
+                        changePassword(userid, data, (errs, response) => {
                             if (errs) {
                                 helpers._showError(500, res, errs);
                             }

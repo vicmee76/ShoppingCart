@@ -1,4 +1,5 @@
 var crypto = require("crypto");
+const dateShortcode = require('date-shortcode');
 
 exports._generateHash = () => {
     return crypto.randomBytes(5).toString('hex');
@@ -151,6 +152,84 @@ exports._showSingleCategory = (code, res, msg, response) => {
 };
 
 
+// customized function object to show products from database
+exports._showProducts = (code, res, msg, response) => {
+    return res.status(code).json({
+        success: true,
+        messgae: "Success : " + msg,
+        results: response.map(x => {
+            return {
+                ProductId: x.ProductId,
+                CategoryId: x.CategoryId,
+                CategoryName: x.CategoryName,
+                ProductName: x.ProductName,
+                Price: "$" + getPrice(x.SellingPrice, x.Discount),
+                Discount: x.Discount <= 0 ? "" : x.Discount + "% Off",
+                ProductImage: x.ProductImages.split(",")[0],
+                Expiry: getProductExpiry(x.ExpiredAt),
+                ViewProducts: {
+                    type: "GET",
+                    link: "http://localhost:4000/api/products/product-details/" + x.ProductId,
+                },
+                ViewCategory: {
+                    type: "POST",
+                    link: "http://localhost:4000/api/category/view/" + x.CategoryId,
+                },
+                EditProduct: {
+                    type: "PUT",
+                    link: "http://localhost:4000/api/products/edit/" + x.ProductId,
+                },
+                DeleteProduct: {
+                    type: "DELETE",
+                    link: "http://localhost:4000/api/products/delete/" + x.ProductId
+                }
+            }
+        })
+    });
+};
+
+
+
+// customized function object to show  a particular products from database
+exports._showSingleProducts = (code, res, msg, response) => {
+    return res.status(code).json({
+        success: true,
+        messgae: "Success : " + msg,
+        results: response.map(x => {
+            return {
+                ProductId: x.ProductId,
+                CategoryId: x.CategoryId,
+                CategoryName: x.CategoryName,
+                ProductName: x.ProductName,
+                ProductDescription: x.ProductDescription,
+                Sku: x.Sku,
+                Price: "$" + getPrice(x.SellingPrice, x.Discount),
+                Discount: x.Discount <= 0 ? "" : x.Discount + "% Off",
+                OldPrice: x.Discount <= 0 ? "" : parseFloat(x.SellingPrice),
+                StockLevel: x.StockLevel,
+                ProductImages: generateArr(x.ProductImages),
+                Colors: generateArr(x.Colors),
+                PaymentType: generateArr(x.PaymentType),
+                Expiry: getProductExpiry(x.ExpiredAt),
+                CreatedAt: dateShortcode.parse('{YYYY-MM-DD}', x.CreatedAt),
+                ViewCategory: {
+                    type: "POST",
+                    link: "http://localhost:4000/api/category/view/" + x.CategoryId,
+                },
+                EditProduct: {
+                    type: "PUT",
+                    link: "http://localhost:4000/api/products/edit/" + x.ProductId,
+                },
+                DeleteProduct: {
+                    type: "DELETE",
+                    link: "http://localhost:4000/api/products/delete/" + x.ProductId
+                }
+            }
+        })
+    });
+};
+
+
 
 // function to check password length
 exports._checkPassword = (password) => {
@@ -168,3 +247,62 @@ exports._getCallBack = (callBack, err, result) => {
         return callBack(null, result);
     }
 }
+
+
+
+
+function getPrice(sellingpriec, discount) {
+    let price = 0;
+    if (discount <= 0) {
+        price = sellingpriec;
+    }
+    else {
+        price = (sellingpriec - ((discount / 100) * sellingpriec));
+    }
+    return parseFloat(price).toFixed(2);
+}
+
+
+
+
+function getProductExpiry(expirydate) {
+
+    let result = "";
+
+    const date = dateShortcode.parse('{YYYY-MM-DD}', new Date());
+    let produtExpiry = dateShortcode.parse('{YYYY-MM-DD}', expirydate);
+
+    if (date > produtExpiry) {
+        result = "Expired Product (" + produtExpiry + ")";
+    }
+    else {
+        result = "Not Expired (" + produtExpiry + ")";
+    }
+
+    return result;
+}
+
+
+function generateArr(list) {
+
+    let arr = [];
+
+    if (list !== null) {
+        var m = list.split(",");
+        if (m.length <= 0) {
+            arr.push({ "Item ": list });
+        }
+        else {
+            
+            for (let i = 0; i < m.length; i++) {
+                arr.push({
+                    item : m[i]
+                });
+            }
+        }
+    }
+    return arr;
+}
+
+
+
