@@ -60,9 +60,9 @@ exports._createProduct = (req, res, next) => {
 exports._createProductFromCategory = (req, res, next) => {
 
     const data = req.body;
-    const id = req.params.id;
+    const categoryId = req.params.id;
 
-    checkExistingProduct(id, data, (err, results) => {
+    checkExistingProduct(categoryId, data, (err, results) => {
         if (err) {
             helpers._showError(500, res, err);
         }
@@ -73,7 +73,7 @@ exports._createProductFromCategory = (req, res, next) => {
                 let produtExpiry = dateShortcode.parse('{YYYY-MM-DD}', results[0].ExpiredAt);
 
                 if (date > produtExpiry) {
-                    saveProductFromCategory(id, data, (errs, response) => {
+                    saveProductFromCategory(categoryId, data, (errs, response) => {
                         if (errs) {
                             helpers._showError(500, res, errs);
                         }
@@ -87,7 +87,7 @@ exports._createProductFromCategory = (req, res, next) => {
                 }
             }
             else {
-                saveProductFromCategory(id, data, (errs, response) => {
+                saveProductFromCategory(categoryId, data, (errs, response) => {
                     if (errs) {
                         helpers._showError(500, res, errs);
                     }
@@ -104,9 +104,9 @@ exports._createProductFromCategory = (req, res, next) => {
 exports._getProducts = (req, res, next) => {
 
     option = req.query.option;
-    id = req.query.id;
+    categoryId = req.query.id;
 
-    getProducts(id, option, (err, results) => {
+    getProducts(categoryId, option, (err, results) => {
         if (err) {
             helpers._showError(500, res, err);
         }
@@ -126,9 +126,9 @@ exports._getProducts = (req, res, next) => {
 exports._getProductsDetails = (req, res, next) => {
 
     option = req.query.option;
-    id = req.query.id;
+    productId = req.query.id;
 
-    getProducts(id, option, (err, results) => {
+    getProducts(productId, option, (err, results) => {
         if (err) {
             helpers._showError(500, res, err);
         }
@@ -147,17 +147,17 @@ exports._getProductsDetails = (req, res, next) => {
 
 exports._updateProduct = (req, res, next) => {
 
-    const id = req.params.id;
+    const productId = req.params.id;
     const data = req.body;
 
-    checkProductById(id, (err, results) => {
+    checkProductById(productId, (err, results) => {
         if (err) {
             helpers._showError(500, res, err);
         }
         else {
             if (results && results.length > 0) {
 
-                updateProduct(id, data, (err, results) => {
+                updateProduct(productId, data, (err, results) => {
                     if (err) {
                         helpers._showError(500, res, err);
                     }
@@ -181,15 +181,15 @@ exports._updateProduct = (req, res, next) => {
 
 exports._deleteProduct = (req, res, next) => {
 
-    const id = req.params.id;
+    const productId = req.params.id;
 
-    checkProductById(id, (err, results) => {
+    checkProductById(productId, (err, results) => {
         if (err) {
             helpers._showError(500, res, err);
         }
         else {
             if (results && results.length > 0) {
-                deleteProduct(id, (err, results) => {
+                deleteProduct(productId, (err, results) => {
                     if (err) {
                         helpers._showError(500, res, err);
                     }
