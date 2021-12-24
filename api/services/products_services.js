@@ -48,7 +48,7 @@ module.exports = {
         pool.query("INSERT INTO products(CategoryId, ProductName, ProductDescription, Sku, SellingPrice, Discount, StockLevel, Colors, PaymentType, ProductImages, ExpiredAt) VALUES(?,?,?,?,?,?,?,?,?,?,?)",
             [
                 id,
-                data.ProductName.toUpperCase(),
+                data.ProductName,
                 data.ProductDescription,
                 sku,
                 data.SellingPrice,
