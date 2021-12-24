@@ -163,7 +163,7 @@ exports._showProducts = (code, res, msg, response) => {
                 CategoryId: x.CategoryId,
                 CategoryName: x.CategoryName,
                 ProductName: x.ProductName,
-                Price: getPrice(x.SellingPrice, x.Discount),
+                Price: "$" + getPrice(x.SellingPrice, x.Discount),
                 Discount: x.Discount <= 0 ? "" : x.Discount + "% Off",
                 ProductImage: x.ProductImages.split(",")[0],
                 Expiry: getProductExpiry(x.ExpiredAt),
@@ -203,7 +203,7 @@ exports._showSingleProducts = (code, res, msg, response) => {
                 ProductName: x.ProductName,
                 ProductDescription: x.ProductDescription,
                 Sku: x.Sku,
-                Price: getPrice(x.SellingPrice, x.Discount),
+                Price: "$" + getPrice(x.SellingPrice, x.Discount),
                 Discount: x.Discount <= 0 ? "" : x.Discount + "% Off",
                 OldPrice: x.Discount <= 0 ? "" : parseFloat(x.SellingPrice),
                 StockLevel: x.StockLevel,
@@ -211,7 +211,7 @@ exports._showSingleProducts = (code, res, msg, response) => {
                 Colors: generateArr(x.Colors),
                 PaymentType: generateArr(x.PaymentType),
                 Expiry: getProductExpiry(x.ExpiredAt),
-                CreatedAt: x.CreatedAt,
+                CreatedAt: dateShortcode.parse('{YYYY-MM-DD}', x.CreatedAt),
                 ViewCategory: {
                     type: "POST",
                     link: "http://localhost:4000/api/category/view/" + x.CategoryId,
@@ -258,7 +258,7 @@ function getPrice(sellingpriec, discount) {
     else {
         price = (sellingpriec - ((discount / 100) * sellingpriec));
     }
-    return parseFloat(price);
+    return parseFloat(price).toFixed(2);
 }
 
 
