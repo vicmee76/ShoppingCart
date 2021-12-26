@@ -138,6 +138,10 @@ exports._showSingleCategory = (code, res, msg, response) => {
                     type: "GET",
                     link: "http://localhost:4000/api/category/products/" + x.CategoryId,
                 },
+                CreateProduct: {
+                    type: "POST",
+                    link: "http://localhost:4000/api/product/save-product-from-category/" + x.CategoryId,
+                },
                 EditRecord: {
                     type: "PUT",
                     link: "http://localhost:4000/api/category/edit/" + x.CategoryId,
@@ -165,6 +169,7 @@ exports._showProducts = (code, res, msg, response) => {
                 ProductName: x.ProductName,
                 Price: "$" + getPrice(x.SellingPrice, x.Discount),
                 Discount: x.Discount <= 0 ? "" : x.Discount + "% Off",
+                OldPrice: x.Discount <= 0 ? "" : "$" + parseFloat(x.SellingPrice),
                 ProductImage: x.ProductImages.split(",")[0],
                 Expiry: getProductExpiry(x.ExpiredAt),
                 ViewProducts: {
@@ -205,7 +210,7 @@ exports._showSingleProducts = (code, res, msg, response) => {
                 Sku: x.Sku,
                 Price: "$" + getPrice(x.SellingPrice, x.Discount),
                 Discount: x.Discount <= 0 ? "" : x.Discount + "% Off",
-                OldPrice: x.Discount <= 0 ? "" : parseFloat(x.SellingPrice),
+                OldPrice: x.Discount <= 0 ? "" : "$" + parseFloat(x.SellingPrice),
                 StockLevel: x.StockLevel,
                 ProductImages: generateArr(x.ProductImages),
                 Colors: generateArr(x.Colors),

@@ -7,7 +7,7 @@ module.exports = {
 
     checkExistingProduct: (id, data, callBack) => {
 
-        pool.query("SELECT * FROM products WHERE ProductName = ? && CategoryId = ? && ExpiredAt < NOW()",
+        pool.query("SELECT * FROM products WHERE ProductName = ? && CategoryId = ?",
             [
                 data.ProductName,
                 id
