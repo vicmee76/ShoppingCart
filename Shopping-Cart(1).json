@@ -3958,140 +3958,6 @@
                 "schema": {
                   "description": "",
                   "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean"
-                    },
-                    "messgae": {
-                      "type": "string",
-                      "minLength": 1
-                    },
-                    "results": {
-                      "type": "array",
-                      "uniqueItems": true,
-                      "minItems": 1,
-                      "items": {
-                        "required": [
-                          "ProductId",
-                          "CategoryId",
-                          "CategoryName",
-                          "ProductName",
-                          "Price",
-                          "Discount",
-                          "OldPrice",
-                          "ProductImage",
-                          "Expiry"
-                        ],
-                        "properties": {
-                          "ProductId": {
-                            "type": "number"
-                          },
-                          "CategoryId": {
-                            "type": "number"
-                          },
-                          "CategoryName": {
-                            "type": "string",
-                            "minLength": 1
-                          },
-                          "ProductName": {
-                            "type": "string",
-                            "minLength": 1
-                          },
-                          "Price": {
-                            "type": "string",
-                            "minLength": 1
-                          },
-                          "Discount": {
-                            "type": "string"
-                          },
-                          "OldPrice": {
-                            "type": "string"
-                          },
-                          "ProductImage": {
-                            "type": "string",
-                            "minLength": 1
-                          },
-                          "Expiry": {
-                            "type": "string",
-                            "minLength": 1
-                          },
-                          "ViewProducts": {
-                            "type": "object",
-                            "properties": {
-                              "type": {
-                                "type": "string",
-                                "minLength": 1
-                              },
-                              "link": {
-                                "type": "string",
-                                "minLength": 1
-                              }
-                            },
-                            "required": [
-                              "type",
-                              "link"
-                            ]
-                          },
-                          "ViewCategory": {
-                            "type": "object",
-                            "properties": {
-                              "type": {
-                                "type": "string",
-                                "minLength": 1
-                              },
-                              "link": {
-                                "type": "string",
-                                "minLength": 1
-                              }
-                            },
-                            "required": [
-                              "type",
-                              "link"
-                            ]
-                          },
-                          "EditProduct": {
-                            "type": "object",
-                            "properties": {
-                              "type": {
-                                "type": "string",
-                                "minLength": 1
-                              },
-                              "link": {
-                                "type": "string",
-                                "minLength": 1
-                              }
-                            },
-                            "required": [
-                              "type",
-                              "link"
-                            ]
-                          },
-                          "DeleteProduct": {
-                            "type": "object",
-                            "properties": {
-                              "type": {
-                                "type": "string",
-                                "minLength": 1
-                              },
-                              "link": {
-                                "type": "string",
-                                "minLength": 1
-                              }
-                            },
-                            "required": [
-                              "type",
-                              "link"
-                            ]
-                          }
-                        }
-                      }
-                    }
-                  },
-                  "required": [
-                    "success",
-                    "messgae",
-                    "results"
-                  ],
                   "x-examples": {
                     "example-1": {
                       "success": true,
@@ -4126,7 +3992,151 @@
                         }
                       ]
                     }
-                  }
+                  },
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "messgae": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "results": {
+                      "type": "array",
+                      "uniqueItems": true,
+                      "minItems": 1,
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "ProductId": {
+                            "type": "number"
+                          },
+                          "CategoryId": {
+                            "type": "number"
+                          },
+                          "CategoryName": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "ProductName": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "Price": {
+                            "type": "string",
+                            "minLength": 1,
+                            "description": "Showing the main price to pay"
+                          },
+                          "Discount": {
+                            "type": "string",
+                            "description": "Discount offered for the product price"
+                          },
+                          "OldPrice": {
+                            "type": "string",
+                            "description": "The original price before the discount"
+                          },
+                          "ProductImage": {
+                            "type": "string",
+                            "minLength": 1,
+                            "description": "Gets the first image from the list of product images"
+                          },
+                          "Expiry": {
+                            "type": "string",
+                            "minLength": 1,
+                            "description": "Expiry date for the product"
+                          },
+                          "ViewProducts": {
+                            "type": "object",
+                            "description": "Link to view this particular product",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "link": {
+                                "type": "string",
+                                "minLength": 1
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "link"
+                            ]
+                          },
+                          "ViewCategory": {
+                            "type": "object",
+                            "description": "Link to view the category this product belongs to",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "link": {
+                                "type": "string",
+                                "minLength": 1
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "link"
+                            ]
+                          },
+                          "EditProduct": {
+                            "type": "object",
+                            "description": "link to edit this product",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "link": {
+                                "type": "string",
+                                "minLength": 1
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "link"
+                            ]
+                          },
+                          "DeleteProduct": {
+                            "type": "object",
+                            "description": "Link to delete this product",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "link": {
+                                "type": "string",
+                                "minLength": 1
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "link"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "ProductId",
+                          "CategoryId",
+                          "CategoryName",
+                          "ProductName",
+                          "Price",
+                          "Discount",
+                          "OldPrice",
+                          "ProductImage",
+                          "Expiry"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "messgae",
+                    "results"
+                  ]
                 },
                 "examples": {
                   "example-1": {
@@ -4204,140 +4214,6 @@
                 "schema": {
                   "description": "",
                   "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean"
-                    },
-                    "messgae": {
-                      "type": "string",
-                      "minLength": 1
-                    },
-                    "results": {
-                      "type": "array",
-                      "uniqueItems": true,
-                      "minItems": 1,
-                      "items": {
-                        "required": [
-                          "ProductId",
-                          "CategoryId",
-                          "CategoryName",
-                          "ProductName",
-                          "Price",
-                          "Discount",
-                          "OldPrice",
-                          "ProductImage",
-                          "Expiry"
-                        ],
-                        "properties": {
-                          "ProductId": {
-                            "type": "number"
-                          },
-                          "CategoryId": {
-                            "type": "number"
-                          },
-                          "CategoryName": {
-                            "type": "string",
-                            "minLength": 1
-                          },
-                          "ProductName": {
-                            "type": "string",
-                            "minLength": 1
-                          },
-                          "Price": {
-                            "type": "string",
-                            "minLength": 1
-                          },
-                          "Discount": {
-                            "type": "string"
-                          },
-                          "OldPrice": {
-                            "type": "string"
-                          },
-                          "ProductImage": {
-                            "type": "string",
-                            "minLength": 1
-                          },
-                          "Expiry": {
-                            "type": "string",
-                            "minLength": 1
-                          },
-                          "ViewProducts": {
-                            "type": "object",
-                            "properties": {
-                              "type": {
-                                "type": "string",
-                                "minLength": 1
-                              },
-                              "link": {
-                                "type": "string",
-                                "minLength": 1
-                              }
-                            },
-                            "required": [
-                              "type",
-                              "link"
-                            ]
-                          },
-                          "ViewCategory": {
-                            "type": "object",
-                            "properties": {
-                              "type": {
-                                "type": "string",
-                                "minLength": 1
-                              },
-                              "link": {
-                                "type": "string",
-                                "minLength": 1
-                              }
-                            },
-                            "required": [
-                              "type",
-                              "link"
-                            ]
-                          },
-                          "EditProduct": {
-                            "type": "object",
-                            "properties": {
-                              "type": {
-                                "type": "string",
-                                "minLength": 1
-                              },
-                              "link": {
-                                "type": "string",
-                                "minLength": 1
-                              }
-                            },
-                            "required": [
-                              "type",
-                              "link"
-                            ]
-                          },
-                          "DeleteProduct": {
-                            "type": "object",
-                            "properties": {
-                              "type": {
-                                "type": "string",
-                                "minLength": 1
-                              },
-                              "link": {
-                                "type": "string",
-                                "minLength": 1
-                              }
-                            },
-                            "required": [
-                              "type",
-                              "link"
-                            ]
-                          }
-                        }
-                      }
-                    }
-                  },
-                  "required": [
-                    "success",
-                    "messgae",
-                    "results"
-                  ],
                   "x-examples": {
                     "example-1": {
                       "success": true,
@@ -4372,7 +4248,151 @@
                         }
                       ]
                     }
-                  }
+                  },
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "messgae": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "results": {
+                      "type": "array",
+                      "uniqueItems": true,
+                      "minItems": 1,
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "ProductId": {
+                            "type": "number"
+                          },
+                          "CategoryId": {
+                            "type": "number"
+                          },
+                          "CategoryName": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "ProductName": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "Price": {
+                            "type": "string",
+                            "minLength": 1,
+                            "description": "Showing the main price to pay"
+                          },
+                          "Discount": {
+                            "type": "string",
+                            "description": "Discount offered for the product price"
+                          },
+                          "OldPrice": {
+                            "type": "string",
+                            "description": "The original price before the discount"
+                          },
+                          "ProductImage": {
+                            "type": "string",
+                            "minLength": 1,
+                            "description": "Gets the first image from the list of product images"
+                          },
+                          "Expiry": {
+                            "type": "string",
+                            "minLength": 1,
+                            "description": "Expiry date for the product"
+                          },
+                          "ViewProducts": {
+                            "type": "object",
+                            "description": "Link to view this product details",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "link": {
+                                "type": "string",
+                                "minLength": 1
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "link"
+                            ]
+                          },
+                          "ViewCategory": {
+                            "type": "object",
+                            "description": "Link to view the category this product belongs to",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "link": {
+                                "type": "string",
+                                "minLength": 1
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "link"
+                            ]
+                          },
+                          "EditProduct": {
+                            "type": "object",
+                            "description": "Link to edit this product",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "link": {
+                                "type": "string",
+                                "minLength": 1
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "link"
+                            ]
+                          },
+                          "DeleteProduct": {
+                            "type": "object",
+                            "description": "Link to delete this product",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "link": {
+                                "type": "string",
+                                "minLength": 1
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "link"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "ProductId",
+                          "CategoryId",
+                          "CategoryName",
+                          "ProductName",
+                          "Price",
+                          "Discount",
+                          "OldPrice",
+                          "ProductImage",
+                          "Expiry"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "messgae",
+                    "results"
+                  ]
                 },
                 "examples": {
                   "example-1": {
@@ -4723,140 +4743,6 @@
                 "schema": {
                   "description": "",
                   "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean"
-                    },
-                    "messgae": {
-                      "type": "string",
-                      "minLength": 1
-                    },
-                    "results": {
-                      "type": "array",
-                      "uniqueItems": true,
-                      "minItems": 1,
-                      "items": {
-                        "required": [
-                          "ProductId",
-                          "CategoryId",
-                          "CategoryName",
-                          "ProductName",
-                          "Price",
-                          "Discount",
-                          "OldPrice",
-                          "ProductImage",
-                          "Expiry"
-                        ],
-                        "properties": {
-                          "ProductId": {
-                            "type": "number"
-                          },
-                          "CategoryId": {
-                            "type": "number"
-                          },
-                          "CategoryName": {
-                            "type": "string",
-                            "minLength": 1
-                          },
-                          "ProductName": {
-                            "type": "string",
-                            "minLength": 1
-                          },
-                          "Price": {
-                            "type": "string",
-                            "minLength": 1
-                          },
-                          "Discount": {
-                            "type": "string"
-                          },
-                          "OldPrice": {
-                            "type": "string"
-                          },
-                          "ProductImage": {
-                            "type": "string",
-                            "minLength": 1
-                          },
-                          "Expiry": {
-                            "type": "string",
-                            "minLength": 1
-                          },
-                          "ViewProducts": {
-                            "type": "object",
-                            "properties": {
-                              "type": {
-                                "type": "string",
-                                "minLength": 1
-                              },
-                              "link": {
-                                "type": "string",
-                                "minLength": 1
-                              }
-                            },
-                            "required": [
-                              "type",
-                              "link"
-                            ]
-                          },
-                          "ViewCategory": {
-                            "type": "object",
-                            "properties": {
-                              "type": {
-                                "type": "string",
-                                "minLength": 1
-                              },
-                              "link": {
-                                "type": "string",
-                                "minLength": 1
-                              }
-                            },
-                            "required": [
-                              "type",
-                              "link"
-                            ]
-                          },
-                          "EditProduct": {
-                            "type": "object",
-                            "properties": {
-                              "type": {
-                                "type": "string",
-                                "minLength": 1
-                              },
-                              "link": {
-                                "type": "string",
-                                "minLength": 1
-                              }
-                            },
-                            "required": [
-                              "type",
-                              "link"
-                            ]
-                          },
-                          "DeleteProduct": {
-                            "type": "object",
-                            "properties": {
-                              "type": {
-                                "type": "string",
-                                "minLength": 1
-                              },
-                              "link": {
-                                "type": "string",
-                                "minLength": 1
-                              }
-                            },
-                            "required": [
-                              "type",
-                              "link"
-                            ]
-                          }
-                        }
-                      }
-                    }
-                  },
-                  "required": [
-                    "success",
-                    "messgae",
-                    "results"
-                  ],
                   "x-examples": {
                     "example-1": {
                       "success": true,
@@ -4891,7 +4777,485 @@
                         }
                       ]
                     }
+                  },
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "messgae": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "results": {
+                      "type": "array",
+                      "uniqueItems": true,
+                      "minItems": 1,
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "ProductId": {
+                            "type": "number"
+                          },
+                          "CategoryId": {
+                            "type": "number"
+                          },
+                          "CategoryName": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "ProductName": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "Price": {
+                            "type": "string",
+                            "minLength": 1,
+                            "description": "Showing the main price to pay"
+                          },
+                          "Discount": {
+                            "type": "string",
+                            "description": "Discount offered for the product price"
+                          },
+                          "OldPrice": {
+                            "type": "string",
+                            "description": "The original price before the discount"
+                          },
+                          "ProductImage": {
+                            "type": "string",
+                            "minLength": 1,
+                            "description": "Gets the first image from the list of product images"
+                          },
+                          "Expiry": {
+                            "type": "string",
+                            "minLength": 1,
+                            "description": "Expiry date for the product"
+                          },
+                          "ViewProducts": {
+                            "type": "object",
+                            "description": "Link to view this particular product",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "link": {
+                                "type": "string",
+                                "minLength": 1
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "link"
+                            ]
+                          },
+                          "ViewCategory": {
+                            "type": "object",
+                            "description": "Link to view the category this product belongs to",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "link": {
+                                "type": "string",
+                                "minLength": 1
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "link"
+                            ]
+                          },
+                          "EditProduct": {
+                            "type": "object",
+                            "description": "Link to edit this product",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "link": {
+                                "type": "string",
+                                "minLength": 1
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "link"
+                            ]
+                          },
+                          "DeleteProduct": {
+                            "type": "object",
+                            "description": "Link to delete this product",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "link": {
+                                "type": "string",
+                                "minLength": 1
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "link"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "ProductId",
+                          "CategoryId",
+                          "CategoryName",
+                          "ProductName",
+                          "Price",
+                          "Discount",
+                          "OldPrice",
+                          "ProductImage",
+                          "Expiry"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "messgae",
+                    "results"
+                  ]
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": true,
+                      "messgae": "Success : CATEGORY products found",
+                      "results": [
+                        {
+                          "ProductId": 1,
+                          "CategoryId": 4,
+                          "CategoryName": "FOOD",
+                          "ProductName": "Rice Bag",
+                          "Price": "$1200.99",
+                          "Discount": "",
+                          "OldPrice": "",
+                          "ProductImage": "https://img-url-1",
+                          "Expiry": "Expired Product (2021-12-20)",
+                          "ViewProducts": {
+                            "type": "GET",
+                            "link": "http://localhost:4000/api/products/product-details/1"
+                          },
+                          "ViewCategory": {
+                            "type": "POST",
+                            "link": "http://localhost:4000/api/category/view/4"
+                          },
+                          "EditProduct": {
+                            "type": "PUT",
+                            "link": "http://localhost:4000/api/products/edit/1"
+                          },
+                          "DeleteProduct": {
+                            "type": "DELETE",
+                            "link": "http://localhost:4000/api/products/delete/1"
+                          }
+                        },
+                        {
+                          "ProductId": 2,
+                          "CategoryId": 4,
+                          "CategoryName": "FOOD",
+                          "ProductName": "Rice Bag",
+                          "Price": "$1200.99",
+                          "Discount": "",
+                          "OldPrice": "",
+                          "ProductImage": "https://img-url-1",
+                          "Expiry": "Not Expired (2021-12-29)",
+                          "ViewProducts": {
+                            "type": "GET",
+                            "link": "http://localhost:4000/api/products/product-details/2"
+                          },
+                          "ViewCategory": {
+                            "type": "POST",
+                            "link": "http://localhost:4000/api/category/view/4"
+                          },
+                          "EditProduct": {
+                            "type": "PUT",
+                            "link": "http://localhost:4000/api/products/edit/2"
+                          },
+                          "DeleteProduct": {
+                            "type": "DELETE",
+                            "link": "http://localhost:4000/api/products/delete/2"
+                          }
+                        },
+                        {
+                          "ProductId": 3,
+                          "CategoryId": 4,
+                          "CategoryName": "FOOD",
+                          "ProductName": "VIJU MILK",
+                          "Price": "$140.20",
+                          "Discount": "30% Off",
+                          "OldPrice": "$200.29",
+                          "ProductImage": "https://img-url-1",
+                          "Expiry": "Not Expired (2022-12-29)",
+                          "ViewProducts": {
+                            "type": "GET",
+                            "link": "http://localhost:4000/api/products/product-details/3"
+                          },
+                          "ViewCategory": {
+                            "type": "POST",
+                            "link": "http://localhost:4000/api/category/view/4"
+                          },
+                          "EditProduct": {
+                            "type": "PUT",
+                            "link": "http://localhost:4000/api/products/edit/3"
+                          },
+                          "DeleteProduct": {
+                            "type": "DELETE",
+                            "link": "http://localhost:4000/api/products/delete/3"
+                          }
+                        }
+                      ]
+                    }
                   }
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          },
+          "": {
+            "description": ""
+          }
+        },
+        "operationId": "get-api--active-products",
+        "description": "An end point to get a list of all products in a particular category You need to pass the query parameter as the link implies.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "example": "http://localhost:4000/api/products/?option=category&id={id}"
+            },
+            "in": "query",
+            "name": "option",
+            "description": "insert {category} to fetch all products in a category",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "integer",
+              "example": "http://localhost:4000/api/products/?option=category&id={id}"
+            },
+            "in": "query",
+            "name": "id",
+            "description": "CategoryId to be passed",
+            "required": true
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "schema": {
+            "type": "integer",
+            "example": "http://localhost:4000/api/products/?option=category&id=4"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "CategoryId to be passed"
+        }
+      ]
+    },
+    "/api/products/?option=category&id={id} - copy": {
+      "get": {
+        "summary": "Get Products In A Category",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "x-examples": {
+                    "example-1": {
+                      "success": true,
+                      "messgae": "Success : All products found",
+                      "results": [
+                        {
+                          "ProductId": 1,
+                          "CategoryId": 4,
+                          "CategoryName": "FOOD",
+                          "ProductName": "Rice Bag",
+                          "Price": "$1200.99",
+                          "Discount": "",
+                          "OldPrice": "",
+                          "ProductImage": "https://img-url-1",
+                          "Expiry": "Expired Product (2021-12-20)",
+                          "ViewProducts": {
+                            "type": "GET",
+                            "link": "http://localhost:4000/api/products/product-details/1"
+                          },
+                          "ViewCategory": {
+                            "type": "POST",
+                            "link": "http://localhost:4000/api/category/view/4"
+                          },
+                          "EditProduct": {
+                            "type": "PUT",
+                            "link": "http://localhost:4000/api/products/edit/1"
+                          },
+                          "DeleteProduct": {
+                            "type": "DELETE",
+                            "link": "http://localhost:4000/api/products/delete/1"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "messgae": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "results": {
+                      "type": "array",
+                      "uniqueItems": true,
+                      "minItems": 1,
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "ProductId": {
+                            "type": "number"
+                          },
+                          "CategoryId": {
+                            "type": "number"
+                          },
+                          "CategoryName": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "ProductName": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "Price": {
+                            "type": "string",
+                            "minLength": 1,
+                            "description": "Showing the main price to pay"
+                          },
+                          "Discount": {
+                            "type": "string",
+                            "description": "Discount offered for the product price"
+                          },
+                          "OldPrice": {
+                            "type": "string",
+                            "description": "The original price before the discount"
+                          },
+                          "ProductImage": {
+                            "type": "string",
+                            "minLength": 1,
+                            "description": "Gets the first image from the list of product images"
+                          },
+                          "Expiry": {
+                            "type": "string",
+                            "minLength": 1,
+                            "description": "Expiry date for the product"
+                          },
+                          "ViewProducts": {
+                            "type": "object",
+                            "description": "Link to view this particular product",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "link": {
+                                "type": "string",
+                                "minLength": 1
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "link"
+                            ]
+                          },
+                          "ViewCategory": {
+                            "type": "object",
+                            "description": "Link to view the category this product belongs to",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "link": {
+                                "type": "string",
+                                "minLength": 1
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "link"
+                            ]
+                          },
+                          "EditProduct": {
+                            "type": "object",
+                            "description": "Link to edit this product",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "link": {
+                                "type": "string",
+                                "minLength": 1
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "link"
+                            ]
+                          },
+                          "DeleteProduct": {
+                            "type": "object",
+                            "description": "Link to delete this product",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "link": {
+                                "type": "string",
+                                "minLength": 1
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "link"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "ProductId",
+                          "CategoryId",
+                          "CategoryName",
+                          "ProductName",
+                          "Price",
+                          "Discount",
+                          "OldPrice",
+                          "ProductImage",
+                          "Expiry"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "messgae",
+                    "results"
+                  ]
                 },
                 "examples": {
                   "example-1": {
