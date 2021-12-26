@@ -3930,7 +3930,7 @@
           }
         },
         "operationId": "get-api-products",
-        "description": "An end point to get all created products. You need to pass the query parameter as the link implies.",
+        "description": "An end point to get all (expired and active) created products. You need to pass the query parameter as the link implies.",
         "parameters": [
           {
             "schema": {
@@ -4186,6 +4186,255 @@
             "in": "query",
             "name": "option",
             "description": "insert {expired} to fetch all products",
+            "required": true
+          }
+        ]
+      },
+      "parameters": []
+    },
+    "/api/products/?option=active": {
+      "get": {
+        "summary": "Get Active Products",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "messgae": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "results": {
+                      "type": "array",
+                      "uniqueItems": true,
+                      "minItems": 1,
+                      "items": {
+                        "required": [
+                          "ProductId",
+                          "CategoryId",
+                          "CategoryName",
+                          "ProductName",
+                          "Price",
+                          "Discount",
+                          "OldPrice",
+                          "ProductImage",
+                          "Expiry"
+                        ],
+                        "properties": {
+                          "ProductId": {
+                            "type": "number"
+                          },
+                          "CategoryId": {
+                            "type": "number"
+                          },
+                          "CategoryName": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "ProductName": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "Price": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "Discount": {
+                            "type": "string"
+                          },
+                          "OldPrice": {
+                            "type": "string"
+                          },
+                          "ProductImage": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "Expiry": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "ViewProducts": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "link": {
+                                "type": "string",
+                                "minLength": 1
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "link"
+                            ]
+                          },
+                          "ViewCategory": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "link": {
+                                "type": "string",
+                                "minLength": 1
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "link"
+                            ]
+                          },
+                          "EditProduct": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "link": {
+                                "type": "string",
+                                "minLength": 1
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "link"
+                            ]
+                          },
+                          "DeleteProduct": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "link": {
+                                "type": "string",
+                                "minLength": 1
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "link"
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "messgae",
+                    "results"
+                  ],
+                  "x-examples": {
+                    "example-1": {
+                      "success": true,
+                      "messgae": "Success : All products found",
+                      "results": [
+                        {
+                          "ProductId": 1,
+                          "CategoryId": 4,
+                          "CategoryName": "FOOD",
+                          "ProductName": "Rice Bag",
+                          "Price": "$1200.99",
+                          "Discount": "",
+                          "OldPrice": "",
+                          "ProductImage": "https://img-url-1",
+                          "Expiry": "Expired Product (2021-12-20)",
+                          "ViewProducts": {
+                            "type": "GET",
+                            "link": "http://localhost:4000/api/products/product-details/1"
+                          },
+                          "ViewCategory": {
+                            "type": "POST",
+                            "link": "http://localhost:4000/api/category/view/4"
+                          },
+                          "EditProduct": {
+                            "type": "PUT",
+                            "link": "http://localhost:4000/api/products/edit/1"
+                          },
+                          "DeleteProduct": {
+                            "type": "DELETE",
+                            "link": "http://localhost:4000/api/products/delete/1"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": true,
+                      "messgae": "Success : EXPIRED products found",
+                      "results": [
+                        {
+                          "ProductId": 1,
+                          "CategoryId": 4,
+                          "CategoryName": "FOOD",
+                          "ProductName": "Rice Bag",
+                          "Price": "$1200.99",
+                          "Discount": "",
+                          "OldPrice": "",
+                          "ProductImage": "https://img-url-1",
+                          "Expiry": "Expired Product (2021-12-20)",
+                          "ViewProducts": {
+                            "type": "GET",
+                            "link": "http://localhost:4000/api/products/product-details/1"
+                          },
+                          "ViewCategory": {
+                            "type": "POST",
+                            "link": "http://localhost:4000/api/category/view/4"
+                          },
+                          "EditProduct": {
+                            "type": "PUT",
+                            "link": "http://localhost:4000/api/products/edit/1"
+                          },
+                          "DeleteProduct": {
+                            "type": "DELETE",
+                            "link": "http://localhost:4000/api/products/delete/1"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          },
+          "": {
+            "description": ""
+          }
+        },
+        "operationId": "get-api--active-products",
+        "description": "An end point to get a list of all non-expired products. You need to pass the query parameter as the link implies.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "example": "http://localhost:4000/api/products/?option=active"
+            },
+            "in": "query",
+            "name": "option",
+            "description": "insert {active} to fetch all products",
             "required": true
           }
         ]
