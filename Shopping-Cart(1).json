@@ -5065,9 +5065,9 @@
         }
       ]
     },
-    "/api/products/?option=category&id={id} - copy": {
+    "/api/products//product-details/?option=single&id={id}": {
       "get": {
-        "summary": "Get Products In A Category",
+        "summary": "Get Single Products Details",
         "tags": [],
         "responses": {
           "200": {
@@ -5083,30 +5083,56 @@
                       "messgae": "Success : All products found",
                       "results": [
                         {
-                          "ProductId": 1,
+                          "ProductId": 3,
                           "CategoryId": 4,
                           "CategoryName": "FOOD",
-                          "ProductName": "Rice Bag",
-                          "Price": "$1200.99",
-                          "Discount": "",
-                          "OldPrice": "",
-                          "ProductImage": "https://img-url-1",
-                          "Expiry": "Expired Product (2021-12-20)",
-                          "ViewProducts": {
-                            "type": "GET",
-                            "link": "http://localhost:4000/api/products/product-details/1"
-                          },
+                          "ProductName": "VIJU MILK",
+                          "ProductDescription": "500ml bag of chocolate Viju Milk drink.",
+                          "Sku": "7b31d4ef12",
+                          "Price": "$140.20",
+                          "Discount": "30% Off",
+                          "OldPrice": "$200.29",
+                          "StockLevel": 10,
+                          "ProductImages": [
+                            {
+                              "item": "https://img-url-1"
+                            },
+                            {
+                              "item": " https://img-url-2"
+                            },
+                            {
+                              "item": " https://img-url-3"
+                            }
+                          ],
+                          "Colors": [
+                            {
+                              "item": "Chocolate"
+                            }
+                          ],
+                          "PaymentType": [
+                            {
+                              "item": "Bank Transfer"
+                            },
+                            {
+                              "item": " Card"
+                            },
+                            {
+                              "item": " Payment on delivery"
+                            }
+                          ],
+                          "Expiry": "Not Expired (2022-12-29)",
+                          "CreatedAt": "2021-12-24",
                           "ViewCategory": {
                             "type": "POST",
                             "link": "http://localhost:4000/api/category/view/4"
                           },
                           "EditProduct": {
                             "type": "PUT",
-                            "link": "http://localhost:4000/api/products/edit/1"
+                            "link": "http://localhost:4000/api/products/edit/3"
                           },
                           "DeleteProduct": {
                             "type": "DELETE",
-                            "link": "http://localhost:4000/api/products/delete/1"
+                            "link": "http://localhost:4000/api/products/delete/3"
                           }
                         }
                       ]
@@ -5141,6 +5167,14 @@
                             "type": "string",
                             "minLength": 1
                           },
+                          "ProductDescription": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "Sku": {
+                            "type": "string",
+                            "minLength": 1
+                          },
                           "Price": {
                             "type": "string",
                             "minLength": 1,
@@ -5148,39 +5182,79 @@
                           },
                           "Discount": {
                             "type": "string",
+                            "minLength": 1,
                             "description": "Discount offered for the product price"
                           },
                           "OldPrice": {
                             "type": "string",
+                            "minLength": 1,
                             "description": "The original price before the discount"
                           },
-                          "ProductImage": {
-                            "type": "string",
-                            "minLength": 1,
-                            "description": "Gets the first image from the list of product images"
+                          "StockLevel": {
+                            "type": "number"
+                          },
+                          "ProductImages": {
+                            "type": "array",
+                            "uniqueItems": true,
+                            "minItems": 1,
+                            "description": "A new list of product images after splitting the commas ",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "item": {
+                                  "type": "string",
+                                  "minLength": 1
+                                }
+                              },
+                              "required": [
+                                "item"
+                              ]
+                            }
+                          },
+                          "Colors": {
+                            "type": "array",
+                            "uniqueItems": true,
+                            "minItems": 1,
+                            "description": "A new list of product colors after splitting the commas",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "item": {
+                                  "type": "string",
+                                  "minLength": 1
+                                }
+                              },
+                              "required": [
+                                "item"
+                              ]
+                            }
+                          },
+                          "PaymentType": {
+                            "type": "array",
+                            "uniqueItems": true,
+                            "minItems": 1,
+                            "description": "A new list of payment options after splitting the commas ",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "item": {
+                                  "type": "string",
+                                  "minLength": 1
+                                }
+                              },
+                              "required": [
+                                "item"
+                              ]
+                            }
                           },
                           "Expiry": {
                             "type": "string",
                             "minLength": 1,
-                            "description": "Expiry date for the product"
+                            "description": "Expiry date of the products"
                           },
-                          "ViewProducts": {
-                            "type": "object",
-                            "description": "Link to view this particular product",
-                            "properties": {
-                              "type": {
-                                "type": "string",
-                                "minLength": 1
-                              },
-                              "link": {
-                                "type": "string",
-                                "minLength": 1
-                              }
-                            },
-                            "required": [
-                              "type",
-                              "link"
-                            ]
+                          "CreatedAt": {
+                            "type": "string",
+                            "minLength": 1
                           },
                           "ViewCategory": {
                             "type": "object",
@@ -5242,11 +5316,14 @@
                           "CategoryId",
                           "CategoryName",
                           "ProductName",
+                          "ProductDescription",
+                          "Sku",
                           "Price",
                           "Discount",
                           "OldPrice",
-                          "ProductImage",
-                          "Expiry"
+                          "StockLevel",
+                          "Expiry",
+                          "CreatedAt"
                         ]
                       }
                     }
@@ -5261,76 +5338,48 @@
                   "example-1": {
                     "value": {
                       "success": true,
-                      "messgae": "Success : CATEGORY products found",
+                      "messgae": "Success : Product found",
                       "results": [
-                        {
-                          "ProductId": 1,
-                          "CategoryId": 4,
-                          "CategoryName": "FOOD",
-                          "ProductName": "Rice Bag",
-                          "Price": "$1200.99",
-                          "Discount": "",
-                          "OldPrice": "",
-                          "ProductImage": "https://img-url-1",
-                          "Expiry": "Expired Product (2021-12-20)",
-                          "ViewProducts": {
-                            "type": "GET",
-                            "link": "http://localhost:4000/api/products/product-details/1"
-                          },
-                          "ViewCategory": {
-                            "type": "POST",
-                            "link": "http://localhost:4000/api/category/view/4"
-                          },
-                          "EditProduct": {
-                            "type": "PUT",
-                            "link": "http://localhost:4000/api/products/edit/1"
-                          },
-                          "DeleteProduct": {
-                            "type": "DELETE",
-                            "link": "http://localhost:4000/api/products/delete/1"
-                          }
-                        },
-                        {
-                          "ProductId": 2,
-                          "CategoryId": 4,
-                          "CategoryName": "FOOD",
-                          "ProductName": "Rice Bag",
-                          "Price": "$1200.99",
-                          "Discount": "",
-                          "OldPrice": "",
-                          "ProductImage": "https://img-url-1",
-                          "Expiry": "Not Expired (2021-12-29)",
-                          "ViewProducts": {
-                            "type": "GET",
-                            "link": "http://localhost:4000/api/products/product-details/2"
-                          },
-                          "ViewCategory": {
-                            "type": "POST",
-                            "link": "http://localhost:4000/api/category/view/4"
-                          },
-                          "EditProduct": {
-                            "type": "PUT",
-                            "link": "http://localhost:4000/api/products/edit/2"
-                          },
-                          "DeleteProduct": {
-                            "type": "DELETE",
-                            "link": "http://localhost:4000/api/products/delete/2"
-                          }
-                        },
                         {
                           "ProductId": 3,
                           "CategoryId": 4,
                           "CategoryName": "FOOD",
                           "ProductName": "VIJU MILK",
+                          "ProductDescription": "500ml bag of chocolate Viju Milk drink.",
+                          "Sku": "7b31d4ef12",
                           "Price": "$140.20",
                           "Discount": "30% Off",
                           "OldPrice": "$200.29",
-                          "ProductImage": "https://img-url-1",
+                          "StockLevel": 10,
+                          "ProductImages": [
+                            {
+                              "item": "https://img-url-1"
+                            },
+                            {
+                              "item": " https://img-url-2"
+                            },
+                            {
+                              "item": " https://img-url-3"
+                            }
+                          ],
+                          "Colors": [
+                            {
+                              "item": "Chocolate"
+                            }
+                          ],
+                          "PaymentType": [
+                            {
+                              "item": "Bank Transfer"
+                            },
+                            {
+                              "item": " Card"
+                            },
+                            {
+                              "item": " Payment on delivery"
+                            }
+                          ],
                           "Expiry": "Not Expired (2022-12-29)",
-                          "ViewProducts": {
-                            "type": "GET",
-                            "link": "http://localhost:4000/api/products/product-details/3"
-                          },
+                          "CreatedAt": "2021-12-24",
                           "ViewCategory": {
                             "type": "POST",
                             "link": "http://localhost:4000/api/category/view/4"
@@ -5362,26 +5411,26 @@
           }
         },
         "operationId": "get-api--active-products",
-        "description": "An end point to get a list of all products in a particular category You need to pass the query parameter as the link implies.",
+        "description": "An end point to get single product details. You need to pass the query parameter as the link implies.",
         "parameters": [
           {
             "schema": {
               "type": "string",
-              "example": "http://localhost:4000/api/products/?option=category&id={id}"
+              "example": "/api/products//product-details/?option=single&id={id}"
             },
             "in": "query",
             "name": "option",
-            "description": "insert {category} to fetch all products in a category",
+            "description": "insert {single} to fetch all products in a category",
             "required": true
           },
           {
             "schema": {
               "type": "integer",
-              "example": "http://localhost:4000/api/products/?option=category&id={id}"
+              "example": "/api/products//product-details/?option=single&id={id}"
             },
             "in": "query",
             "name": "id",
-            "description": "CategoryId to be passed",
+            "description": "ProductId to be passed",
             "required": true
           }
         ]
@@ -5395,7 +5444,7 @@
           "name": "id",
           "in": "path",
           "required": true,
-          "description": "CategoryId to be passed"
+          "description": "ProductId to be passed"
         }
       ]
     }
