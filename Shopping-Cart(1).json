@@ -5448,7 +5448,7 @@
     },
     "/api/products/edit/{id}": {
       "put": {
-        "summary": "",
+        "summary": "Edit Product",
         "operationId": "put-api-products-edit",
         "responses": {
           "201": {
