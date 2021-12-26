@@ -2094,6 +2094,20 @@
                               "link"
                             ]
                           },
+                          "CreateProduct": {
+                            "type": [
+                              "string",
+                              "object"
+                            ],
+                            "properties": {
+                              "type": {
+                                "type": "string"
+                              },
+                              "link": {
+                                "type": "string"
+                              }
+                            }
+                          },
                           "EditRecord": {
                             "type": "object",
                             "description": "Link to edit this particular category",
@@ -2158,10 +2172,14 @@
                           "CategoryName": "MUSIC",
                           "CategoryDescription": "They want to be able to see exactly what your product looks like.",
                           "CreatedAt": "2021-12-22T21:35:16.000Z",
-                          "ProductCount": 0,
+                          "ProductCount": 3,
                           "ViewProducts": {
                             "type": "GET",
                             "link": "http://localhost:4000/api/category/products/5"
+                          },
+                          "CreateProduct": {
+                            "type": "POST",
+                            "link": "http://localhost:4000/api/product/save-product-from-category/5"
                           },
                           "EditRecord": {
                             "type": "PUT",
