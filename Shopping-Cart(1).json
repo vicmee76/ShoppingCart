@@ -5717,6 +5717,180 @@
           "description": "ProductId to be passed"
         }
       ]
+    },
+    "/api/products/delete/{id}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "integer",
+            "example": "http://localhost:4000/api/products/delete/9"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "ProductId to be passed"
+        }
+      ],
+      "delete": {
+        "summary": "Delete Product",
+        "operationId": "delete-api-products-edit-id---copy",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "messgae": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "results": {
+                      "type": "object",
+                      "properties": {
+                        "fieldCount": {
+                          "type": "number"
+                        },
+                        "affectedRows": {
+                          "type": "number"
+                        },
+                        "insertId": {
+                          "type": "number"
+                        },
+                        "info": {
+                          "type": "string"
+                        },
+                        "serverStatus": {
+                          "type": "number"
+                        },
+                        "warningStatus": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "fieldCount",
+                        "affectedRows",
+                        "insertId",
+                        "info",
+                        "serverStatus",
+                        "warningStatus"
+                      ]
+                    },
+                    "token": {}
+                  },
+                  "required": [
+                    "success",
+                    "messgae",
+                    "results"
+                  ],
+                  "x-examples": {
+                    "example-1": {
+                      "success": true,
+                      "messgae": "Success : Product deleted successfully",
+                      "results": {
+                        "fieldCount": 0,
+                        "affectedRows": 1,
+                        "insertId": 0,
+                        "info": "",
+                        "serverStatus": 2,
+                        "warningStatus": 0
+                      },
+                      "token": null
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": true,
+                      "messgae": "Success : Product deleted successfully",
+                      "results": {
+                        "fieldCount": 0,
+                        "affectedRows": 1,
+                        "insertId": 0,
+                        "info": "",
+                        "serverStatus": 2,
+                        "warningStatus": 0
+                      },
+                      "token": null
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          },
+          "501": {
+            "description": "Not Implemented",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "messgae": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "messgae"
+                  ],
+                  "x-examples": {
+                    "example-1": {
+                      "success": false,
+                      "messgae": "Invalid token"
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": false,
+                      "messgae": "Something went wrong : error msg"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "": {
+            "description": ""
+          }
+        },
+        "description": "This endpoint deletes a particular product",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "Authorization ",
+            "description": "{token}",
+            "required": true
+          }
+        ]
+      }
     }
   },
   "components": {
