@@ -2611,6 +2611,256 @@
           "description": "The Id of the category to be deleted"
         }
       ]
+    },
+    "/api/products": {
+      "post": {
+        "summary": "Create Product",
+        "operationId": "post-api-products",
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "messgae": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "results": {
+                      "type": "object",
+                      "properties": {
+                        "fieldCount": {
+                          "type": "number"
+                        },
+                        "affectedRows": {
+                          "type": "number"
+                        },
+                        "insertId": {
+                          "type": "number"
+                        },
+                        "info": {
+                          "type": "string"
+                        },
+                        "serverStatus": {
+                          "type": "number"
+                        },
+                        "warningStatus": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "fieldCount",
+                        "affectedRows",
+                        "insertId",
+                        "info",
+                        "serverStatus",
+                        "warningStatus"
+                      ]
+                    },
+                    "token": {}
+                  },
+                  "required": [
+                    "success",
+                    "messgae",
+                    "results"
+                  ],
+                  "x-examples": {
+                    "example-1": {
+                      "success": true,
+                      "messgae": "Success : Product created successfully",
+                      "results": {
+                        "fieldCount": 0,
+                        "affectedRows": 1,
+                        "insertId": 10,
+                        "info": "",
+                        "serverStatus": 2,
+                        "warningStatus": 0
+                      },
+                      "token": null
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": true,
+                      "messgae": "Success : Product created successfully",
+                      "results": {
+                        "fieldCount": 0,
+                        "affectedRows": 1,
+                        "insertId": 10,
+                        "info": "",
+                        "serverStatus": 2,
+                        "warningStatus": 0
+                      },
+                      "token": null
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "messgae": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "messgae"
+                  ],
+                  "x-examples": {
+                    "example-1": {
+                      "success": false,
+                      "messgae": "Error : This product already exits for this category."
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": false,
+                      "messgae": "Error : This product already exits for this category."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        },
+        "description": "An endpoiint to create different products in a category without passing the category as a parameter ",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "Authorization ",
+            "description": "{token}"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "description": "",
+                "type": "object",
+                "x-examples": {
+                  "example-1": {
+                    "CategoryId": 5,
+                    "ProductName": "Mixer",
+                    "ProductDescription": "High jend mixer for any kind of music",
+                    "SellingPrice": 800.39,
+                    "Discount": 2,
+                    "StockLevel": 10,
+                    "Colors": "Black, Red & White",
+                    "PaymentType": "Bank Transfer, Card, Payment on delivery",
+                    "ProductImages": "https://img-url-1, https://img-url-2, https://img-url-3",
+                    "ExpiredAt": "2022-3-30"
+                  }
+                },
+                "properties": {
+                  "CategoryId": {
+                    "type": "number"
+                  },
+                  "ProductName": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "ProductDescription": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "SellingPrice": {
+                    "type": "number"
+                  },
+                  "Discount": {
+                    "type": "number"
+                  },
+                  "StockLevel": {
+                    "type": "number"
+                  },
+                  "Colors": {
+                    "type": "string",
+                    "minLength": 1,
+                    "description": "Enter different colors separated by comma(,)"
+                  },
+                  "PaymentType": {
+                    "type": "string",
+                    "minLength": 1,
+                    "description": "Enter different payment types separated by comma(,)",
+                    "example": "Card, Payment on delivery, Bank Transfere"
+                  },
+                  "ProductImages": {
+                    "type": "string",
+                    "minLength": 1,
+                    "description": "Enter different product images separated by comma(,)"
+                  },
+                  "ExpiredAt": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "CategoryId",
+                  "ProductName",
+                  "ProductDescription",
+                  "SellingPrice",
+                  "Discount",
+                  "StockLevel",
+                  "Colors",
+                  "PaymentType",
+                  "ProductImages",
+                  "ExpiredAt"
+                ]
+              },
+              "examples": {
+                "example-1": {
+                  "value": {
+                    "CategoryId": 5,
+                    "ProductName": "Mixer",
+                    "ProductDescription": "High jend mixer for any kind of music",
+                    "SellingPrice": 800.39,
+                    "Discount": 2,
+                    "StockLevel": 10,
+                    "Colors": "Black, Red & White",
+                    "PaymentType": "Bank Transfer, Card, Payment on delivery",
+                    "ProductImages": "https://img-url-1, https://img-url-2, https://img-url-3",
+                    "ExpiredAt": "2022-3-30"
+                  }
+                }
+              }
+            }
+          },
+          "description": "Please see example body. "
+        }
+      }
     }
   },
   "components": {
