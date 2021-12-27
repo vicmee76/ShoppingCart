@@ -29,6 +29,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include=".env" />
+    <Content Include="api\controllers\cart_controller.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="api\controllers\category_controller.js">
       <SubType>Code</SubType>
     </Content>
@@ -36,6 +39,9 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="api\controllers\users_controller.js" />
+    <Content Include="api\routes\cart_route.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="api\routes\category_route.js">
       <SubType>Code</SubType>
     </Content>
@@ -43,6 +49,9 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="api\routes\users_route.js" />
+    <Content Include="api\services\cart_services.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="api\services\category_services.js">
       <SubType>Code</SubType>
     </Content>

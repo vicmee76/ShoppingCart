@@ -317,6 +317,7 @@ function getProductExpiry(expirydate) {
 }
 
 
+
 function generateArr(list) {
 
     let arr = [];
