@@ -157,27 +157,35 @@ exports._showSingleCategory = (code, res, msg, response) => {
 
 
 // customized function object to show products from database
-exports._showProducts = (code, res, msg, response) => {
+exports._showProducts = (code, res, msg, response, expiry = null) => {
     return res.status(code).json({
         success: true,
         messgae: "Success : " + msg,
         results: response.map(x => {
+            let url = "http://localhost:4000/api/cart/" + x.ProductId;
+            if (expiry === "expired") {
+                url = "";
+            }
             return {
                 ProductId: x.ProductId,
                 CategoryId: x.CategoryId,
                 CategoryName: x.CategoryName,
                 ProductName: x.ProductName,
-                Price: "$" + getPrice(x.SellingPrice, x.Discount),
+                Price: getPrice(x.SellingPrice, x.Discount),
                 Discount: x.Discount <= 0 ? "" : x.Discount + "% Off",
-                OldPrice: x.Discount <= 0 ? "" : "$" + parseFloat(x.SellingPrice),
+                OldPrice: x.Discount <= 0 ? "" : parseFloat(x.SellingPrice),
                 ProductImage: x.ProductImages.split(",")[0],
                 Expiry: getProductExpiry(x.ExpiredAt),
+                AddToCart: {
+                    type: "POST",
+                    link: url,
+                },
                 ViewProducts: {
                     type: "GET",
                     link: "http://localhost:4000/api/products/product-details/" + x.ProductId,
                 },
                 ViewCategory: {
-                    type: "POST",
+                    type: "GET",
                     link: "http://localhost:4000/api/category/view/" + x.CategoryId,
                 },
                 EditProduct: {
@@ -196,11 +204,15 @@ exports._showProducts = (code, res, msg, response) => {
 
 
 // customized function object to show  a particular products from database
-exports._showSingleProducts = (code, res, msg, response) => {
+exports._showSingleProducts = (code, res, msg, response, expiry = null) => {
     return res.status(code).json({
         success: true,
         messgae: "Success : " + msg,
         results: response.map(x => {
+            let url = "http://localhost:4000/api/cart/" + x.ProductId;
+            if (expiry === "expired") {
+                url = "";
+            }
             return {
                 ProductId: x.ProductId,
                 CategoryId: x.CategoryId,
@@ -208,17 +220,22 @@ exports._showSingleProducts = (code, res, msg, response) => {
                 ProductName: x.ProductName,
                 ProductDescription: x.ProductDescription,
                 Sku: x.Sku,
-                Price: "$" + getPrice(x.SellingPrice, x.Discount),
+                Price: getPrice(x.SellingPrice, x.Discount),
                 Discount: x.Discount <= 0 ? "" : x.Discount + "% Off",
-                OldPrice: x.Discount <= 0 ? "" : "$" + parseFloat(x.SellingPrice),
+                OldPrice: x.Discount <= 0 ? "" :  parseFloat(x.SellingPrice),
+                ShippingFee: getShippingFee(x.ShippingPercentage, x.SellingPrice),
                 StockLevel: x.StockLevel,
                 ProductImages: generateArr(x.ProductImages),
                 Colors: generateArr(x.Colors),
                 PaymentType: generateArr(x.PaymentType),
                 Expiry: getProductExpiry(x.ExpiredAt),
                 CreatedAt: dateShortcode.parse('{YYYY-MM-DD}', x.CreatedAt),
-                ViewCategory: {
+                AddToCart: {
                     type: "POST",
+                    link: url,
+                },
+                ViewCategory: {
+                    type: "GET",
                     link: "http://localhost:4000/api/category/view/" + x.CategoryId,
                 },
                 EditProduct: {
@@ -269,6 +286,18 @@ function getPrice(sellingpriec, discount) {
 
 
 
+function getShippingFee(shipping, sellingprice) {
+    let fee = 0;
+    if (shipping <= 0 || shipping === "") {
+        fee = 0;
+    }
+    else {
+        fee = (sellingprice - (shipping / 100) * sellingprice);
+    }
+    return parseFloat(fee).toFixed();
+}
+
+
 
 function getProductExpiry(expirydate) {
 
@@ -286,6 +315,7 @@ function getProductExpiry(expirydate) {
 
     return result;
 }
+
 
 
 function generateArr(list) {
