@@ -2826,6 +2826,9 @@
                   "ExpiredAt": {
                     "type": "string",
                     "minLength": 1
+                  },
+                  "ShippingPercentage": {
+                    "type": "number"
                   }
                 },
                 "required": [
@@ -3072,6 +3075,9 @@
                   "ExpiredAt": {
                     "type": "string",
                     "minLength": 1
+                  },
+                  "ShippingPercentage": {
+                    "type": "number"
                   }
                 },
                 "required": [
@@ -3501,6 +3507,19 @@
                             "minLength": 1,
                             "description": "Expiry date for the product"
                           },
+                          "AddToCart": {
+                            "type": "object",
+                            "description": "Add this product to cart",
+                            "properties": {
+                              "type": {
+                                "type": "string"
+                              },
+                              "link": {
+                                "type": "string",
+                                "description": "id = product id"
+                              }
+                            }
+                          },
                           "ViewProducts": {
                             "type": "object",
                             "description": "View all details of this particular product",
@@ -3511,7 +3530,8 @@
                               },
                               "link": {
                                 "type": "string",
-                                "minLength": 1
+                                "minLength": 1,
+                                "description": "id = productId"
                               }
                             },
                             "required": [
@@ -3529,7 +3549,8 @@
                               },
                               "link": {
                                 "type": "string",
-                                "minLength": 1
+                                "minLength": 1,
+                                "description": "id = categoryId"
                               }
                             },
                             "required": [
@@ -3547,7 +3568,8 @@
                               },
                               "link": {
                                 "type": "string",
-                                "minLength": 1
+                                "minLength": 1,
+                                "description": "id = productId"
                               }
                             },
                             "required": [
@@ -3565,7 +3587,8 @@
                               },
                               "link": {
                                 "type": "string",
-                                "minLength": 1
+                                "minLength": 1,
+                                "description": "id = productId"
                               }
                             },
                             "required": [
@@ -3610,6 +3633,10 @@
                           "OldPrice": "$200.29",
                           "ProductImage": "https://img-url-1",
                           "Expiry": "Expired Product (2021-12-20)",
+                          "AddToCart": {
+                            "type": "POST",
+                            "link": "http://localhost:4000/api/cart/1"
+                          },
                           "ViewProducts": {
                             "type": "GET",
                             "link": "http://localhost:4000/api/products/product-details/1"
@@ -3636,6 +3663,10 @@
                           "Discount": "",
                           "ProductImage": "https://img-url-1",
                           "Expiry": "Not Expired (2021-12-29)",
+                          "AddToCart": {
+                            "type": "POST",
+                            "link": "http://localhost:4000/api/cart/1"
+                          },
                           "ViewProducts": {
                             "type": "GET",
                             "link": "http://localhost:4000/api/products/product-details/2"
@@ -3651,266 +3682,6 @@
                           "DeleteProduct": {
                             "type": "DELETE",
                             "link": "http://localhost:4000/api/products/delete/2"
-                          }
-                        },
-                        {
-                          "ProductId": 3,
-                          "CategoryId": 4,
-                          "CategoryName": "FOOD",
-                          "ProductName": "VIJU MILK",
-                          "Price": "$140.20",
-                          "Discount": "30% Off",
-                          "ProductImage": "https://img-url-1",
-                          "Expiry": "Not Expired (2022-12-29)",
-                          "ViewProducts": {
-                            "type": "GET",
-                            "link": "http://localhost:4000/api/products/product-details/3"
-                          },
-                          "ViewCategory": {
-                            "type": "POST",
-                            "link": "http://localhost:4000/api/category/view/4"
-                          },
-                          "EditProduct": {
-                            "type": "PUT",
-                            "link": "http://localhost:4000/api/products/edit/3"
-                          },
-                          "DeleteProduct": {
-                            "type": "DELETE",
-                            "link": "http://localhost:4000/api/products/delete/3"
-                          }
-                        },
-                        {
-                          "ProductId": 4,
-                          "CategoryId": 3,
-                          "CategoryName": "CLOTHING",
-                          "ProductName": "Hand Gloves",
-                          "Price": "$90.89",
-                          "Discount": "10% Off",
-                          "ProductImage": "https://img-url-1",
-                          "Expiry": "Not Expired (2021-12-31)",
-                          "ViewProducts": {
-                            "type": "GET",
-                            "link": "http://localhost:4000/api/products/product-details/4"
-                          },
-                          "ViewCategory": {
-                            "type": "POST",
-                            "link": "http://localhost:4000/api/category/view/3"
-                          },
-                          "EditProduct": {
-                            "type": "PUT",
-                            "link": "http://localhost:4000/api/products/edit/4"
-                          },
-                          "DeleteProduct": {
-                            "type": "DELETE",
-                            "link": "http://localhost:4000/api/products/delete/4"
-                          }
-                        },
-                        {
-                          "ProductId": 5,
-                          "CategoryId": 3,
-                          "CategoryName": "CLOTHING",
-                          "ProductName": "Tuxedo",
-                          "Price": "$1680.83",
-                          "Discount": "16% Off",
-                          "ProductImage": "https://img-url-1",
-                          "Expiry": "Not Expired (2021-12-31)",
-                          "ViewProducts": {
-                            "type": "GET",
-                            "link": "http://localhost:4000/api/products/product-details/5"
-                          },
-                          "ViewCategory": {
-                            "type": "POST",
-                            "link": "http://localhost:4000/api/category/view/3"
-                          },
-                          "EditProduct": {
-                            "type": "PUT",
-                            "link": "http://localhost:4000/api/products/edit/5"
-                          },
-                          "DeleteProduct": {
-                            "type": "DELETE",
-                            "link": "http://localhost:4000/api/products/delete/5"
-                          }
-                        },
-                        {
-                          "ProductId": 6,
-                          "CategoryId": 3,
-                          "CategoryName": "CLOTHING",
-                          "ProductName": "Suit",
-                          "Price": "$6000.40",
-                          "Discount": "60% Off",
-                          "ProductImage": "https://img-url-1",
-                          "Expiry": "Not Expired (2021-12-31)",
-                          "ViewProducts": {
-                            "type": "GET",
-                            "link": "http://localhost:4000/api/products/product-details/6"
-                          },
-                          "ViewCategory": {
-                            "type": "POST",
-                            "link": "http://localhost:4000/api/category/view/3"
-                          },
-                          "EditProduct": {
-                            "type": "PUT",
-                            "link": "http://localhost:4000/api/products/edit/6"
-                          },
-                          "DeleteProduct": {
-                            "type": "DELETE",
-                            "link": "http://localhost:4000/api/products/delete/6"
-                          }
-                        },
-                        {
-                          "ProductId": 7,
-                          "CategoryId": 5,
-                          "CategoryName": "MUSIC",
-                          "ProductName": "MIC",
-                          "Price": "$5000.99",
-                          "Discount": "",
-                          "ProductImage": "https://img-url-1",
-                          "Expiry": "Not Expired (2022-03-30)",
-                          "ViewProducts": {
-                            "type": "GET",
-                            "link": "http://localhost:4000/api/products/product-details/7"
-                          },
-                          "ViewCategory": {
-                            "type": "POST",
-                            "link": "http://localhost:4000/api/category/view/5"
-                          },
-                          "EditProduct": {
-                            "type": "PUT",
-                            "link": "http://localhost:4000/api/products/edit/7"
-                          },
-                          "DeleteProduct": {
-                            "type": "DELETE",
-                            "link": "http://localhost:4000/api/products/delete/7"
-                          }
-                        },
-                        {
-                          "ProductId": 8,
-                          "CategoryId": 5,
-                          "CategoryName": "MUSIC",
-                          "ProductName": "Electric Guiter",
-                          "Price": "$1760.34",
-                          "Discount": "12% Off",
-                          "ProductImage": "https://img-url-1",
-                          "Expiry": "Not Expired (2022-03-30)",
-                          "ViewProducts": {
-                            "type": "GET",
-                            "link": "http://localhost:4000/api/products/product-details/8"
-                          },
-                          "ViewCategory": {
-                            "type": "POST",
-                            "link": "http://localhost:4000/api/category/view/5"
-                          },
-                          "EditProduct": {
-                            "type": "PUT",
-                            "link": "http://localhost:4000/api/products/edit/8"
-                          },
-                          "DeleteProduct": {
-                            "type": "DELETE",
-                            "link": "http://localhost:4000/api/products/delete/8"
-                          }
-                        },
-                        {
-                          "ProductId": 9,
-                          "CategoryId": 5,
-                          "CategoryName": "MUSIC",
-                          "ProductName": "Mixers",
-                          "Price": "$748.34",
-                          "Discount": "12% Off",
-                          "ProductImage": "https://img-url-1",
-                          "Expiry": "Not Expired (2022-03-30)",
-                          "ViewProducts": {
-                            "type": "GET",
-                            "link": "http://localhost:4000/api/products/product-details/9"
-                          },
-                          "ViewCategory": {
-                            "type": "POST",
-                            "link": "http://localhost:4000/api/category/view/5"
-                          },
-                          "EditProduct": {
-                            "type": "PUT",
-                            "link": "http://localhost:4000/api/products/edit/9"
-                          },
-                          "DeleteProduct": {
-                            "type": "DELETE",
-                            "link": "http://localhost:4000/api/products/delete/9"
-                          }
-                        },
-                        {
-                          "ProductId": 10,
-                          "CategoryId": 5,
-                          "CategoryName": "MUSIC",
-                          "ProductName": "Mixer",
-                          "Price": "$784.38",
-                          "Discount": "2% Off",
-                          "ProductImage": "https://img-url-1",
-                          "Expiry": "Not Expired (2022-03-30)",
-                          "ViewProducts": {
-                            "type": "GET",
-                            "link": "http://localhost:4000/api/products/product-details/10"
-                          },
-                          "ViewCategory": {
-                            "type": "POST",
-                            "link": "http://localhost:4000/api/category/view/5"
-                          },
-                          "EditProduct": {
-                            "type": "PUT",
-                            "link": "http://localhost:4000/api/products/edit/10"
-                          },
-                          "DeleteProduct": {
-                            "type": "DELETE",
-                            "link": "http://localhost:4000/api/products/delete/10"
-                          }
-                        },
-                        {
-                          "ProductId": 11,
-                          "CategoryId": 5,
-                          "CategoryName": "MUSIC",
-                          "ProductName": "Mixer",
-                          "Price": "$784.38",
-                          "Discount": "2% Off",
-                          "ProductImage": "https://img-url-1",
-                          "Expiry": "Not Expired (2022-03-30)",
-                          "ViewProducts": {
-                            "type": "GET",
-                            "link": "http://localhost:4000/api/products/product-details/11"
-                          },
-                          "ViewCategory": {
-                            "type": "POST",
-                            "link": "http://localhost:4000/api/category/view/5"
-                          },
-                          "EditProduct": {
-                            "type": "PUT",
-                            "link": "http://localhost:4000/api/products/edit/11"
-                          },
-                          "DeleteProduct": {
-                            "type": "DELETE",
-                            "link": "http://localhost:4000/api/products/delete/11"
-                          }
-                        },
-                        {
-                          "ProductId": 12,
-                          "CategoryId": 5,
-                          "CategoryName": "MUSIC",
-                          "ProductName": "Sax",
-                          "Price": "$24.05",
-                          "Discount": "88% Off",
-                          "ProductImage": "https://img-url-1",
-                          "Expiry": "Not Expired (2021-12-31)",
-                          "ViewProducts": {
-                            "type": "GET",
-                            "link": "http://localhost:4000/api/products/product-details/12"
-                          },
-                          "ViewCategory": {
-                            "type": "POST",
-                            "link": "http://localhost:4000/api/category/view/5"
-                          },
-                          "EditProduct": {
-                            "type": "PUT",
-                            "link": "http://localhost:4000/api/products/edit/12"
-                          },
-                          "DeleteProduct": {
-                            "type": "DELETE",
-                            "link": "http://localhost:4000/api/products/delete/12"
                           }
                         }
                       ]
@@ -3959,24 +3730,28 @@
                   "x-examples": {
                     "example-1": {
                       "success": true,
-                      "messgae": "Success : All products found",
+                      "messgae": "Success : EXPIRED products found",
                       "results": [
                         {
                           "ProductId": 1,
                           "CategoryId": 4,
                           "CategoryName": "FOOD",
                           "ProductName": "Rice Bag",
-                          "Price": "$1200.99",
+                          "Price": "1200.99",
                           "Discount": "",
                           "OldPrice": "",
                           "ProductImage": "https://img-url-1",
                           "Expiry": "Expired Product (2021-12-20)",
+                          "AddToCart": {
+                            "type": "POST",
+                            "link": ""
+                          },
                           "ViewProducts": {
                             "type": "GET",
                             "link": "http://localhost:4000/api/products/product-details/1"
                           },
                           "ViewCategory": {
-                            "type": "POST",
+                            "type": "GET",
                             "link": "http://localhost:4000/api/category/view/4"
                           },
                           "EditProduct": {
@@ -4022,30 +3797,24 @@
                           },
                           "Price": {
                             "type": "string",
-                            "minLength": 1,
-                            "description": "Showing the main price to pay"
+                            "minLength": 1
                           },
                           "Discount": {
-                            "type": "string",
-                            "description": "Discount offered for the product price"
+                            "type": "string"
                           },
                           "OldPrice": {
-                            "type": "string",
-                            "description": "The original price before the discount"
+                            "type": "string"
                           },
                           "ProductImage": {
                             "type": "string",
-                            "minLength": 1,
-                            "description": "Gets the first image from the list of product images"
+                            "minLength": 1
                           },
                           "Expiry": {
                             "type": "string",
-                            "minLength": 1,
-                            "description": "Expiry date for the product"
+                            "minLength": 1
                           },
-                          "ViewProducts": {
+                          "AddToCart": {
                             "type": "object",
-                            "description": "Link to view this particular product",
                             "properties": {
                               "type": {
                                 "type": "string",
@@ -4053,7 +3822,25 @@
                               },
                               "link": {
                                 "type": "string",
+                                "description": "No link to add to cart "
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "link"
+                            ]
+                          },
+                          "ViewProducts": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
                                 "minLength": 1
+                              },
+                              "link": {
+                                "type": "string",
+                                "minLength": 1,
+                                "description": "id = productId"
                               }
                             },
                             "required": [
@@ -4063,7 +3850,6 @@
                           },
                           "ViewCategory": {
                             "type": "object",
-                            "description": "Link to view the category this product belongs to",
                             "properties": {
                               "type": {
                                 "type": "string",
@@ -4071,7 +3857,8 @@
                               },
                               "link": {
                                 "type": "string",
-                                "minLength": 1
+                                "minLength": 1,
+                                "description": "id = categoryId"
                               }
                             },
                             "required": [
@@ -4081,7 +3868,6 @@
                           },
                           "EditProduct": {
                             "type": "object",
-                            "description": "link to edit this product",
                             "properties": {
                               "type": {
                                 "type": "string",
@@ -4089,7 +3875,8 @@
                               },
                               "link": {
                                 "type": "string",
-                                "minLength": 1
+                                "minLength": 1,
+                                "description": "id = ProductId"
                               }
                             },
                             "required": [
@@ -4099,7 +3886,6 @@
                           },
                           "DeleteProduct": {
                             "type": "object",
-                            "description": "Link to delete this product",
                             "properties": {
                               "type": {
                                 "type": "string",
@@ -4107,7 +3893,8 @@
                               },
                               "link": {
                                 "type": "string",
-                                "minLength": 1
+                                "minLength": 1,
+                                "description": "id = productId"
                               }
                             },
                             "required": [
@@ -4147,17 +3934,21 @@
                           "CategoryId": 4,
                           "CategoryName": "FOOD",
                           "ProductName": "Rice Bag",
-                          "Price": "$1200.99",
+                          "Price": "1200.99",
                           "Discount": "",
                           "OldPrice": "",
                           "ProductImage": "https://img-url-1",
                           "Expiry": "Expired Product (2021-12-20)",
+                          "AddToCart": {
+                            "type": "POST",
+                            "link": ""
+                          },
                           "ViewProducts": {
                             "type": "GET",
                             "link": "http://localhost:4000/api/products/product-details/1"
                           },
                           "ViewCategory": {
-                            "type": "POST",
+                            "type": "GET",
                             "link": "http://localhost:4000/api/category/view/4"
                           },
                           "EditProduct": {
@@ -4299,6 +4090,19 @@
                             "minLength": 1,
                             "description": "Expiry date for the product"
                           },
+                          "AddToCart": {
+                            "type": "object",
+                            "description": "Link to add this product to cart",
+                            "properties": {
+                              "type": {
+                                "type": "string"
+                              },
+                              "link": {
+                                "type": "string",
+                                "description": "id = product id"
+                              }
+                            }
+                          },
                           "ViewProducts": {
                             "type": "object",
                             "description": "Link to view this product details",
@@ -4309,7 +4113,8 @@
                               },
                               "link": {
                                 "type": "string",
-                                "minLength": 1
+                                "minLength": 1,
+                                "description": "id = productId"
                               }
                             },
                             "required": [
@@ -4327,7 +4132,8 @@
                               },
                               "link": {
                                 "type": "string",
-                                "minLength": 1
+                                "minLength": 1,
+                                "description": "id = category id"
                               }
                             },
                             "required": [
@@ -4345,7 +4151,8 @@
                               },
                               "link": {
                                 "type": "string",
-                                "minLength": 1
+                                "minLength": 1,
+                                "description": "id = product id"
                               }
                             },
                             "required": [
@@ -4363,7 +4170,8 @@
                               },
                               "link": {
                                 "type": "string",
-                                "minLength": 1
+                                "minLength": 1,
+                                "description": "id = product id"
                               }
                             },
                             "required": [
@@ -4408,6 +4216,10 @@
                           "OldPrice": "",
                           "ProductImage": "https://img-url-1",
                           "Expiry": "Not Expired (2021-12-29)",
+                          "AddToCart": {
+                            "type": "POST",
+                            "link": "http://localhost:4000/api/cart/2"
+                          },
                           "ViewProducts": {
                             "type": "GET",
                             "link": "http://localhost:4000/api/products/product-details/2"
@@ -4435,6 +4247,10 @@
                           "OldPrice": "$200.29",
                           "ProductImage": "https://img-url-1",
                           "Expiry": "Not Expired (2022-12-29)",
+                          "AddToCart": {
+                            "type": "POST",
+                            "link": "http://localhost:4000/api/cart/3"
+                          },
                           "ViewProducts": {
                             "type": "GET",
                             "link": "http://localhost:4000/api/products/product-details/3"
@@ -4462,6 +4278,10 @@
                           "OldPrice": "$100.99",
                           "ProductImage": "https://img-url-1",
                           "Expiry": "Not Expired (2021-12-31)",
+                          "AddToCart": {
+                            "type": "POST",
+                            "link": "http://localhost:4000/api/cart/4"
+                          },
                           "ViewProducts": {
                             "type": "GET",
                             "link": "http://localhost:4000/api/products/product-details/4"
@@ -4477,222 +4297,6 @@
                           "DeleteProduct": {
                             "type": "DELETE",
                             "link": "http://localhost:4000/api/products/delete/4"
-                          }
-                        },
-                        {
-                          "ProductId": 5,
-                          "CategoryId": 3,
-                          "CategoryName": "CLOTHING",
-                          "ProductName": "Tuxedo",
-                          "Price": "$1680.83",
-                          "Discount": "16% Off",
-                          "OldPrice": "$2000.99",
-                          "ProductImage": "https://img-url-1",
-                          "Expiry": "Not Expired (2021-12-31)",
-                          "ViewProducts": {
-                            "type": "GET",
-                            "link": "http://localhost:4000/api/products/product-details/5"
-                          },
-                          "ViewCategory": {
-                            "type": "POST",
-                            "link": "http://localhost:4000/api/category/view/3"
-                          },
-                          "EditProduct": {
-                            "type": "PUT",
-                            "link": "http://localhost:4000/api/products/edit/5"
-                          },
-                          "DeleteProduct": {
-                            "type": "DELETE",
-                            "link": "http://localhost:4000/api/products/delete/5"
-                          }
-                        },
-                        {
-                          "ProductId": 6,
-                          "CategoryId": 3,
-                          "CategoryName": "CLOTHING",
-                          "ProductName": "Suit",
-                          "Price": "$6000.40",
-                          "Discount": "60% Off",
-                          "OldPrice": "$15000.99",
-                          "ProductImage": "https://img-url-1",
-                          "Expiry": "Not Expired (2021-12-31)",
-                          "ViewProducts": {
-                            "type": "GET",
-                            "link": "http://localhost:4000/api/products/product-details/6"
-                          },
-                          "ViewCategory": {
-                            "type": "POST",
-                            "link": "http://localhost:4000/api/category/view/3"
-                          },
-                          "EditProduct": {
-                            "type": "PUT",
-                            "link": "http://localhost:4000/api/products/edit/6"
-                          },
-                          "DeleteProduct": {
-                            "type": "DELETE",
-                            "link": "http://localhost:4000/api/products/delete/6"
-                          }
-                        },
-                        {
-                          "ProductId": 7,
-                          "CategoryId": 5,
-                          "CategoryName": "MUSIC",
-                          "ProductName": "MIC",
-                          "Price": "$5000.99",
-                          "Discount": "",
-                          "OldPrice": "",
-                          "ProductImage": "https://img-url-1",
-                          "Expiry": "Not Expired (2022-03-30)",
-                          "ViewProducts": {
-                            "type": "GET",
-                            "link": "http://localhost:4000/api/products/product-details/7"
-                          },
-                          "ViewCategory": {
-                            "type": "POST",
-                            "link": "http://localhost:4000/api/category/view/5"
-                          },
-                          "EditProduct": {
-                            "type": "PUT",
-                            "link": "http://localhost:4000/api/products/edit/7"
-                          },
-                          "DeleteProduct": {
-                            "type": "DELETE",
-                            "link": "http://localhost:4000/api/products/delete/7"
-                          }
-                        },
-                        {
-                          "ProductId": 8,
-                          "CategoryId": 5,
-                          "CategoryName": "MUSIC",
-                          "ProductName": "Electric Guiter",
-                          "Price": "$1760.34",
-                          "Discount": "12% Off",
-                          "OldPrice": "$2000.39",
-                          "ProductImage": "https://img-url-1",
-                          "Expiry": "Not Expired (2022-03-30)",
-                          "ViewProducts": {
-                            "type": "GET",
-                            "link": "http://localhost:4000/api/products/product-details/8"
-                          },
-                          "ViewCategory": {
-                            "type": "POST",
-                            "link": "http://localhost:4000/api/category/view/5"
-                          },
-                          "EditProduct": {
-                            "type": "PUT",
-                            "link": "http://localhost:4000/api/products/edit/8"
-                          },
-                          "DeleteProduct": {
-                            "type": "DELETE",
-                            "link": "http://localhost:4000/api/products/delete/8"
-                          }
-                        },
-                        {
-                          "ProductId": 9,
-                          "CategoryId": 5,
-                          "CategoryName": "MUSIC",
-                          "ProductName": "Mixers",
-                          "Price": "$748.34",
-                          "Discount": "12% Off",
-                          "OldPrice": "$850.39",
-                          "ProductImage": "https://img-url-1",
-                          "Expiry": "Not Expired (2022-03-30)",
-                          "ViewProducts": {
-                            "type": "GET",
-                            "link": "http://localhost:4000/api/products/product-details/9"
-                          },
-                          "ViewCategory": {
-                            "type": "POST",
-                            "link": "http://localhost:4000/api/category/view/5"
-                          },
-                          "EditProduct": {
-                            "type": "PUT",
-                            "link": "http://localhost:4000/api/products/edit/9"
-                          },
-                          "DeleteProduct": {
-                            "type": "DELETE",
-                            "link": "http://localhost:4000/api/products/delete/9"
-                          }
-                        },
-                        {
-                          "ProductId": 10,
-                          "CategoryId": 5,
-                          "CategoryName": "MUSIC",
-                          "ProductName": "Mixer",
-                          "Price": "$784.38",
-                          "Discount": "2% Off",
-                          "OldPrice": "$800.39",
-                          "ProductImage": "https://img-url-1",
-                          "Expiry": "Not Expired (2022-03-30)",
-                          "ViewProducts": {
-                            "type": "GET",
-                            "link": "http://localhost:4000/api/products/product-details/10"
-                          },
-                          "ViewCategory": {
-                            "type": "POST",
-                            "link": "http://localhost:4000/api/category/view/5"
-                          },
-                          "EditProduct": {
-                            "type": "PUT",
-                            "link": "http://localhost:4000/api/products/edit/10"
-                          },
-                          "DeleteProduct": {
-                            "type": "DELETE",
-                            "link": "http://localhost:4000/api/products/delete/10"
-                          }
-                        },
-                        {
-                          "ProductId": 11,
-                          "CategoryId": 5,
-                          "CategoryName": "MUSIC",
-                          "ProductName": "Mixer",
-                          "Price": "$784.38",
-                          "Discount": "2% Off",
-                          "OldPrice": "$800.39",
-                          "ProductImage": "https://img-url-1",
-                          "Expiry": "Not Expired (2022-03-30)",
-                          "ViewProducts": {
-                            "type": "GET",
-                            "link": "http://localhost:4000/api/products/product-details/11"
-                          },
-                          "ViewCategory": {
-                            "type": "POST",
-                            "link": "http://localhost:4000/api/category/view/5"
-                          },
-                          "EditProduct": {
-                            "type": "PUT",
-                            "link": "http://localhost:4000/api/products/edit/11"
-                          },
-                          "DeleteProduct": {
-                            "type": "DELETE",
-                            "link": "http://localhost:4000/api/products/delete/11"
-                          }
-                        },
-                        {
-                          "ProductId": 12,
-                          "CategoryId": 5,
-                          "CategoryName": "MUSIC",
-                          "ProductName": "Sax",
-                          "Price": "$24.05",
-                          "Discount": "88% Off",
-                          "OldPrice": "$200.39",
-                          "ProductImage": "https://img-url-1",
-                          "Expiry": "Not Expired (2021-12-31)",
-                          "ViewProducts": {
-                            "type": "GET",
-                            "link": "http://localhost:4000/api/products/product-details/12"
-                          },
-                          "ViewCategory": {
-                            "type": "POST",
-                            "link": "http://localhost:4000/api/category/view/5"
-                          },
-                          "EditProduct": {
-                            "type": "PUT",
-                            "link": "http://localhost:4000/api/products/edit/12"
-                          },
-                          "DeleteProduct": {
-                            "type": "DELETE",
-                            "link": "http://localhost:4000/api/products/delete/12"
                           }
                         }
                       ]
@@ -4828,6 +4432,19 @@
                             "minLength": 1,
                             "description": "Expiry date for the product"
                           },
+                          "AddToCart": {
+                            "type": "object",
+                            "description": "Add products in this category to cart",
+                            "properties": {
+                              "type": {
+                                "type": "string"
+                              },
+                              "link": {
+                                "type": "string",
+                                "description": "id = productId"
+                              }
+                            }
+                          },
                           "ViewProducts": {
                             "type": "object",
                             "description": "Link to view this particular product",
@@ -4937,6 +4554,10 @@
                           "OldPrice": "",
                           "ProductImage": "https://img-url-1",
                           "Expiry": "Expired Product (2021-12-20)",
+                          "AddToCart": {
+                            "type": "POST",
+                            "link": "http://localhost:4000/api/cart/1"
+                          },
                           "ViewProducts": {
                             "type": "GET",
                             "link": "http://localhost:4000/api/products/product-details/1"
@@ -4964,6 +4585,10 @@
                           "OldPrice": "",
                           "ProductImage": "https://img-url-1",
                           "Expiry": "Not Expired (2021-12-29)",
+                          "AddToCart": {
+                            "type": "POST",
+                            "link": "http://localhost:4000/api/cart/2"
+                          },
                           "ViewProducts": {
                             "type": "GET",
                             "link": "http://localhost:4000/api/products/product-details/2"
@@ -4979,33 +4604,6 @@
                           "DeleteProduct": {
                             "type": "DELETE",
                             "link": "http://localhost:4000/api/products/delete/2"
-                          }
-                        },
-                        {
-                          "ProductId": 3,
-                          "CategoryId": 4,
-                          "CategoryName": "FOOD",
-                          "ProductName": "VIJU MILK",
-                          "Price": "$140.20",
-                          "Discount": "30% Off",
-                          "OldPrice": "$200.29",
-                          "ProductImage": "https://img-url-1",
-                          "Expiry": "Not Expired (2022-12-29)",
-                          "ViewProducts": {
-                            "type": "GET",
-                            "link": "http://localhost:4000/api/products/product-details/3"
-                          },
-                          "ViewCategory": {
-                            "type": "POST",
-                            "link": "http://localhost:4000/api/category/view/4"
-                          },
-                          "EditProduct": {
-                            "type": "PUT",
-                            "link": "http://localhost:4000/api/products/edit/3"
-                          },
-                          "DeleteProduct": {
-                            "type": "DELETE",
-                            "link": "http://localhost:4000/api/products/delete/3"
                           }
                         }
                       ]
@@ -5188,6 +4786,9 @@
                             "minLength": 1,
                             "description": "The original price before the discount"
                           },
+                          "ShippingFee": {
+                            "type": "number"
+                          },
                           "StockLevel": {
                             "type": "number"
                           },
@@ -5253,6 +4854,19 @@
                           "CreatedAt": {
                             "type": "string",
                             "minLength": 1
+                          },
+                          "AddToCart": {
+                            "type": "object",
+                            "description": "Link to add this product to cart",
+                            "properties": {
+                              "type": {
+                                "type": "string"
+                              },
+                              "link": {
+                                "type": "string",
+                                "description": "id = productId"
+                              }
+                            }
                           },
                           "ViewCategory": {
                             "type": "object",
@@ -5345,9 +4959,9 @@
                           "ProductName": "VIJU MILK",
                           "ProductDescription": "500ml bag of chocolate Viju Milk drink.",
                           "Sku": "7b31d4ef12",
-                          "Price": "$140.20",
+                          "Price": 140.2,
                           "Discount": "30% Off",
-                          "OldPrice": "$200.29",
+                          "OldPrice": 200.29,
                           "StockLevel": 10,
                           "ProductImages": [
                             {
@@ -5378,8 +4992,12 @@
                           ],
                           "Expiry": "Not Expired (2022-12-29)",
                           "CreatedAt": "2021-12-24",
-                          "ViewCategory": {
+                          "AddToCart": {
                             "type": "POST",
+                            "link": "http://localhost:4000/api/cart/3"
+                          },
+                          "ViewCategory": {
+                            "type": "GET",
                             "link": "http://localhost:4000/api/category/view/4"
                           },
                           "EditProduct": {
@@ -5448,7 +5066,7 @@
     },
     "/api/products/edit/{id}": {
       "put": {
-        "summary": "",
+        "summary": "Edit Product",
         "operationId": "put-api-products-edit",
         "responses": {
           "201": {
@@ -5671,6 +5289,10 @@
                   "ExpiredAt": {
                     "type": "string",
                     "minLength": 1
+                  },
+                  "ShippingPercentage": {
+                    "type": "number",
+                    "description": "Percentage for shipping"
                   }
                 },
                 "required": [
