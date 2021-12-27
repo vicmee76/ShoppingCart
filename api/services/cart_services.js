@@ -4,7 +4,6 @@ const helpers = require("../../helpers/helpers");
 module.exports = {
 
     getExistingCart: (id, data, callBack) => {
-
         pool.query("SELECT * FROM cart WHERE UserId = ? AND ProductId =?",
             [
                 data.UserId,
@@ -16,8 +15,19 @@ module.exports = {
     },
 
 
-    getCart: (id, callBack) => {
+    geCartById: (id, callBack) => {
+        pool.query("SELECT * FROM cart WHERE CartId = ?",
+            [
+                id
+            ],
+            (error, result) => {
+                helpers._getCallBack(callBack, error, result);
+            });
+    },
 
+
+
+    getUserCart: (id, callBack) => {
         pool.query("SELECT * FROM cart WHERE UserId = ?",
             [
                 id
@@ -29,7 +39,6 @@ module.exports = {
 
 
     saveCart: (id, data, callBack) => {
-
         pool.query("INSERT INTO cart(UserId, ProductId, Qty) VALUES(?,?,?)",
             [
                 data.UserId,
@@ -44,7 +53,6 @@ module.exports = {
 
 
     updateCart: (id, data, callBack) => {
-
         pool.query("UPDATE cart SET Qty=? WHERE CartId=?",
             [
                 data.Qty,

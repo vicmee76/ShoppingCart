@@ -2,10 +2,11 @@ const helpers = require("../../helpers/helpers");
 
 const {
     saveCart,
-    getCart,
+    getUserCart,
     updateCart,
     deleteCart,
-    getExistingCart
+    getExistingCart,
+    geCartById
 } = require("../services/cart_services");
 
 
@@ -41,6 +42,35 @@ exports._createCart = (req, res, next) => {
                         helpers._showSuccess(201, res, "Added to cart successfully", response);
                     }
                 });
+            }
+        }
+    });
+
+};
+
+
+exports._updateCart = (req, res, next) => {
+
+    const data = req.body;
+    const cartId = req.params.id;
+
+    geCartById(cartId, (err, results) => {
+        if (err) {
+            helpers._showError(500, res, err);
+        }
+        else {
+            if (results && results.length > 0) {
+                updateCart(cartId, data, (errs, response) => {
+                    if (errs) {
+                        helpers._showError(500, res, errs);
+                    }
+                    else {
+                        helpers._showSuccess(201, res, "Cart updated successfully", response);
+                    }
+                });
+            }
+            else {
+                helpers._showError(404, res, "This cart cannot be found");
             }
         }
     });
