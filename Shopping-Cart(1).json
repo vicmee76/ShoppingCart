@@ -2826,6 +2826,9 @@
                   "ExpiredAt": {
                     "type": "string",
                     "minLength": 1
+                  },
+                  "ShippingPercentage": {
+                    "type": "number"
                   }
                 },
                 "required": [
@@ -3072,6 +3075,9 @@
                   "ExpiredAt": {
                     "type": "string",
                     "minLength": 1
+                  },
+                  "ShippingPercentage": {
+                    "type": "number"
                   }
                 },
                 "required": [
@@ -5188,6 +5194,9 @@
                             "minLength": 1,
                             "description": "The original price before the discount"
                           },
+                          "ShippingFee": {
+                            "type": "number"
+                          },
                           "StockLevel": {
                             "type": "number"
                           },
@@ -5345,9 +5354,9 @@
                           "ProductName": "VIJU MILK",
                           "ProductDescription": "500ml bag of chocolate Viju Milk drink.",
                           "Sku": "7b31d4ef12",
-                          "Price": "$140.20",
+                          "Price": 140.2,
                           "Discount": "30% Off",
-                          "OldPrice": "$200.29",
+                          "OldPrice": 200.29,
                           "StockLevel": 10,
                           "ProductImages": [
                             {
@@ -5671,6 +5680,10 @@
                   "ExpiredAt": {
                     "type": "string",
                     "minLength": 1
+                  },
+                  "ShippingPercentage": {
+                    "type": "number",
+                    "description": "Percentage for shipping"
                   }
                 },
                 "required": [
