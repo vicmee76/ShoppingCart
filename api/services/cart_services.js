@@ -3,6 +3,19 @@ const helpers = require("../../helpers/helpers");
 
 module.exports = {
 
+    getExistingCart: (id, data, callBack) => {
+
+        pool.query("SELECT * FROM cart WHERE UserId = ? AND ProductId =?",
+            [
+                id,
+                data.ProductId
+            ],
+            (error, result) => {
+                helpers._getCallBack(callBack, error, result);
+            });
+    },
+
+
     getCart: (id, callBack) => {
 
         pool.query("SELECT * FROM cart WHERE UserId = ?",
