@@ -32,7 +32,7 @@ module.exports = {
 
     saveProduct: (data, callBack) => {
 
-        pool.query("INSERT INTO products(CategoryId, ProductName, ProductDescription, Sku, SellingPrice, Discount, StockLevel, Colors, PaymentType, ProductImages, ExpiredAt) VALUES(?,?,?,?,?,?,?,?,?,?,?)",
+        pool.query("INSERT INTO products(CategoryId, ProductName, ProductDescription, Sku, SellingPrice, Discount, StockLevel, Colors, PaymentType, ProductImages, ExpiredAt, ShippingPercentage) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)",
             [
                 data.CategoryId,
                 data.ProductName,
@@ -45,6 +45,7 @@ module.exports = {
                 data.PaymentType,
                 data.ProductImages,
                 data.ExpiredAt,
+                data.ShippingPercentage
             ],
             (error, result) => {
                 helpers._getCallBack(callBack, error, result);
@@ -57,7 +58,7 @@ module.exports = {
 
         let sku = helpers._generateHash();
 
-        pool.query("INSERT INTO products(CategoryId, ProductName, ProductDescription, Sku, SellingPrice, Discount, StockLevel, Colors, PaymentType, ProductImages, ExpiredAt) VALUES(?,?,?,?,?,?,?,?,?,?,?)",
+        pool.query("INSERT INTO products(CategoryId, ProductName, ProductDescription, Sku, SellingPrice, Discount, StockLevel, Colors, PaymentType, ProductImages, ExpiredAt, ShippingPercentage) VALUES(?,?,?,?,?,?,?,?,?,?,?, ?)",
             [
                 id,
                 data.ProductName,
@@ -70,6 +71,7 @@ module.exports = {
                 data.PaymentType,
                 data.ProductImages,
                 data.ExpiredAt,
+                data.ShippingPercentage
             ],
             (error, result) => {
                 helpers._getCallBack(callBack, error, result);
@@ -109,7 +111,7 @@ module.exports = {
 
     updateProduct: (id, data, callBack) => {
 
-        pool.query("UPDATE products SET CategoryId=?, ProductName=?, ProductDescription=?, SellingPrice=?, Discount=?, StockLevel=?, Colors=?, PaymentType=?, ProductImages=?, ExpiredAt=? WHERE ProductId=?",
+        pool.query("UPDATE products SET CategoryId=?, ProductName=?, ProductDescription=?, SellingPrice=?, Discount=?, StockLevel=?, Colors=?, PaymentType=?, ProductImages=?, ExpiredAt=?, ShippingPercentage=? WHERE ProductId=?",
             [
                 data.CategoryId,
                 data.ProductName,
@@ -121,6 +123,7 @@ module.exports = {
                 data.PaymentType,
                 data.ProductImages,
                 data.ExpiredAt,
+                data.ShippingPercentage,
                 id
             ],
             (error, result) => {

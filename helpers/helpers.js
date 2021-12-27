@@ -167,9 +167,9 @@ exports._showProducts = (code, res, msg, response) => {
                 CategoryId: x.CategoryId,
                 CategoryName: x.CategoryName,
                 ProductName: x.ProductName,
-                Price: "$" + getPrice(x.SellingPrice, x.Discount),
+                Price:  getPrice(x.SellingPrice, x.Discount),
                 Discount: x.Discount <= 0 ? "" : x.Discount + "% Off",
-                OldPrice: x.Discount <= 0 ? "" : "$" + parseFloat(x.SellingPrice),
+                OldPrice: x.Discount <= 0 ? "" :  parseFloat(x.SellingPrice),
                 ProductImage: x.ProductImages.split(",")[0],
                 Expiry: getProductExpiry(x.ExpiredAt),
                 ViewProducts: {
@@ -208,9 +208,10 @@ exports._showSingleProducts = (code, res, msg, response) => {
                 ProductName: x.ProductName,
                 ProductDescription: x.ProductDescription,
                 Sku: x.Sku,
-                Price: "$" + getPrice(x.SellingPrice, x.Discount),
+                Price: getPrice(x.SellingPrice, x.Discount),
                 Discount: x.Discount <= 0 ? "" : x.Discount + "% Off",
-                OldPrice: x.Discount <= 0 ? "" : "$" + parseFloat(x.SellingPrice),
+                OldPrice: x.Discount <= 0 ? "" :  parseFloat(x.SellingPrice),
+                ShippingFee: getShippingFee(x.ShippingPercentage, x.SellingPrice),
                 StockLevel: x.StockLevel,
                 ProductImages: generateArr(x.ProductImages),
                 Colors: generateArr(x.Colors),
@@ -267,6 +268,18 @@ function getPrice(sellingpriec, discount) {
     return parseFloat(price).toFixed(2);
 }
 
+
+
+function getShippingFee(shipping, sellingprice) {
+    let fee = 0;
+    if (shipping <= 0 || shipping === "") {
+        fee = 0;
+    }
+    else {
+        fee = (sellingprice - (shipping / 100) * sellingprice);
+    }
+    return parseFloat(fee).toFixed();
+}
 
 
 
