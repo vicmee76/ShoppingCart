@@ -112,7 +112,7 @@ exports._getProducts = (req, res, next) => {
         }
         else {
             if (results) {
-                helpers._showProducts(200, res, option.toUpperCase() + " products found", results);
+                helpers._showProducts(200, res, option.toUpperCase() + " products found", results, option);
             }
             else {
                 helpers._showError(404, res, "Products not found");
@@ -134,7 +134,7 @@ exports._getProductsDetails = (req, res, next) => {
         }
         else {
             if (results) {
-                helpers._showSingleProducts(200, res, "Product found", results);
+                helpers._showSingleProducts(200, res, "Product found", results, option);
             }
             else {
                 helpers._showError(404, res, "Product not found");
