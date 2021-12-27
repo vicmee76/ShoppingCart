@@ -5,5 +5,6 @@ const validate = require("../../auth/validateToken");
 
 router.post('/:id', cartController._createCart);
 router.put('/edit/:id', cartController._updateCart);
+router.delete('/delete/:id', cartController._deleteCart);
 
 module.exports = router;

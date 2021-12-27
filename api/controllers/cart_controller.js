@@ -77,3 +77,29 @@ exports._updateCart = (req, res, next) => {
 
 };
 
+
+exports._deleteCart = (req, res, next) => {
+    const cartId = req.params.id;
+    geCartById(cartId, (err, results) => {
+        if (err) {
+            helpers._showError(500, res, err);
+        }
+        else {
+            if (results && results.length > 0) {
+                deleteCart(cartId, (errs, response) => {
+                    if (errs) {
+                        helpers._showError(500, res, errs);
+                    }
+                    else {
+                        helpers._showSuccess(200, res, "Cart item deleted successfully", response);
+                    }
+                });
+            }
+            else {
+                helpers._showError(404, res, "This cart cannot be found");
+            }
+        }
+    });
+
+};
+
