@@ -12,10 +12,10 @@ const {
 exports._createCart = (req, res, next) => {
 
     const data = req.body;
-    const id = req.params.id
+    const productId = req.params.id
     let qty = data.Qty;
 
-    getExistingCart(id, data, (err, results) => {
+    getExistingCart(productId, data, (err, results) => {
         if (err) {
             helpers._showError(500, res, err);
         }
@@ -23,16 +23,25 @@ exports._createCart = (req, res, next) => {
 
             if (results && results.length > 0) {
                 data.Qty = results[0].Qty + qty;
+                updateCart(results[0].CartId, data, (errs, response) => {
+                    if (errs) {
+                        helpers._showError(500, res, errs);
+                    }
+                    else {
+                        helpers._showSuccess(201, res, "Cart updated successfully", response);
+                    }
+                });
             }
-
-            saveCart(data, (errs, response) => {
-                if (errs) {
-                    helpers._showError(500, res, errs);
-                }
-                else {
-                    helpers._showSuccess(201, res, "Added to cart successfully", response);
-                }
-            });
+            else {
+                saveCart(productId, data, (errs, response) => {
+                    if (errs) {
+                        helpers._showError(500, res, errs);
+                    }
+                    else {
+                        helpers._showSuccess(201, res, "Added to cart successfully", response);
+                    }
+                });
+            }
         }
     });
 

@@ -7,8 +7,8 @@ module.exports = {
 
         pool.query("SELECT * FROM cart WHERE UserId = ? AND ProductId =?",
             [
+                data.UserId,
                 id,
-                data.ProductId
             ],
             (error, result) => {
                 helpers._getCallBack(callBack, error, result);
@@ -28,12 +28,12 @@ module.exports = {
     },
 
 
-    saveCart: (data, callBack) => {
+    saveCart: (id, data, callBack) => {
 
         pool.query("INSERT INTO cart(UserId, ProductId, Qty) VALUES(?,?,?)",
             [
-                data.ProductId,
                 data.UserId,
+                id,
                 data.Qty,
             ],
             (error, result) => {
