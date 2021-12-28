@@ -103,3 +103,21 @@ exports._deleteCart = (req, res, next) => {
 
 };
 
+
+exports._getUserCart = (req, res, next) => {
+    const userId = req.params.id;
+    getUserCart(userId, (err, results) => {
+        if (err) {
+            helpers._showError(500, res, err);
+        }
+        else {
+            if (results && results.length > 0) {
+                helpers._showCart(200, res, "Cart items found", results);
+            }
+            else {
+                helpers._showError(404, res, "No item for this user.");
+            }
+        }
+    });
+};
+

@@ -156,6 +156,7 @@ exports._showSingleCategory = (code, res, msg, response) => {
 };
 
 
+
 // customized function object to show products from database
 exports._showProducts = (code, res, msg, response, expiry = null) => {
     return res.status(code).json({
@@ -253,6 +254,58 @@ exports._showSingleProducts = (code, res, msg, response, expiry = null) => {
 
 
 
+
+// customized function object to show cart items 
+exports._showCart = (code, res, msg, response) => {
+
+    let subTotal = 0;
+    let totalShipping = 0;
+    let totalIteams = 0;
+
+    return res.status(code).json({
+        success: true,
+        messgae: "Success : " + msg,
+        results: response.map(x => {
+
+            subTotal += getPrice(x.SellingPrice, x.Discount);
+            totalShipping += getShippingFee(x.ShippingPercentage, x.SellingPrice);
+            totalIteams += x.Qty;
+
+            return {
+                CartId: x.CartId,
+                UserId: x.UserId,
+                ProductId: x.ProductId,
+                ProductName: x.ProductName,
+                Price: parseFloat(getPrice(x.SellingPrice, x.Discount)),
+                Discount: x.Discount <= 0 ? "" : x.Discount + "% Off",
+                OldPrice: x.Discount <= 0 ? "" : parseFloat(x.SellingPrice),
+                ProductImage: x.ProductImages.split(",")[0],
+                ShippingFee: parseFloat(getShippingFee(x.ShippingPercentage, x.SellingPrice)),
+                Qty : x.Qty,
+                ViewProducts: {
+                    type: "GET",
+                    link: "http://localhost:4000/api/products/product-details/" + x.ProductId,
+                },
+                EditCart: {
+                    type: "PUT",
+                    link: "http://localhost:4000/api/cart/edit/" + x.CartId,
+                },
+                DeleteCart: {
+                    type: "DELETE",
+                    link: "http://localhost:4000/api/cart/delete/" + x.CartId
+                }
+            }
+        }),
+        totalItems: totalIteams,
+        subTotal: subTotal,
+        totalShipping: totalShipping,
+        totalAmount: parseFloat(parseFloat(subTotal + totalShipping).toFixed(2))
+    });
+};
+
+
+
+
 // function to check password length
 exports._checkPassword = (password) => {
     return password.length < 8 ? false : true;
@@ -281,7 +334,7 @@ function getPrice(sellingpriec, discount) {
     else {
         price = (sellingpriec - ((discount / 100) * sellingpriec));
     }
-    return parseFloat(price).toFixed(2);
+    return parseFloat(parseFloat(price).toFixed(2));
 }
 
 
@@ -294,7 +347,7 @@ function getShippingFee(shipping, sellingprice) {
     else {
         fee = (sellingprice - (shipping / 100) * sellingprice);
     }
-    return parseFloat(fee).toFixed();
+    return parseFloat(parseFloat(fee).toFixed(2));
 }
 
 
