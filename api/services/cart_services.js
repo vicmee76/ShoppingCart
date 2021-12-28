@@ -28,7 +28,7 @@ module.exports = {
 
 
     getUserCart: (id, callBack) => {
-        pool.query("SELECT * FROM cart WHERE UserId = ?",
+        pool.query("SELECT cr.*, p.* FROM cart as cr LEFT JOIN products as p ON cr.ProductId = p.ProductId WHERE UserId = ?",
             [
                 id
             ],

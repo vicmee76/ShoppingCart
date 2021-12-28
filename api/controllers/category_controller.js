@@ -74,7 +74,6 @@ exports._getCategoryById = (req, res, next) => {
 };
 
 
-
 exports._getCategoryProducts = (req, res, next) => {
 
     const categoryId = req.params.id;
