@@ -157,7 +157,7 @@ exports._showSingleCategory = (code, res, msg, response) => {
 
 
 
-// customized function object to show products from database
+// customized function object to show  products from database
 exports._showProducts = (code, res, msg, response, expiry = null) => {
     return res.status(code).json({
         success: true,
@@ -325,7 +325,7 @@ exports._getCallBack = (callBack, err, result) => {
 
 
 
-
+// get the price of a product after discount
 function getPrice(sellingpriec, discount) {
     let price = 0;
     if (discount <= 0) {
@@ -339,6 +339,7 @@ function getPrice(sellingpriec, discount) {
 
 
 
+// get the shipping fee of a product after discount on shipping fee
 function getShippingFee(shipping, sellingprice) {
     let fee = 0;
     if (shipping <= 0 || shipping === "") {
@@ -352,6 +353,7 @@ function getShippingFee(shipping, sellingprice) {
 
 
 
+// get the expiry day of each products
 function getProductExpiry(expirydate) {
 
     let result = "";
@@ -371,6 +373,7 @@ function getProductExpiry(expirydate) {
 
 
 
+// Genereate array list for splited product properties such as Color, payment type, images url
 function generateArr(list) {
 
     let arr = [];
