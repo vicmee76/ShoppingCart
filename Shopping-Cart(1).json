@@ -5513,6 +5513,891 @@
           }
         ]
       }
+    },
+    "/api/cart/{id}": {
+      "post": {
+        "summary": "Save To Cart",
+        "operationId": "post-api-cart",
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "messgae": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "results": {
+                      "type": "object",
+                      "properties": {
+                        "fieldCount": {
+                          "type": "number"
+                        },
+                        "affectedRows": {
+                          "type": "number"
+                        },
+                        "insertId": {
+                          "type": "number"
+                        },
+                        "info": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "serverStatus": {
+                          "type": "number"
+                        },
+                        "warningStatus": {
+                          "type": "number"
+                        },
+                        "changedRows": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "fieldCount",
+                        "affectedRows",
+                        "insertId",
+                        "info",
+                        "serverStatus",
+                        "warningStatus",
+                        "changedRows"
+                      ]
+                    },
+                    "token": {}
+                  },
+                  "required": [
+                    "success",
+                    "messgae",
+                    "results"
+                  ],
+                  "x-examples": {
+                    "example-1": {
+                      "success": true,
+                      "messgae": "Success : Cart updated successfully",
+                      "results": {
+                        "fieldCount": 0,
+                        "affectedRows": 1,
+                        "insertId": 0,
+                        "info": "Rows matched: 1  Changed: 1  Warnings: 0",
+                        "serverStatus": 2,
+                        "warningStatus": 0,
+                        "changedRows": 1
+                      },
+                      "token": null
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": true,
+                      "messgae": "Success : Cart updated successfully",
+                      "results": {
+                        "fieldCount": 0,
+                        "affectedRows": 1,
+                        "insertId": 0,
+                        "info": "Rows matched: 1  Changed: 1  Warnings: 0",
+                        "serverStatus": 2,
+                        "warningStatus": 0,
+                        "changedRows": 1
+                      },
+                      "token": null
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        },
+        "description": "This endpoint saves produts items to users cart",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "Authorization ",
+            "description": "{token}",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "description": "",
+                "type": "object",
+                "properties": {
+                  "Qty": {
+                    "type": "number"
+                  },
+                  "UserId": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "Qty",
+                  "UserId"
+                ],
+                "x-examples": {
+                  "example-1": {
+                    "Qty": 1,
+                    "UserId": 11
+                  }
+                }
+              },
+              "examples": {
+                "example-1": {
+                  "value": {
+                    "Qty": 1,
+                    "UserId": 11
+                  }
+                }
+              }
+            }
+          },
+          "description": "Please see exapmle of body request"
+        }
+      },
+      "parameters": [
+        {
+          "schema": {
+            "type": "integer"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "product id that needs to be saved to cart"
+        }
+      ]
+    },
+    "/api/cart/edit/{id}": {
+      "put": {
+        "summary": "Update User Cart",
+        "operationId": "put-api-cart-edit",
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "messgae": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "results": {
+                      "type": "object",
+                      "properties": {
+                        "fieldCount": {
+                          "type": "number"
+                        },
+                        "affectedRows": {
+                          "type": "number"
+                        },
+                        "insertId": {
+                          "type": "number"
+                        },
+                        "info": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "serverStatus": {
+                          "type": "number"
+                        },
+                        "warningStatus": {
+                          "type": "number"
+                        },
+                        "changedRows": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "fieldCount",
+                        "affectedRows",
+                        "insertId",
+                        "info",
+                        "serverStatus",
+                        "warningStatus",
+                        "changedRows"
+                      ]
+                    },
+                    "token": {}
+                  },
+                  "required": [
+                    "success",
+                    "messgae",
+                    "results"
+                  ],
+                  "x-examples": {
+                    "example-1": {
+                      "success": true,
+                      "messgae": "Success : Cart updated successfully",
+                      "results": {
+                        "fieldCount": 0,
+                        "affectedRows": 1,
+                        "insertId": 0,
+                        "info": "Rows matched: 1  Changed: 1  Warnings: 0",
+                        "serverStatus": 2,
+                        "warningStatus": 0,
+                        "changedRows": 1
+                      },
+                      "token": null
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": true,
+                      "messgae": "Success : Cart updated successfully",
+                      "results": {
+                        "fieldCount": 0,
+                        "affectedRows": 1,
+                        "insertId": 0,
+                        "info": "Rows matched: 1  Changed: 1  Warnings: 0",
+                        "serverStatus": 2,
+                        "warningStatus": 0,
+                        "changedRows": 1
+                      },
+                      "token": null
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        },
+        "description": "This endpoint updates a cart for a user using the cart id",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "Authorization ",
+            "description": "{token}",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "description": "",
+                "type": "object",
+                "properties": {
+                  "Qty": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "Qty"
+                ],
+                "x-examples": {
+                  "example-1": {
+                    "Qty": 4
+                  }
+                }
+              },
+              "examples": {
+                "example-1": {
+                  "value": {
+                    "Qty": 4
+                  }
+                }
+              }
+            }
+          },
+          "description": "Please see example body request"
+        }
+      },
+      "parameters": [
+        {
+          "schema": {
+            "type": "integer"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "cart id to be updated"
+        }
+      ]
+    },
+    "/api/cart/delete/{id}": {
+      "delete": {
+        "summary": "Delete Item in Cart",
+        "operationId": "delete-api-cart-delete",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "messgae": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "results": {
+                      "type": "object",
+                      "properties": {
+                        "fieldCount": {
+                          "type": "number"
+                        },
+                        "affectedRows": {
+                          "type": "number"
+                        },
+                        "insertId": {
+                          "type": "number"
+                        },
+                        "info": {
+                          "type": "string"
+                        },
+                        "serverStatus": {
+                          "type": "number"
+                        },
+                        "warningStatus": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "fieldCount",
+                        "affectedRows",
+                        "insertId",
+                        "info",
+                        "serverStatus",
+                        "warningStatus"
+                      ]
+                    },
+                    "token": {}
+                  },
+                  "required": [
+                    "success",
+                    "messgae",
+                    "results"
+                  ],
+                  "x-examples": {
+                    "example-1": {
+                      "success": true,
+                      "messgae": "Success : Cart item deleted successfully",
+                      "results": {
+                        "fieldCount": 0,
+                        "affectedRows": 1,
+                        "insertId": 0,
+                        "info": "",
+                        "serverStatus": 2,
+                        "warningStatus": 0
+                      },
+                      "token": null
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": true,
+                      "messgae": "Success : Cart item deleted successfully",
+                      "results": {
+                        "fieldCount": 0,
+                        "affectedRows": 1,
+                        "insertId": 0,
+                        "info": "",
+                        "serverStatus": 2,
+                        "warningStatus": 0
+                      },
+                      "token": null
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          },
+          "": {
+            "description": ""
+          }
+        },
+        "description": "This endpoint deletes a particular cart ",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "Authorization ",
+            "description": "{token}",
+            "required": true
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "schema": {
+            "type": "integer"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "cart id to be deleted"
+        }
+      ]
+    },
+    "/api/cart/mycart/{id}": {
+      "get": {
+        "summary": "Get User Cart",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "messgae": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "results": {
+                      "type": "array",
+                      "uniqueItems": true,
+                      "minItems": 1,
+                      "items": {
+                        "required": [
+                          "CartId",
+                          "UserId",
+                          "ProductId",
+                          "ProductName",
+                          "Price",
+                          "Discount",
+                          "OldPrice",
+                          "ProductImage",
+                          "ShippingFee",
+                          "Qty"
+                        ],
+                        "properties": {
+                          "CartId": {
+                            "type": "number"
+                          },
+                          "UserId": {
+                            "type": "number"
+                          },
+                          "ProductId": {
+                            "type": "number"
+                          },
+                          "ProductName": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "Price": {
+                            "type": "number"
+                          },
+                          "Discount": {
+                            "type": "string"
+                          },
+                          "OldPrice": {
+                            "type": "string"
+                          },
+                          "ProductImage": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "ShippingFee": {
+                            "type": "number"
+                          },
+                          "Qty": {
+                            "type": "number"
+                          },
+                          "ViewProducts": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "link": {
+                                "type": "string",
+                                "minLength": 1
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "link"
+                            ]
+                          },
+                          "EditCart": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "link": {
+                                "type": "string",
+                                "minLength": 1
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "link"
+                            ]
+                          },
+                          "DeleteCart": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "link": {
+                                "type": "string",
+                                "minLength": 1
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "link"
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    "totalItems": {
+                      "type": "number"
+                    },
+                    "subTotal": {
+                      "type": "number"
+                    },
+                    "totalShipping": {
+                      "type": "number"
+                    },
+                    "totalAmount": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "messgae",
+                    "results",
+                    "totalItems",
+                    "subTotal",
+                    "totalShipping",
+                    "totalAmount"
+                  ],
+                  "x-examples": {
+                    "example-1": {
+                      "success": true,
+                      "messgae": "Success : Cart items found",
+                      "results": [
+                        {
+                          "CartId": 6,
+                          "UserId": 11,
+                          "ProductId": 1,
+                          "ProductName": "Rice Bag",
+                          "Price": 1200.99,
+                          "Discount": "",
+                          "OldPrice": "",
+                          "ProductImage": "https://img-url-1",
+                          "ShippingFee": 1056.87,
+                          "Qty": 1,
+                          "ViewProducts": {
+                            "type": "GET",
+                            "link": "http://localhost:4000/api/products/product-details/1"
+                          },
+                          "EditCart": {
+                            "type": "PUT",
+                            "link": "http://localhost:4000/api/cart/edit/6"
+                          },
+                          "DeleteCart": {
+                            "type": "DELETE",
+                            "link": "http://localhost:4000/api/cart/delete/6"
+                          }
+                        },
+                        {
+                          "CartId": 7,
+                          "UserId": 11,
+                          "ProductId": 3,
+                          "ProductName": "VIJU MILK",
+                          "Price": 140.2,
+                          "Discount": "30% Off",
+                          "OldPrice": 200.29,
+                          "ProductImage": "https://img-url-1",
+                          "ShippingFee": 110.16,
+                          "Qty": 1,
+                          "ViewProducts": {
+                            "type": "GET",
+                            "link": "http://localhost:4000/api/products/product-details/3"
+                          },
+                          "EditCart": {
+                            "type": "PUT",
+                            "link": "http://localhost:4000/api/cart/edit/7"
+                          },
+                          "DeleteCart": {
+                            "type": "DELETE",
+                            "link": "http://localhost:4000/api/cart/delete/7"
+                          }
+                        },
+                        {
+                          "CartId": 8,
+                          "UserId": 11,
+                          "ProductId": 4,
+                          "ProductName": "Hand Gloves",
+                          "Price": 90.89,
+                          "Discount": "10% Off",
+                          "OldPrice": 100.99,
+                          "ProductImage": "https://img-url-1",
+                          "ShippingFee": 98.97,
+                          "Qty": 1,
+                          "ViewProducts": {
+                            "type": "GET",
+                            "link": "http://localhost:4000/api/products/product-details/4"
+                          },
+                          "EditCart": {
+                            "type": "PUT",
+                            "link": "http://localhost:4000/api/cart/edit/8"
+                          },
+                          "DeleteCart": {
+                            "type": "DELETE",
+                            "link": "http://localhost:4000/api/cart/delete/8"
+                          }
+                        },
+                        {
+                          "CartId": 9,
+                          "UserId": 11,
+                          "ProductId": 5,
+                          "ProductName": "Tuxedo",
+                          "Price": 1680.83,
+                          "Discount": "16% Off",
+                          "OldPrice": 2000.99,
+                          "ProductImage": "https://img-url-1",
+                          "ShippingFee": 1740.86,
+                          "Qty": 4,
+                          "ViewProducts": {
+                            "type": "GET",
+                            "link": "http://localhost:4000/api/products/product-details/5"
+                          },
+                          "EditCart": {
+                            "type": "PUT",
+                            "link": "http://localhost:4000/api/cart/edit/9"
+                          },
+                          "DeleteCart": {
+                            "type": "DELETE",
+                            "link": "http://localhost:4000/api/cart/delete/9"
+                          }
+                        }
+                      ],
+                      "totalItems": 7,
+                      "subTotal": 3112.91,
+                      "totalShipping": 3006.86,
+                      "totalAmount": 6119.77
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": true,
+                      "messgae": "Success : Cart items found",
+                      "results": [
+                        {
+                          "CartId": 6,
+                          "UserId": 11,
+                          "ProductId": 1,
+                          "ProductName": "Rice Bag",
+                          "Price": 1200.99,
+                          "Discount": "",
+                          "OldPrice": "",
+                          "ProductImage": "https://img-url-1",
+                          "ShippingFee": 1056.87,
+                          "Qty": 1,
+                          "ViewProducts": {
+                            "type": "GET",
+                            "link": "http://localhost:4000/api/products/product-details/1"
+                          },
+                          "EditCart": {
+                            "type": "PUT",
+                            "link": "http://localhost:4000/api/cart/edit/6"
+                          },
+                          "DeleteCart": {
+                            "type": "DELETE",
+                            "link": "http://localhost:4000/api/cart/delete/6"
+                          }
+                        },
+                        {
+                          "CartId": 7,
+                          "UserId": 11,
+                          "ProductId": 3,
+                          "ProductName": "VIJU MILK",
+                          "Price": 140.2,
+                          "Discount": "30% Off",
+                          "OldPrice": 200.29,
+                          "ProductImage": "https://img-url-1",
+                          "ShippingFee": 110.16,
+                          "Qty": 1,
+                          "ViewProducts": {
+                            "type": "GET",
+                            "link": "http://localhost:4000/api/products/product-details/3"
+                          },
+                          "EditCart": {
+                            "type": "PUT",
+                            "link": "http://localhost:4000/api/cart/edit/7"
+                          },
+                          "DeleteCart": {
+                            "type": "DELETE",
+                            "link": "http://localhost:4000/api/cart/delete/7"
+                          }
+                        },
+                        {
+                          "CartId": 8,
+                          "UserId": 11,
+                          "ProductId": 4,
+                          "ProductName": "Hand Gloves",
+                          "Price": 90.89,
+                          "Discount": "10% Off",
+                          "OldPrice": 100.99,
+                          "ProductImage": "https://img-url-1",
+                          "ShippingFee": 98.97,
+                          "Qty": 1,
+                          "ViewProducts": {
+                            "type": "GET",
+                            "link": "http://localhost:4000/api/products/product-details/4"
+                          },
+                          "EditCart": {
+                            "type": "PUT",
+                            "link": "http://localhost:4000/api/cart/edit/8"
+                          },
+                          "DeleteCart": {
+                            "type": "DELETE",
+                            "link": "http://localhost:4000/api/cart/delete/8"
+                          }
+                        },
+                        {
+                          "CartId": 9,
+                          "UserId": 11,
+                          "ProductId": 5,
+                          "ProductName": "Tuxedo",
+                          "Price": 1680.83,
+                          "Discount": "16% Off",
+                          "OldPrice": 2000.99,
+                          "ProductImage": "https://img-url-1",
+                          "ShippingFee": 1740.86,
+                          "Qty": 4,
+                          "ViewProducts": {
+                            "type": "GET",
+                            "link": "http://localhost:4000/api/products/product-details/5"
+                          },
+                          "EditCart": {
+                            "type": "PUT",
+                            "link": "http://localhost:4000/api/cart/edit/9"
+                          },
+                          "DeleteCart": {
+                            "type": "DELETE",
+                            "link": "http://localhost:4000/api/cart/delete/9"
+                          }
+                        }
+                      ],
+                      "totalItems": 7,
+                      "subTotal": 3112.91,
+                      "totalShipping": 3006.86,
+                      "totalAmount": 6119.77
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        },
+        "operationId": "get-api-cart-mycart",
+        "description": "This endpoint get the cart for a particular user",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "Authorization ",
+            "description": "{token}",
+            "required": true
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "schema": {
+            "type": "integer"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "get a user cart by the user id"
+        }
+      ]
     }
   },
   "components": {
