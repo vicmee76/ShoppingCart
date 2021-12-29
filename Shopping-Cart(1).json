@@ -5686,6 +5686,176 @@
           "description": "product id that needs to be saved to cart"
         }
       ]
+    },
+    "/api/cart/edit/{id}": {
+      "put": {
+        "summary": "Update User Cart",
+        "operationId": "put-api-cart-edit",
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "messgae": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "results": {
+                      "type": "object",
+                      "properties": {
+                        "fieldCount": {
+                          "type": "number"
+                        },
+                        "affectedRows": {
+                          "type": "number"
+                        },
+                        "insertId": {
+                          "type": "number"
+                        },
+                        "info": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "serverStatus": {
+                          "type": "number"
+                        },
+                        "warningStatus": {
+                          "type": "number"
+                        },
+                        "changedRows": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "fieldCount",
+                        "affectedRows",
+                        "insertId",
+                        "info",
+                        "serverStatus",
+                        "warningStatus",
+                        "changedRows"
+                      ]
+                    },
+                    "token": {}
+                  },
+                  "required": [
+                    "success",
+                    "messgae",
+                    "results"
+                  ],
+                  "x-examples": {
+                    "example-1": {
+                      "success": true,
+                      "messgae": "Success : Cart updated successfully",
+                      "results": {
+                        "fieldCount": 0,
+                        "affectedRows": 1,
+                        "insertId": 0,
+                        "info": "Rows matched: 1  Changed: 1  Warnings: 0",
+                        "serverStatus": 2,
+                        "warningStatus": 0,
+                        "changedRows": 1
+                      },
+                      "token": null
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": true,
+                      "messgae": "Success : Cart updated successfully",
+                      "results": {
+                        "fieldCount": 0,
+                        "affectedRows": 1,
+                        "insertId": 0,
+                        "info": "Rows matched: 1  Changed: 1  Warnings: 0",
+                        "serverStatus": 2,
+                        "warningStatus": 0,
+                        "changedRows": 1
+                      },
+                      "token": null
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        },
+        "description": "This endpoint updates a cart for a user using the cart id",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "Authorization ",
+            "description": "{token}",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "description": "",
+                "type": "object",
+                "properties": {
+                  "Qty": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "Qty"
+                ],
+                "x-examples": {
+                  "example-1": {
+                    "Qty": 4
+                  }
+                }
+              },
+              "examples": {
+                "example-1": {
+                  "value": {
+                    "Qty": 4
+                  }
+                }
+              }
+            }
+          },
+          "description": "Please see example body request"
+        }
+      },
+      "parameters": [
+        {
+          "schema": {
+            "type": "integer"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "cart id to be updated"
+        }
+      ]
     }
   },
   "components": {
