@@ -5991,6 +5991,413 @@
           "description": "cart id to be deleted"
         }
       ]
+    },
+    "/api/cart/mycart/{id}": {
+      "get": {
+        "summary": "Get User Cart",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "messgae": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "results": {
+                      "type": "array",
+                      "uniqueItems": true,
+                      "minItems": 1,
+                      "items": {
+                        "required": [
+                          "CartId",
+                          "UserId",
+                          "ProductId",
+                          "ProductName",
+                          "Price",
+                          "Discount",
+                          "OldPrice",
+                          "ProductImage",
+                          "ShippingFee",
+                          "Qty"
+                        ],
+                        "properties": {
+                          "CartId": {
+                            "type": "number"
+                          },
+                          "UserId": {
+                            "type": "number"
+                          },
+                          "ProductId": {
+                            "type": "number"
+                          },
+                          "ProductName": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "Price": {
+                            "type": "number"
+                          },
+                          "Discount": {
+                            "type": "string"
+                          },
+                          "OldPrice": {
+                            "type": "string"
+                          },
+                          "ProductImage": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "ShippingFee": {
+                            "type": "number"
+                          },
+                          "Qty": {
+                            "type": "number"
+                          },
+                          "ViewProducts": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "link": {
+                                "type": "string",
+                                "minLength": 1
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "link"
+                            ]
+                          },
+                          "EditCart": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "link": {
+                                "type": "string",
+                                "minLength": 1
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "link"
+                            ]
+                          },
+                          "DeleteCart": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "link": {
+                                "type": "string",
+                                "minLength": 1
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "link"
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    "totalItems": {
+                      "type": "number"
+                    },
+                    "subTotal": {
+                      "type": "number"
+                    },
+                    "totalShipping": {
+                      "type": "number"
+                    },
+                    "totalAmount": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "messgae",
+                    "results",
+                    "totalItems",
+                    "subTotal",
+                    "totalShipping",
+                    "totalAmount"
+                  ],
+                  "x-examples": {
+                    "example-1": {
+                      "success": true,
+                      "messgae": "Success : Cart items found",
+                      "results": [
+                        {
+                          "CartId": 6,
+                          "UserId": 11,
+                          "ProductId": 1,
+                          "ProductName": "Rice Bag",
+                          "Price": 1200.99,
+                          "Discount": "",
+                          "OldPrice": "",
+                          "ProductImage": "https://img-url-1",
+                          "ShippingFee": 1056.87,
+                          "Qty": 1,
+                          "ViewProducts": {
+                            "type": "GET",
+                            "link": "http://localhost:4000/api/products/product-details/1"
+                          },
+                          "EditCart": {
+                            "type": "PUT",
+                            "link": "http://localhost:4000/api/cart/edit/6"
+                          },
+                          "DeleteCart": {
+                            "type": "DELETE",
+                            "link": "http://localhost:4000/api/cart/delete/6"
+                          }
+                        },
+                        {
+                          "CartId": 7,
+                          "UserId": 11,
+                          "ProductId": 3,
+                          "ProductName": "VIJU MILK",
+                          "Price": 140.2,
+                          "Discount": "30% Off",
+                          "OldPrice": 200.29,
+                          "ProductImage": "https://img-url-1",
+                          "ShippingFee": 110.16,
+                          "Qty": 1,
+                          "ViewProducts": {
+                            "type": "GET",
+                            "link": "http://localhost:4000/api/products/product-details/3"
+                          },
+                          "EditCart": {
+                            "type": "PUT",
+                            "link": "http://localhost:4000/api/cart/edit/7"
+                          },
+                          "DeleteCart": {
+                            "type": "DELETE",
+                            "link": "http://localhost:4000/api/cart/delete/7"
+                          }
+                        },
+                        {
+                          "CartId": 8,
+                          "UserId": 11,
+                          "ProductId": 4,
+                          "ProductName": "Hand Gloves",
+                          "Price": 90.89,
+                          "Discount": "10% Off",
+                          "OldPrice": 100.99,
+                          "ProductImage": "https://img-url-1",
+                          "ShippingFee": 98.97,
+                          "Qty": 1,
+                          "ViewProducts": {
+                            "type": "GET",
+                            "link": "http://localhost:4000/api/products/product-details/4"
+                          },
+                          "EditCart": {
+                            "type": "PUT",
+                            "link": "http://localhost:4000/api/cart/edit/8"
+                          },
+                          "DeleteCart": {
+                            "type": "DELETE",
+                            "link": "http://localhost:4000/api/cart/delete/8"
+                          }
+                        },
+                        {
+                          "CartId": 9,
+                          "UserId": 11,
+                          "ProductId": 5,
+                          "ProductName": "Tuxedo",
+                          "Price": 1680.83,
+                          "Discount": "16% Off",
+                          "OldPrice": 2000.99,
+                          "ProductImage": "https://img-url-1",
+                          "ShippingFee": 1740.86,
+                          "Qty": 4,
+                          "ViewProducts": {
+                            "type": "GET",
+                            "link": "http://localhost:4000/api/products/product-details/5"
+                          },
+                          "EditCart": {
+                            "type": "PUT",
+                            "link": "http://localhost:4000/api/cart/edit/9"
+                          },
+                          "DeleteCart": {
+                            "type": "DELETE",
+                            "link": "http://localhost:4000/api/cart/delete/9"
+                          }
+                        }
+                      ],
+                      "totalItems": 7,
+                      "subTotal": 3112.91,
+                      "totalShipping": 3006.86,
+                      "totalAmount": 6119.77
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": true,
+                      "messgae": "Success : Cart items found",
+                      "results": [
+                        {
+                          "CartId": 6,
+                          "UserId": 11,
+                          "ProductId": 1,
+                          "ProductName": "Rice Bag",
+                          "Price": 1200.99,
+                          "Discount": "",
+                          "OldPrice": "",
+                          "ProductImage": "https://img-url-1",
+                          "ShippingFee": 1056.87,
+                          "Qty": 1,
+                          "ViewProducts": {
+                            "type": "GET",
+                            "link": "http://localhost:4000/api/products/product-details/1"
+                          },
+                          "EditCart": {
+                            "type": "PUT",
+                            "link": "http://localhost:4000/api/cart/edit/6"
+                          },
+                          "DeleteCart": {
+                            "type": "DELETE",
+                            "link": "http://localhost:4000/api/cart/delete/6"
+                          }
+                        },
+                        {
+                          "CartId": 7,
+                          "UserId": 11,
+                          "ProductId": 3,
+                          "ProductName": "VIJU MILK",
+                          "Price": 140.2,
+                          "Discount": "30% Off",
+                          "OldPrice": 200.29,
+                          "ProductImage": "https://img-url-1",
+                          "ShippingFee": 110.16,
+                          "Qty": 1,
+                          "ViewProducts": {
+                            "type": "GET",
+                            "link": "http://localhost:4000/api/products/product-details/3"
+                          },
+                          "EditCart": {
+                            "type": "PUT",
+                            "link": "http://localhost:4000/api/cart/edit/7"
+                          },
+                          "DeleteCart": {
+                            "type": "DELETE",
+                            "link": "http://localhost:4000/api/cart/delete/7"
+                          }
+                        },
+                        {
+                          "CartId": 8,
+                          "UserId": 11,
+                          "ProductId": 4,
+                          "ProductName": "Hand Gloves",
+                          "Price": 90.89,
+                          "Discount": "10% Off",
+                          "OldPrice": 100.99,
+                          "ProductImage": "https://img-url-1",
+                          "ShippingFee": 98.97,
+                          "Qty": 1,
+                          "ViewProducts": {
+                            "type": "GET",
+                            "link": "http://localhost:4000/api/products/product-details/4"
+                          },
+                          "EditCart": {
+                            "type": "PUT",
+                            "link": "http://localhost:4000/api/cart/edit/8"
+                          },
+                          "DeleteCart": {
+                            "type": "DELETE",
+                            "link": "http://localhost:4000/api/cart/delete/8"
+                          }
+                        },
+                        {
+                          "CartId": 9,
+                          "UserId": 11,
+                          "ProductId": 5,
+                          "ProductName": "Tuxedo",
+                          "Price": 1680.83,
+                          "Discount": "16% Off",
+                          "OldPrice": 2000.99,
+                          "ProductImage": "https://img-url-1",
+                          "ShippingFee": 1740.86,
+                          "Qty": 4,
+                          "ViewProducts": {
+                            "type": "GET",
+                            "link": "http://localhost:4000/api/products/product-details/5"
+                          },
+                          "EditCart": {
+                            "type": "PUT",
+                            "link": "http://localhost:4000/api/cart/edit/9"
+                          },
+                          "DeleteCart": {
+                            "type": "DELETE",
+                            "link": "http://localhost:4000/api/cart/delete/9"
+                          }
+                        }
+                      ],
+                      "totalItems": 7,
+                      "subTotal": 3112.91,
+                      "totalShipping": 3006.86,
+                      "totalAmount": 6119.77
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        },
+        "operationId": "get-api-cart-mycart",
+        "description": "This endpoint get the cart for a particular user",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "Authorization ",
+            "description": "{token}",
+            "required": true
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "schema": {
+            "type": "integer"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "get a user cart by the user id"
+        }
+      ]
     }
   },
   "components": {
