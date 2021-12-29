@@ -298,7 +298,7 @@ exports._showCart = (code, res, msg, response) => {
         }),
         totalItems: totalIteams,
         subTotal: subTotal,
-        totalShipping: totalShipping,
+        totalShipping: parseFloat(totalShipping.toFixed(2)),
         totalAmount: parseFloat(parseFloat(subTotal + totalShipping).toFixed(2))
     });
 };
