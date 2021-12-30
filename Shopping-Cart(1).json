@@ -3,7 +3,7 @@
   "info": {
     "title": "Shopping Cart",
     "version": "1.0",
-    "description": "This API is a basic shopping cart that allows users to add, delete, update, and view products to their cart. This can also go beyond by letting users place order for products.",
+    "description": "This API is a basic shopping cart endpoint, consisting of different operations.\n\n1. USERS : Here, users can be created, updated, deleted, fetched, logged in and can also change their password.\n\n2. CATEGORY : Here, category groups are created for produts. CRUD operations can also be performed using its respective APIs\n\n3. PRODUCTS : Here, differnt products are created with different attributes. These products are also associated to different categories. Also, CRUD operations can be performed using respective product APIs\n\n4. CART : Here, logined users can add products item to cart, specifying the quantity for that selected item. They can also perform CRUD operations on this module.",
     "summary": "A basic shopping cart project that allows users to add products to cart.",
     "contact": {
       "name": "Victor Nwogu",
