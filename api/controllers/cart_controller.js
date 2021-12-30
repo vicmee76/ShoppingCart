@@ -23,6 +23,8 @@ exports._createCart = (req, res, next) => {
         else {
 
             if (results && results.length > 0) {
+
+                // add previous qty and new qty of item
                 data.Qty = results[0].Qty + qty;
                 updateCart(results[0].CartId, data, (errs, response) => {
                     if (errs) {

@@ -64,6 +64,7 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="config\database.js" />
+    <Content Include="config\vic_db.sql" />
     <Content Include="helpers\helpers.js">
       <SubType>Code</SubType>
     </Content>
