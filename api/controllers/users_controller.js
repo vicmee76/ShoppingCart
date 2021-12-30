@@ -25,12 +25,14 @@ exports._createUser = (req, res, next) => {
                 helpers._showError(409, res, "User already exits");
             }
             else {
+                // checking only password length
                 const pass = helpers._checkPassword(data.Password);
 
                 if (!pass) {
                     helpers._showError(406, res, "Password must be more than 7 characters");
                 }
                 else {
+                    // encrypt password
                     const hash = bcrypt.hashSync(data.Password, 10);
                     data.Password = hash;
 
@@ -158,8 +160,11 @@ exports._loginUser = (req, res, next) => {
         }
         else {
             if (results) {
+                // decrypt password
                 const pass = bcrypt.compareSync(data.Password, results.Password);
                 if (pass) {
+
+                    // set token for login user
                     const token = jwt.sign(
                         {
                             userid: results.UserId,
@@ -189,15 +194,15 @@ exports._changePassword = (req, res, next) => {
         }
         else {
             if (results) {
-
+                
                 const pass = bcrypt.compareSync(data.OldPassword, results.Password);
 
                 if (pass) {
-
+                    // checking password length
                     const checkPass = helpers._checkPassword(data.NewPassword);
 
                     if (checkPass) {
-
+                        // new encrypted password
                         const hash = bcrypt.hashSync(data.NewPassword, 10);
                         data.NewPassword = hash;
 

@@ -11,7 +11,7 @@ const {
     deleteProduct
 } = require("../services/products_services.js");
 
-
+// Default way to create a product
 exports._createProduct = (req, res, next) => {
 
     const data = req.body;
@@ -27,6 +27,7 @@ exports._createProduct = (req, res, next) => {
                 const date = dateShortcode.parse('{YYYY-MM-DD}', new Date());
                 let produtExpiry = dateShortcode.parse('{YYYY-MM-DD}', results[0].ExpiredAt);
 
+                // checking if a product has expired
                 if (date > produtExpiry) {
                     saveProduct(data, (errs, response) => {
                         if (errs) {
@@ -57,6 +58,8 @@ exports._createProduct = (req, res, next) => {
 };
 
 
+
+// create product from a category link
 exports._createProductFromCategory = (req, res, next) => {
 
     const data = req.body;
@@ -72,6 +75,7 @@ exports._createProductFromCategory = (req, res, next) => {
                 const date = dateShortcode.parse('{YYYY-MM-DD}', new Date());
                 let produtExpiry = dateShortcode.parse('{YYYY-MM-DD}', results[0].ExpiredAt);
 
+                // checking if a product has expired
                 if (date > produtExpiry) {
                     saveProductFromCategory(categoryId, data, (errs, response) => {
                         if (errs) {
