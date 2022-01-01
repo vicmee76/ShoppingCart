@@ -39,7 +39,7 @@ exports._createCart = (req, res, next) => {
 
                             if (ProductResults[0].StockLevel <= 0) {
                                 // no available stock
-                                helpers._showError(204, res, "No available stock");
+                                helpers._showError(206, res, "No available stock");
                             }
                             else if (ProductResults[0].StockLevel < qty) {
                                 // stock is less than the qty needed
@@ -123,10 +123,12 @@ exports._createCart = (req, res, next) => {
 };
 
 
+
 exports._updateCart = (req, res, next) => {
 
     const data = req.body;
     const cartId = req.params.id;
+    let qty = data.Qty;
 
     geCartById(cartId, (err, results) => {
         if (err) {
@@ -134,12 +136,51 @@ exports._updateCart = (req, res, next) => {
         }
         else {
             if (results && results.length > 0) {
-                updateCart(cartId, data, (errs, response) => {
-                    if (errs) {
-                        helpers._showError(500, res, errs);
+
+                let productId = results[0].ProductId;
+
+                checkProductById(productId, (perr, ProductResults) => {
+
+                    if (perr) {
+                        helpers._showError(500, res, perr);
                     }
                     else {
-                        helpers._showSuccess(201, res, "Cart updated successfully", response);
+                        if (ProductResults && ProductResults.length > 0) {
+
+                            var originalStock = results[0].Qty + ProductResults[0].StockLevel;
+
+                            if (originalStock <= 0) {
+                                // no available stock
+                                helpers._showError(206, res, "No available stock");
+                            }
+                            else if (originalStock < qty) {
+                                // stock is less than the qty needed
+                                helpers._showError(303, res, "Product stock is less than the quantity needed");
+                            }
+                            else {
+
+                                let newStockLevel = originalStock - qty;
+
+                                updateCart(cartId, data, (errs, CartResponse) => {
+                                    if (errs) {
+                                        helpers._showError(500, res, errs);
+                                    }
+                                    else {
+                                        updateProductStock(productId, newStockLevel, (productError, ProductResponse) => {
+                                            if (productError) {
+                                                helpers._showSuccess(201, res, "Cart updated successfully.", CartResponse);
+                                            }
+                                            else {
+                                                helpers._showSuccess(201, res, "Cart & Product stock level updated successfully.", CartResponse);
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+                        }
+                        else {
+                            helpers._showError(404, res, "Product cannot be found");
+                        }
                     }
                 });
             }
@@ -148,8 +189,8 @@ exports._updateCart = (req, res, next) => {
             }
         }
     });
-
 };
+
 
 
 exports._deleteCart = (req, res, next) => {
