@@ -10,6 +10,7 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+
 // CORS errors
 app.use((req, res, next) => {
 
