@@ -5615,8 +5615,8 @@
               }
             }
           },
-          "204": {
-            "description": "No Content",
+          "206": {
+            "description": "Partial Content",
             "content": {
               "application/json": {
                 "schema": {
