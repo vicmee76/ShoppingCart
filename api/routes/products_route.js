@@ -5,8 +5,9 @@ const router = express.Router();
 const validate = require("../../auth/validateToken.js");
 
 
+// create a new product
 router.post('/',
-    // validation
+    // input validation
     body("CategoryId", "CategoryId should not be empty and must have valuue more than 1").notEmpty().isInt({min: 1}),
     body("ProductName", "ProductName should not be empty and should be more than 3").notEmpty().isLength({ min: 3 }),
     body("SellingPrice", "SellingPrice should not be empty and must have valuue more than 10").notEmpty().isFloat({min : 10}),
@@ -19,9 +20,9 @@ router.post('/',
 
 
 
+// createg a product from a category id
 router.post('/save-product-from-category/:id',
-
-    // validation
+    // input validation
     body("ProductName", "ProductName should not be empty and should be more than 3").notEmpty().isLength({ min: 3 }),
     body("SellingPrice", "SellingPrice should not be empty and must have valuue more than 10").notEmpty().isFloat({ min: 10 }),
     body("StockLevel", "SellingPrice should not be empty and must have valuue more than 1").notEmpty().isInt({ min: 1 }),
@@ -32,13 +33,18 @@ router.post('/save-product-from-category/:id',
     validate._validateToken, productsController._createProductFromCategory);
 
 
-
+// get all products with different query parameters
 router.get('/', productsController._getProducts);
+
+
+// view a product details
 router.get('/product-details', productsController._getProductsDetails);
 
 
+
+// update a product
 router.put('/edit/:id',
-    // validation
+    // input validation
     body("CategoryId", "CategoryId should not be empty and must have value more than 1").notEmpty().isInt({ min: 1 }),
     body("ProductName", "ProductName should not be empty and should be more than 3").notEmpty().isLength({ min: 3 }),
     body("SellingPrice", "SellingPrice should not be empty and must have value more than 10").notEmpty().isFloat({ min: 10 }),
@@ -50,6 +56,7 @@ router.put('/edit/:id',
     validate._validateToken, productsController._updateProduct);
 
 
+// delete a product
 router.delete('/delete/:id', validate._validateToken, productsController._deleteProduct);
 
 
