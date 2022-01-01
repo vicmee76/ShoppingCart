@@ -162,15 +162,21 @@ exports._deleteCart = (req, res, next) => {
                                 helpers._showError(500, res, perr);
                             }
                             else {
-                                let newStockLevel = ProductResults[0].StockLevel + qty;
-                                updateProductStock(productId, newStockLevel, (productError, ProductResponse) => {
-                                    if (productError) {
-                                        helpers._showSuccess(200, res, "Cart item deleted successfully", response);
-                                    }
-                                    else {
-                                        helpers._showSuccess(200, res, "Cart item deleted successfully", response);
-                                    }
-                                });
+                                if (ProductResults && ProductResults.length > 0) {
+
+                                    let newStockLevel = ProductResults[0].StockLevel + qty;
+                                    updateProductStock(productId, newStockLevel, (productError, ProductResponse) => {
+                                        if (productError) {
+                                            helpers._showSuccess(200, res, "Cart item deleted successfully", response);
+                                        }
+                                        else {
+                                            helpers._showSuccess(200, res, "Cart item deleted successfully", response);
+                                        }
+                                    });
+                                }
+                                else {
+                                    helpers._showError(404, res, "Product cannot be found");
+                                }
                             }
                         });
                     }
