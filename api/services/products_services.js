@@ -132,6 +132,17 @@ module.exports = {
     },
 
 
+    updateProductStock: (id, stockLevel, callBack) => {
+        pool.query("UPDATE products SET StockLevel=? WHERE ProductId=?",
+            [
+                stockLevel,
+                id
+            ],
+            (error, result) => {
+                helpers._getCallBack(callBack, error, result);
+            });
+    },
+
 
     deleteProduct: (id, callBack) => {
         pool.query("DELETE FROM products WHERE ProductId=?",

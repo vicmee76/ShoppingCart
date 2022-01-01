@@ -4,7 +4,7 @@ const helpers = require("../../helpers/helpers");
 module.exports = {
 
     getExistingCart: (id, data, callBack) => {
-        pool.query("SELECT * FROM cart WHERE UserId = ? AND ProductId =?",
+        pool.query("SELECT c.*, p.StockLevel FROM cart as c LEFT JOIN products as p ON c.ProductId = p.ProductId WHERE c.UserId = ? AND p.ProductId =?",
             [
                 data.UserId,
                 id,
@@ -62,7 +62,6 @@ module.exports = {
                 helpers._getCallBack(callBack, error, result);
             });
     },
-
 
 
     deleteCart: (id, callBack) => {

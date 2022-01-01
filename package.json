@@ -16,6 +16,7 @@
     "dotenv": "^10.0.0",
     "exppress": "^0.0.1-security",
     "express": "^4.17.2",
+    "express-validator": "^6.14.0",
     "jsonwebtoken": "^8.5.1",
     "mysql2": "^2.3.3",
     "timesolver": "^1.2.0"

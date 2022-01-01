@@ -1,6 +1,8 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const helpers = require("../../helpers/helpers");
+const { body, validationResult } = require('express-validator');
+
 const {
     saveUser,
     checkExisitingUser,
@@ -14,7 +16,12 @@ const {
 
 
 exports._createUser = (req, res, next) => {
-        const data = req.body;
+    const data = req.body;
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
 
     checkExisitingUser(null, data, (err, results) => {
         if (err) {
@@ -92,6 +99,11 @@ exports._updateUser = (req, res, next) => {
     const userid = req.params.id;
     const data = req.body;
 
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
     checkExisitingUser(userid, data, (err, results) => {
         if (err) {
             helpers._showError(500, res, err);
@@ -154,6 +166,12 @@ exports._deleteUser = (req, res, next) => {
 
 exports._loginUser = (req, res, next) => {
     const data = req.body;
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
     loginUser(data, (err, results) => {
         if (err) {
             helpers._showError(500, res, err);
@@ -188,6 +206,12 @@ exports._loginUser = (req, res, next) => {
 exports._changePassword = (req, res, next) => {
     const userid = req.params.id;
     const data = req.body;
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
     loginUser(data, (err, results) => {
         if (err) {
             helpers._showError(500, res, err);
