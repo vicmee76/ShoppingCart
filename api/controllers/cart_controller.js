@@ -148,12 +148,31 @@ exports._deleteCart = (req, res, next) => {
         }
         else {
             if (results && results.length > 0) {
+
+                const qty = results[0].Qty;
+                const productId = results[0].ProductId;
+                
                 deleteCart(cartId, (errs, response) => {
                     if (errs) {
                         helpers._showError(500, res, errs);
                     }
                     else {
-                        helpers._showSuccess(200, res, "Cart item deleted successfully", response);
+                        checkProductById(productId, (perr, ProductResults) => {
+                            if (perr) {
+                                helpers._showError(500, res, perr);
+                            }
+                            else {
+                                let newStockLevel = ProductResults[0].StockLevel + qty;
+                                updateProductStock(productId, newStockLevel, (productError, ProductResponse) => {
+                                    if (productError) {
+                                        helpers._showSuccess(200, res, "Cart item deleted successfully", response);
+                                    }
+                                    else {
+                                        helpers._showSuccess(200, res, "Cart item deleted successfully", response);
+                                    }
+                                });
+                            }
+                        });
                     }
                 });
             }
