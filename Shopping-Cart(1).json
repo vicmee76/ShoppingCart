@@ -6408,7 +6408,7 @@
             "$ref": "#/components/responses/500"
           }
         },
-        "description": "This endpoint saves produts items to users cart",
+        "description": "This endpoint saves produts items to users cart, and update the stock level on the products table ",
         "parameters": [
           {
             "schema": {
@@ -6733,7 +6733,7 @@
             "$ref": "#/components/responses/500"
           }
         },
-        "description": "This endpoint updates a cart for a user using the cart id",
+        "description": "This endpoint updates a cart for a user using the cart id, and also updates the stock level on the products table.",
         "parameters": [
           {
             "schema": {
@@ -6899,7 +6899,7 @@
             "description": ""
           }
         },
-        "description": "This endpoint deletes a particular cart ",
+        "description": "This endpoint deletes a particular cart for a user, and also updates the stock level on the product table ",
         "parameters": [
           {
             "schema": {
