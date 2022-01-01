@@ -35,35 +35,41 @@ exports._createCart = (req, res, next) => {
                         helpers._showError(500, res, perr);
                     }
                     else {
-                        if (ProductResults[0].StockLevel <= 0) {
-                            // no available stock
-                            helpers._showError(204, res, "No available stock");
-                        }
-                        else if (ProductResults[0].StockLevel < qty) {
-                            // stock is less than the qty needed
-                            helpers._showError(303, res, "Product stock is less than the quantity needed");
+                        if (ProductResults && ProductResults.length > 0) {
+
+                            if (ProductResults[0].StockLevel <= 0) {
+                                // no available stock
+                                helpers._showError(204, res, "No available stock");
+                            }
+                            else if (ProductResults[0].StockLevel < qty) {
+                                // stock is less than the qty needed
+                                helpers._showError(303, res, "Product stock is less than the quantity needed");
+                            }
+                            else {
+
+                                // add previous qty and new qty of item
+                                data.Qty = results[0].Qty + qty;
+                                let newStockLevel = ProductResults[0].StockLevel - qty;
+
+                                updateCart(results[0].CartId, data, (errs, CartResponse) => {
+                                    if (errs) {
+                                        helpers._showError(500, res, errs);
+                                    }
+                                    else {
+                                        updateProductStock(productId, newStockLevel, (productError, ProductResponse) => {
+                                            if (productError) {
+                                                helpers._showSuccess(201, res, "Cart updated successfully.", CartResponse);
+                                            }
+                                            else {
+                                                helpers._showSuccess(201, res, "Cart & Product stock level updated successfully.", CartResponse);
+                                            }
+                                        });
+                                    }
+                                });
+                            }
                         }
                         else {
-
-                            // add previous qty and new qty of item
-                            data.Qty = results[0].Qty + qty;
-                            let newStockLevel = ProductResults[0].StockLevel - qty;
-
-                            updateCart(results[0].CartId, data, (errs, CartResponse) => {
-                                if (errs) {
-                                    helpers._showError(500, res, errs);
-                                }
-                                else {
-                                    updateProductStock(productId, newStockLevel, (productError, ProductResponse) => {
-                                        if (productError) {
-                                            helpers._showSuccess(201, res, "Cart updated successfully.", CartResponse);
-                                        }
-                                        else {
-                                            helpers._showSuccess(201, res, "Cart & Product stock level updated successfully.", CartResponse);
-                                        }
-                                    });
-                                }
-                            });
+                            helpers._showError(404, res, "Product cannot be found");
                         }
                     }
                 });
@@ -76,32 +82,38 @@ exports._createCart = (req, res, next) => {
                         helpers._showError(500, res, perr);
                     }
                     else {
-                        if (ProductResults[0].StockLevel <= 0) {
-                            // no available stock
-                            helpers._showError(204, res, "No available stock");
-                        }
-                        else if (ProductResults[0].StockLevel < qty) {
-                            // stock is less than the qty needed
-                            helpers._showError(303, res, "Product stock is less than the quantity needed");
+                        if (ProductResults && ProductResults.length > 0) {
+
+                            if (ProductResults[0].StockLevel <= 0) {
+                                // no available stock
+                                helpers._showError(204, res, "No available stock");
+                            }
+                            else if (ProductResults[0].StockLevel < qty) {
+                                // stock is less than the qty needed
+                                helpers._showError(303, res, "Product stock is less than the quantity needed");
+                            }
+                            else {
+                                let newStockLevel = ProductResults[0].StockLevel - qty;
+
+                                saveCart(productId, data, (errs, response) => {
+                                    if (errs) {
+                                        helpers._showError(500, res, errs);
+                                    }
+                                    else {
+                                        updateProductStock(productId, newStockLevel, (productError, ProductResponse) => {
+                                            if (productError) {
+                                                helpers._showSuccess(201, res, "Added to cart successfully", response);
+                                            }
+                                            else {
+                                                helpers._showSuccess(201, res, "Added to cart & Product stock level updated successfully.", response);
+                                            }
+                                        });
+                                    }
+                                });
+                            }
                         }
                         else {
-                            let newStockLevel = ProductResults[0].StockLevel - qty;
-
-                            saveCart(productId, data, (errs, response) => {
-                                if (errs) {
-                                    helpers._showError(500, res, errs);
-                                }
-                                else {
-                                    updateProductStock(productId, newStockLevel, (productError, ProductResponse) => {
-                                        if (productError) {
-                                            helpers._showSuccess(201, res, "Added to cart successfully", response);
-                                        }
-                                        else {
-                                            helpers._showSuccess(201, res, "Added to cart & Product stock level updated successfully.", response);
-                                        }
-                                    });
-                                }
-                            });
+                            helpers._showError(404, res, "Product cannot be found");
                         }
                     }
                 });
@@ -189,6 +201,7 @@ exports._deleteCart = (req, res, next) => {
     });
 
 };
+
 
 
 exports._getUserCart = (req, res, next) => {
