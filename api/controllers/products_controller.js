@@ -1,5 +1,6 @@
 const helpers = require("../../helpers/helpers");
 const dateShortcode = require('date-shortcode');
+const { validationResult } = require('express-validator');
 
 const {
     saveProduct,
@@ -16,6 +17,11 @@ exports._createProduct = (req, res, next) => {
 
     const data = req.body;
     const id = data.CategoryId;
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
 
     checkExistingProduct(id, data, (err, results) => {
         if (err) {
@@ -64,6 +70,11 @@ exports._createProductFromCategory = (req, res, next) => {
 
     const data = req.body;
     const categoryId = req.params.id;
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
 
     checkExistingProduct(categoryId, data, (err, results) => {
         if (err) {
@@ -153,6 +164,11 @@ exports._updateProduct = (req, res, next) => {
 
     const productId = req.params.id;
     const data = req.body;
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
 
     checkProductById(productId, (err, results) => {
         if (err) {
