@@ -10,4 +10,4 @@ PRODUCTS : Here, differnt products are created with different attributes. These 
 
 #
 
-Please see API documentation link for this project : https://conet.stoplight.io/docs/shoppingcart/
+Please see API documentation link for this project : https://conet.stoplight.io/docs/shoppingcart/YXBpOjMzMTc2NTc4-shopping-cart
