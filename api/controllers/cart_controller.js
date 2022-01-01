@@ -1,4 +1,5 @@
 const helpers = require("../../helpers/helpers");
+const { validationResult } = require('express-validator');
 
 const {
     saveCart,
@@ -21,6 +22,11 @@ exports._createCart = (req, res, next) => {
     const data = req.body;
     const productId = req.params.id
     let qty = data.Qty;
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
 
     getExistingCart(productId, data, (err, results) => {
         if (err) {
@@ -129,6 +135,11 @@ exports._updateCart = (req, res, next) => {
     const data = req.body;
     const cartId = req.params.id;
     let qty = data.Qty;
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
 
     geCartById(cartId, (err, results) => {
         if (err) {
