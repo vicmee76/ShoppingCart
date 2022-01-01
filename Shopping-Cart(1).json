@@ -112,6 +112,97 @@
               }
             }
           },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "array",
+                      "uniqueItems": true,
+                      "minItems": 1,
+                      "items": {
+                        "required": [
+                          "value",
+                          "msg",
+                          "param",
+                          "location"
+                        ],
+                        "properties": {
+                          "value": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "msg": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "param": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "location": {
+                            "type": "string",
+                            "minLength": 1
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "errors"
+                  ],
+                  "x-examples": {
+                    "example-1": {
+                      "errors": [
+                        {
+                          "value": "Ja",
+                          "msg": "FirstName should not be empty and should be more than 3",
+                          "param": "FirstName",
+                          "location": "body"
+                        },
+                        {
+                          "value": "Bn",
+                          "msg": "Lastname should not be empty and should be more than 3",
+                          "param": "LastName",
+                          "location": "body"
+                        },
+                        {
+                          "value": "jamesshotmail.coms",
+                          "msg": "Email is invalid",
+                          "param": "Email",
+                          "location": "body"
+                        },
+                        {
+                          "value": "",
+                          "msg": "Gender shpould not be empty",
+                          "param": "Gender",
+                          "location": "body"
+                        }
+                      ]
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "errors": [
+                        {
+                          "value": "Parameter Value",
+                          "msg": "Error message",
+                          "param": "Parameter",
+                          "location": "body"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
           "406": {
             "description": "Not Acceptable",
             "content": {
@@ -804,6 +895,79 @@
             },
             "headers": {}
           },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "array",
+                      "uniqueItems": true,
+                      "minItems": 1,
+                      "items": {
+                        "required": [
+                          "value",
+                          "msg",
+                          "param",
+                          "location"
+                        ],
+                        "properties": {
+                          "value": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "msg": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "param": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "location": {
+                            "type": "string",
+                            "minLength": 1
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "errors"
+                  ],
+                  "x-examples": {
+                    "example-1": {
+                      "errors": [
+                        {
+                          "value": "string",
+                          "msg": "string",
+                          "param": "string",
+                          "location": "string"
+                        }
+                      ]
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "errors": [
+                        {
+                          "value": "Parameter Value",
+                          "msg": "Error message",
+                          "param": "Parameter",
+                          "location": "body"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
           "404": {
             "$ref": "#/components/responses/404"
           },
@@ -1003,30 +1167,65 @@
                   "description": "",
                   "type": "object",
                   "properties": {
-                    "success": {
-                      "type": "boolean"
-                    },
-                    "messgae": {
-                      "type": "string",
-                      "minLength": 1
+                    "errors": {
+                      "type": "array",
+                      "uniqueItems": true,
+                      "minItems": 1,
+                      "items": {
+                        "required": [
+                          "value",
+                          "msg",
+                          "param",
+                          "location"
+                        ],
+                        "properties": {
+                          "value": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "msg": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "param": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "location": {
+                            "type": "string",
+                            "minLength": 1
+                          }
+                        }
+                      }
                     }
                   },
                   "required": [
-                    "success",
-                    "messgae"
+                    "errors"
                   ],
                   "x-examples": {
                     "example-1": {
-                      "success": false,
-                      "messgae": "Error : New password must be more than 7 characters"
+                      "errors": [
+                        {
+                          "value": "Parameter Value",
+                          "msg": "Error message",
+                          "param": "Parameter",
+                          "location": "body"
+                        }
+                      ]
                     }
                   }
                 },
                 "examples": {
                   "example-1": {
                     "value": {
-                      "success": false,
-                      "messgae": "Error : New password must be more than 7 characters"
+                      "errors": [
+                        {
+                          "value": "Parameter Value",
+                          "msg": "Error message",
+                          "param": "Parameter",
+                          "location": "body"
+                        }
+                      ]
                     }
                   }
                 }
@@ -1065,7 +1264,7 @@
                   "x-examples": {
                     "example-1": {
                       "success": false,
-                      "messgae": "Error : Wrong old password"
+                      "messgae": "Error : New password must be more than 7 characters"
                     }
                   }
                 },
@@ -1073,7 +1272,7 @@
                   "example-1": {
                     "value": {
                       "success": false,
-                      "messgae": "Error : Wrong old password"
+                      "messgae": "Error : New password must be more than 7 characters"
                     }
                   }
                 }
@@ -1250,6 +1449,79 @@
                         "changedRows": 1
                       },
                       "token": null
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "array",
+                      "uniqueItems": true,
+                      "minItems": 1,
+                      "items": {
+                        "required": [
+                          "value",
+                          "msg",
+                          "param",
+                          "location"
+                        ],
+                        "properties": {
+                          "value": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "msg": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "param": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "location": {
+                            "type": "string",
+                            "minLength": 1
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "errors"
+                  ],
+                  "x-examples": {
+                    "example-1": {
+                      "errors": [
+                        {
+                          "value": "Parameter Value",
+                          "msg": "Error message",
+                          "param": "Parameter",
+                          "location": "body"
+                        }
+                      ]
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "errors": [
+                        {
+                          "value": "Parameter Value",
+                          "msg": "Error message",
+                          "param": "Parameter",
+                          "location": "body"
+                        }
+                      ]
                     }
                   }
                 }
@@ -5615,6 +5887,82 @@
               }
             }
           },
+          "206": {
+            "description": "Partial Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "messgae": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "messgae"
+                  ],
+                  "x-examples": {
+                    "example-1": {
+                      "success": false,
+                      "messgae": "Error : No available stock"
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": false,
+                      "messgae": "Error : No available stock"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "303": {
+            "description": "See Other",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "messgae": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "messgae"
+                  ],
+                  "x-examples": {
+                    "example-1": {
+                      "success": false,
+                      "messgae": "Error : No available stock"
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": false,
+                      "messgae": "Error : Product stock is less than the quantity needed"
+                    }
+                  }
+                }
+              }
+            }
+          },
           "401": {
             "$ref": "#/components/responses/401"
           },
@@ -5782,6 +6130,82 @@
                         "changedRows": 1
                       },
                       "token": null
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "206": {
+            "description": "Partial Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "messgae": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "messgae"
+                  ],
+                  "x-examples": {
+                    "example-1": {
+                      "success": false,
+                      "messgae": "Error : No available stock"
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": false,
+                      "messgae": "Error : No available stock"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "303": {
+            "description": "See Other",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "messgae": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "messgae"
+                  ],
+                  "x-examples": {
+                    "example-1": {
+                      "success": false,
+                      "messgae": "Error : No available stock"
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": false,
+                      "messgae": "Error : Product stock is less than the quantity needed"
                     }
                   }
                 }
