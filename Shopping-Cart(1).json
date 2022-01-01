@@ -1860,6 +1860,79 @@
               }
             }
           },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "array",
+                      "uniqueItems": true,
+                      "minItems": 1,
+                      "items": {
+                        "required": [
+                          "value",
+                          "msg",
+                          "param",
+                          "location"
+                        ],
+                        "properties": {
+                          "value": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "msg": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "param": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "location": {
+                            "type": "string",
+                            "minLength": 1
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "errors"
+                  ],
+                  "x-examples": {
+                    "example-1": {
+                      "errors": [
+                        {
+                          "value": "Parameter Value",
+                          "msg": "Error message",
+                          "param": "Parameter",
+                          "location": "body"
+                        }
+                      ]
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "errors": [
+                        {
+                          "value": "string",
+                          "msg": "string",
+                          "param": "string",
+                          "location": "string"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
           "401": {
             "$ref": "#/components/responses/401"
           },
@@ -2624,6 +2697,79 @@
                     "value": {
                       "success": false,
                       "messgae": "Not modified, something went wrong"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "array",
+                      "uniqueItems": true,
+                      "minItems": 1,
+                      "items": {
+                        "required": [
+                          "value",
+                          "msg",
+                          "param",
+                          "location"
+                        ],
+                        "properties": {
+                          "value": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "msg": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "param": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "location": {
+                            "type": "string",
+                            "minLength": 1
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "errors"
+                  ],
+                  "x-examples": {
+                    "example-1": {
+                      "errors": [
+                        {
+                          "value": "Parameter Value",
+                          "msg": "Error message",
+                          "param": "Parameter",
+                          "location": "body"
+                        }
+                      ]
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "errors": [
+                        {
+                          "value": "Parameter Value",
+                          "msg": "Error message",
+                          "param": "Parameter",
+                          "location": "body"
+                        }
+                      ]
                     }
                   }
                 }
