@@ -1,7 +1,7 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const helpers = require("../../helpers/helpers");
-const { body, validationResult } = require('express-validator');
+const { validationResult } = require('express-validator');
 
 const {
     saveUser,
@@ -240,7 +240,7 @@ exports._changePassword = (req, res, next) => {
                         });
                     }
                     else {
-                        helpers._showError(400, res, "New password must be more than 7 characters");
+                        helpers._showError(406, res, "New password must be more than 7 characters");
                     }
                 }
                 else {
