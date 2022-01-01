@@ -1,3 +1,4 @@
+const {validationResult } = require('express-validator');
 const helpers = require("../../helpers/helpers");
 const {
     saveCategory,
@@ -12,8 +13,13 @@ const {
 
 
 exports._saveCategory = (req, res, next) => {
-
     const data = req.body;
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
     checkExisitingCategory(null, data, (err, results) => {
         if (err) {
             helpers._showError(500, res, err);
@@ -98,6 +104,11 @@ exports._updateCategory = (req, res, next) => {
 
     const categoryId = req.params.id;
     const data = req.body;
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
 
     checkExisitingCategory(categoryId, data, (err, results) => {
         if (err) {
