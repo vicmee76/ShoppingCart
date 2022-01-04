@@ -37,6 +37,7 @@ router.post('/save-product-from-category/:id',
 router.get('/', productsController._getProducts);
 
 
+
 // view a product details
 router.get('/product-details', productsController._getProductsDetails);
 
