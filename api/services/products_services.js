@@ -82,7 +82,7 @@ module.exports = {
     },
 
 
-    getProducts: (id = null, option, callBack) => {
+    getProducts: (id = null, option) => {
         return new Promise((resolve, reject) => {
         var sql = "SELECT p.*, c.CategoryName FROM products as p LEFT JOIN categories as c ON p.CategoryId = c.CategoryId "; // get all products join the catgeory they belong to 
 
@@ -149,7 +149,7 @@ module.exports = {
     },
 
 
-    deleteProduct: (id, callBack) => {
+    deleteProduct: (id) => {
         return new Promise((resolve, reject) => {
             pool.query("DELETE FROM products WHERE ProductId=?",
                 [

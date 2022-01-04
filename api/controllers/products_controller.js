@@ -13,7 +13,7 @@ const {
 } = require("../services/products_services.js");
 
 // Default way to create a product
-exports._createProduct = async (req, res, next) => {
+exports._createProduct = async (req, res) => {
 
     try {
         const data = req.body;
@@ -60,7 +60,7 @@ exports._createProduct = async (req, res, next) => {
 
 
 // create product from a category link
-exports._createProductFromCategory = async (req, res, next) => {
+exports._createProductFromCategory = async (req, res) => {
 
     try {
         const data = req.body;
@@ -106,36 +106,72 @@ exports._createProductFromCategory = async (req, res, next) => {
 };
 
 
-exports._getProducts = (req, res, next) => {
 
-    option = req.query.option;
-    categoryId = req.query.id;
+exports._getProducts = async (req, res) => {
 
-    getProducts(categoryId, option, (err, results) => {
-        if (err) {
-            helpers._showError(500, res, err);
+    try {
+        option = req.query.option;
+        categoryId = req.query.id;
+
+        const gets = await getProducts(categoryId, option);
+        console.log(gets);
+        if (gets && gets.length > 0) {
+            helpers._showProducts(200, res, option.toUpperCase() + " products found", gets, option);
         }
         else {
-            if (results) {
-                helpers._showProducts(200, res, option.toUpperCase() + " products found", results, option);
-            }
-            else {
-                helpers._showError(404, res, "Products not found");
-            }
+            helpers._showError(404, res, "Products not found");
         }
-    });
-
+    }
+    catch (e) {
+        helpers._showError(500, res, e);
+    }
 };
 
 
-exports._getProductsById = async (req, res, next) => {
+
+exports._getProductsDetails = async (req, res) => {
 
     try {
-        const id = req.params.id;
-        const r = await getProductById(id);
+        option = req.query.option;
+        productId = req.query.id;
 
-        if (r && r.length > 0) {
-            helpers._showSingleProducts(200, res, "Product Found", r, null);
+        const get = await getProducts(productId, option);
+
+        if (get && get.length > 0) {
+            helpers._showSingleProducts(200, res, "Product found", get, option);
+        }
+        else {
+            helpers._showError(404, res, "Products not found");
+        }
+    }
+    catch (e) {
+        helpers._showError(500, res, e);
+    }
+};
+
+
+
+exports._updateProduct = async  (req, res) => {
+
+    try {
+        const productId = req.params.id;
+        const data = req.body;
+
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+
+        const check = await checkProductById(productId);
+
+        if (check && check.length > 0) {
+            const update = await updateProduct(productId, data);
+            if (update) {
+                helpers._showSuccess(201, res, "Product updated successfully", update);
+            }
+            else {
+                helpers._showError(304, res, "Not modified, something went wrong");
+            }
         }
         else {
             helpers._showError(404, res, "Product not found");
@@ -144,98 +180,31 @@ exports._getProductsById = async (req, res, next) => {
     catch (e) {
         helpers._showError(500, res, e);
     }
-
 };
 
 
-exports._getProductsDetails = (req, res, next) => {
 
-    option = req.query.option;
-    productId = req.query.id;
+exports._deleteProduct =  async (req, res) => {
 
-    getProducts(productId, option, (err, results) => {
-        if (err) {
-            helpers._showError(500, res, err);
-        }
-        else {
-            if (results) {
-                helpers._showSingleProducts(200, res, "Product found", results, option);
+    try {
+        const productId = req.params.id;
+        const check = await checkProductById(productId);
+
+        if (check && check.length > 0) {
+            const del = await deleteProduct(productId);
+            if (del) {
+                helpers._showSuccess(200, res, "Product deleted successfully", del);
             }
             else {
-                helpers._showError(404, res, "Product not found");
+                helpers._showError(501, res, "Something went wrong " + err);
             }
         }
-    });
-
-};
-
-
-exports._updateProduct = (req, res, next) => {
-
-    const productId = req.params.id;
-    const data = req.body;
-
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
+        else {
+            helpers._showError(404, res, "Product cannot be found");
+        }
+    }
+    catch (e) {
+        helpers._showError(500, res, e);
     }
 
-    checkProductById(productId, (err, results) => {
-        if (err) {
-            helpers._showError(500, res, err);
-        }
-        else {
-            if (results && results.length > 0) {
-
-                updateProduct(productId, data, (err, results) => {
-                    if (err) {
-                        helpers._showError(500, res, err);
-                    }
-                    else {
-                        if (results) {
-                            helpers._showSuccess(201, res, "Product updated successfully", results);
-                        }
-                        else {
-                            helpers._showError(304, res, "Not modified, something went wrong");
-                        }
-                    }
-                });
-            }
-            else {
-                helpers._showError(404, res, "Product not found");
-            }
-        }
-    });
-};
-
-
-exports._deleteProduct = (req, res, next) => {
-
-    const productId = req.params.id;
-
-    checkProductById(productId, (err, results) => {
-        if (err) {
-            helpers._showError(500, res, err);
-        }
-        else {
-            if (results && results.length > 0) {
-                deleteProduct(productId, (err, results) => {
-                    if (err) {
-                        helpers._showError(500, res, err);
-                    }
-                    else {
-                        if (results) {
-                            helpers._showSuccess(200, res, "Product deleted successfully", results);
-                        }
-                        else {
-                            helpers._showError(501, res, "Something went wrong " + err);
-                        }
-                    }
-                });
-            }
-            else {
-                helpers._showError(404, res, "Product cannot be found");
-            }
-        }
-    });
 }
