@@ -37,6 +37,10 @@ router.post('/save-product-from-category/:id',
 router.get('/', productsController._getProducts);
 
 
+// get all products with different query parameters
+router.get('/prods/:id', productsController._getProductsById);
+
+
 // view a product details
 router.get('/product-details', productsController._getProductsDetails);
 

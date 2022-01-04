@@ -9,110 +9,100 @@ const {
     getProducts,
     checkProductById,
     updateProduct,
-    deleteProduct
+    deleteProduct,
 } = require("../services/products_services.js");
 
 // Default way to create a product
-exports._createProduct = (req, res, next) => {
+exports._createProduct = async (req, res, next) => {
 
-    const data = req.body;
-    const id = data.CategoryId;
+    try {
+        const data = req.body;
+        const id = data.CategoryId;
 
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-    }
-
-    checkExistingProduct(id, data, (err, results) => {
-        if (err) {
-            helpers._showError(500, res, err);
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
         }
-        else {
-            if (results && results.length > 0) {
 
-                const date = dateShortcode.parse('{YYYY-MM-DD}', new Date());
-                let produtExpiry = dateShortcode.parse('{YYYY-MM-DD}', results[0].ExpiredAt);
+        const checkProduct = await checkExistingProduct(id, data);
 
-                // checking if a product has expired
-                if (date > produtExpiry) {
-                    saveProduct(data, (errs, response) => {
-                        if (errs) {
-                            helpers._showError(500, res, errs);
-                        }
-                        else {
-                            helpers._showSuccess(201, res, "Product created successfully", response);
-                        }
-                    });
+        if (checkProduct && checkProduct.length > 0) {
+
+            const date = dateShortcode.parse('{YYYY-MM-DD}', new Date());
+            let produtExpiry = dateShortcode.parse('{YYYY-MM-DD}', checkProduct[0].ExpiredAt);
+            let dataExpiryDate = dateShortcode.parse('{YYYY-MM-DD}', data.ExpiredAt);
+
+            // checking if a product has expired
+            if (date > produtExpiry && dataExpiryDate > date) {
+
+                if (checkProduct[0].ProductName === data.ProductName && checkProduct[0].CategoryId === data.CategoryId && dataExpiryDate >= date) {
+                    helpers._showError(409, res, "This product already exits for this category.");
                 }
                 else {
-                    helpers._showError(409, res, "This product already exits for this category.");
+                    const save = await saveProduct(data);
+                    helpers._showSuccess(201, res, "Product created successfully", save);
                 }
             }
             else {
-                saveProduct(data, (errs, response) => {
-                    if (errs) {
-                        helpers._showError(500, res, errs);
-                    }
-                    else {
-                        helpers._showSuccess(201, res, "Product created successfully", response);
-                    }
-                });
+                helpers._showError(409, res, "This product already exits for this category.");
             }
         }
-    });
-
+        else {
+            const save = await saveProduct(data);
+            helpers._showSuccess(201, res, "Product created successfully", save);
+        }
+    }
+    catch (e) {
+        helpers._showError(500, res, e);
+    }
 };
 
 
 
 // create product from a category link
-exports._createProductFromCategory = (req, res, next) => {
+exports._createProductFromCategory = async (req, res, next) => {
 
-    const data = req.body;
-    const categoryId = req.params.id;
+    try {
+        const data = req.body;
+        const categoryId = req.params.id;
 
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-    }
-
-    checkExistingProduct(categoryId, data, (err, results) => {
-        if (err) {
-            helpers._showError(500, res, err);
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
         }
-        else {
-            if (results && results.length > 0) {
 
-                const date = dateShortcode.parse('{YYYY-MM-DD}', new Date());
-                let produtExpiry = dateShortcode.parse('{YYYY-MM-DD}', results[0].ExpiredAt);
+        const checkProduct = await checkExistingProduct(categoryId, data);
 
-                // checking if a product has expired
-                if (date > produtExpiry) {
-                    saveProductFromCategory(categoryId, data, (errs, response) => {
-                        if (errs) {
-                            helpers._showError(500, res, errs);
-                        }
-                        else {
-                            helpers._showSuccess(201, res, "Product created successfully", response);
-                        }
-                    });
+        if (checkProduct && checkProduct.length > 0) {
+
+            const date = dateShortcode.parse('{YYYY-MM-DD}', new Date());
+            let produtExpiry = dateShortcode.parse('{YYYY-MM-DD}', checkProduct[0].ExpiredAt);
+            let dataExpiryDate = dateShortcode.parse('{YYYY-MM-DD}', data.ExpiredAt);
+
+            // checking if a product has expired
+            if (date > produtExpiry && dataExpiryDate > date) {
+
+                if (checkProduct[0].ProductName === data.ProductName && checkProduct[0].CategoryId === categoryId && dataExpiryDate >= date) {
+                    helpers._showError(409, res, "This product already exits for this category.");
                 }
                 else {
-                    helpers._showError(409, res, "This product already exits for this category.");
+                    const save = await saveProductFromCategory(categoryId, data);
+                    helpers._showSuccess(201, res, "Product created successfully", save);
                 }
             }
             else {
-                saveProductFromCategory(categoryId, data, (errs, response) => {
-                    if (errs) {
-                        helpers._showError(500, res, errs);
-                    }
-                    else {
-                        helpers._showSuccess(201, res, "Product created successfully", response);
-                    }
-                });
+                helpers._showError(409, res, "This product already exits for this category.");
             }
         }
-    });
+        else {
+            const save = await saveProductFromCategory(categoryId, data);
+            helpers._showSuccess(201, res, "Product created successfully", save);
+        }
+    }
+    catch (e) {
+        helpers._showError(500, res, e);
+    }
+
 };
 
 
@@ -134,6 +124,26 @@ exports._getProducts = (req, res, next) => {
             }
         }
     });
+
+};
+
+
+exports._getProductsById = async (req, res, next) => {
+
+    try {
+        const id = req.params.id;
+        const r = await getProductById(id);
+
+        if (r && r.length > 0) {
+            helpers._showSingleProducts(200, res, "Product Found", r, null);
+        }
+        else {
+            helpers._showError(404, res, "Product not found");
+        }
+    }
+    catch (e) {
+        helpers._showError(500, res, e);
+    }
 
 };
 

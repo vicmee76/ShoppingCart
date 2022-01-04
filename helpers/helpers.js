@@ -324,6 +324,17 @@ exports._getCallBack = (callBack, err, result) => {
 }
 
 
+// call back function for error or results gotten database
+exports._getResponse = (error, result, resolve, reject ) => {
+    if (error) {
+        return reject(error);
+    }
+    else {
+        return resolve(result);
+    }
+}
+
+
 
 // get the price of a product after discount
 function getPrice(sellingpriec, discount) {
