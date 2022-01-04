@@ -116,7 +116,7 @@ module.exports = {
                     data.Email
                 ],
                 (error, result) => {
-                    helpers._getResponse(error, result, resolve[0], reject);
+                    helpers._getResponse(error, result, resolve, reject);
                 });
         });
     },
